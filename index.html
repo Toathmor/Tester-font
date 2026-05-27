@@ -6,7 +6,6 @@
     <title>Toathmor Studio - Font Tester Premium</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Battambang:wght@400;700&display=swap">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -25,162 +24,79 @@
             --font-default: 'Kantumruy Pro', sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: var(--font-default);
             background-color: var(--bg-body);
             color: var(--text-main);
-            margin: 0;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0; padding: 12px;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .container {
-            width: 100%;
-            max-width: 680px;
-            background: var(--bg-card);
-            padding: 16px;
-            border-radius: 20px;
+            width: 100%; max-width: 680px;
+            background: var(--bg-card); padding: 16px;
+            border-radius: 20px; border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
         }
 
         .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);
         }
 
         .app-brand { display: flex; flex-direction: column; }
-        .app-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; color: var(--text-main); }
+        .app-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
         .app-subtitle { font-size: 10px; color: var(--accent-color); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
 
         .upload-zone {
             background: linear-gradient(135deg, #1e40af, #2563eb);
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            margin-bottom: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 12px; text-align: center;
+            margin-bottom: 16px; cursor: pointer; font-weight: bold; font-size: 13px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
 
         .control-panel {
-            background: var(--panel-bg);
-            padding: 12px;
-            border-radius: 14px;
-            margin-bottom: 14px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            background: var(--panel-bg); padding: 12px; border-radius: 14px;
+            margin-bottom: 14px; border: 1px solid var(--border-color);
+            display: flex; flex-direction: column; gap: 10px;
         }
 
-        .spacing-inline-row { 
-            display: flex; 
-            flex-direction: row;
-            gap: 8px; 
-        }
+        .spacing-inline-row { display: flex; flex-direction: row; gap: 8px; }
 
         .compact-slider-box {
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            flex: 1;
-            background: var(--input-bg); 
-            padding: 8px 10px; 
-            border-radius: 10px; 
-            border: 1px solid var(--border-color);
-            min-width: 0;
+            display: flex; align-items: center; gap: 6px; flex: 1;
+            background: var(--input-bg); padding: 8px 10px; border-radius: 10px;
+            border: 1px solid var(--border-color); min-width: 0;
         }
-        .compact-slider-box input[type="range"] { 
-            flex: 1; 
-            accent-color: var(--accent-color); 
-            height: 6px; 
-            min-width: 40px;
-        }
+        .compact-slider-box input[type="range"] { flex: 1; accent-color: var(--accent-color); height: 6px; }
         .compact-slider-box span.val { font-size: 11px; font-weight: bold; color: var(--accent-color); min-width: 30px; text-align: right; }
 
-        .color-setting-row { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        .color-setting-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         .quick-colors { display: flex; gap: 6px; align-items: center; }
         .color-circle { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #ffffff; }
 
         .section-header { font-size: 11px; font-weight: bold; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
         
-        .main-title-panel {
-            background: var(--panel-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; margin-bottom: 14px;
-        }
-        
-        .font-select-grid { 
-            display: grid; 
-            grid-template-columns: 1fr auto auto; 
-            gap: 8px; 
-            align-items: center; 
-        }
+        .main-title-panel { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; margin-bottom: 14px; }
+        .font-select-grid { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
         
         select {
-            background-color: var(--input-bg); 
-            color: var(--text-main); 
-            border: 1px solid var(--border-color);
-            padding: 8px; 
-            border-radius: 8px; 
-            font-family: var(--font-default); 
-            font-size: 12px; 
-            outline: none; 
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
+            background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color);
+            padding: 8px; border-radius: 8px; font-family: var(--font-default); font-size: 12px; outline: none; cursor: pointer;
         }
 
         .blocks-manager { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
-        .block-card {
-            background: var(--card-inner); border: 1px solid var(--border-color);
-            padding: 12px; border-radius: 14px; border-left: 4px solid #10b981;
-        }
+        .block-card { background: var(--card-inner); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; border-left: 4px solid #10b981; }
         .block-card.footer-card { border-left-color: #eab308; }
 
-        .block-header-tools {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: #10b981; font-weight: bold;
-        }
+        .block-header-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: #10b981; font-weight: bold; }
         .block-header-tools.footer-tools { color: #eab308; }
         
-        .btn-open-editor {
-            background: #2563eb; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; margin-right: auto; margin-left: 8px;
-        }
-        .btn-open-editor:hover { background: #1d4ed8; }
+        .btn-open-editor { background: #2563eb; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; margin-left: auto; }
 
-        .row-setting-item {
-            display: flex; 
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 6px; 
-            align-items: center; 
-            margin-bottom: 8px; 
-            background: rgba(0,0,0,0.2); 
-            padding: 8px; 
-            border-radius: 8px;
-        }
+        .row-setting-item { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; }
         .row-setting-item:last-child { margin-bottom: 0; }
         .compact-label { font-size: 11px; color: var(--text-muted); font-weight: 600; min-width: 38px; }
 
@@ -192,21 +108,12 @@
         }
         .format-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
 
-        input[type="color"] { 
-            width: 26px; height: 26px; border: none; background: transparent; cursor: pointer; padding: 0;
-            -webkit-appearance: none;
-        }
+        input[type="color"] { width: 26px; height: 26px; border: none; background: transparent; cursor: pointer; padding: 0; }
 
-        .btn-add-block {
-            background: #10b981; color: white; border: none; padding: 10px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 16px;
-        }
+        .btn-add-block { background: #10b981; color: white; border: none; padding: 10px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 16px; }
         .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 6px; border-radius: 6px; cursor: pointer; font-size: 10px; }
 
-        /* 🖼️ ផ្ទាំង Preview */
-        .preview-wrapper { 
-            border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column;
-        }
-        
+        .preview-wrapper { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column; }
         .align-bar { background: var(--panel-bg); padding: 6px 12px; display: flex; gap: 4px; border-bottom: 1px solid var(--border-color); justify-content: flex-end; }
         .align-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; }
         .align-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
@@ -219,22 +126,13 @@
 
         .preview-main-title { width: 100%; text-align: center; margin-bottom: 24px; font-weight: bold; font-size: 26px; color: #ffffff; display: block; word-break: break-word; }
         
-        /* ⚡ រៀបចំឱ្យ Title និង Body រត់ចូលជួរដេកតែមួយដោយប្រើ Flexbox */
-        .line-row { 
-            width: 100%; 
-            display: flex; 
-            flex-direction: row; 
-            align-items: baseline; 
-            flex-wrap: wrap; 
-            margin-bottom: 12px; 
-            gap: 8px;
-        }
-        .inline-title { font-weight: bold; white-space: nowrap; }
-        .inline-desc { font-weight: normal; word-break: break-word; flex: 1; min-width: 150px; }
+        .line-row { width: 100%; display: flex; flex-direction: row; align-items: baseline; margin-bottom: 14px; gap: 10px; flex-wrap: nowrap; }
+        .inline-title { font-weight: bold; white-space: nowrap; flex-shrink: 0; }
+        
+        /* 🛠️ កែសម្រួលចំណុចនេះឱ្យសោភ័ណភាពអក្សរស្រដីពិពណ៌នាមិនជាប់ Bold តាមមេ */
+        .inline-desc { font-weight: normal; word-break: break-word; flex-grow: 1; }
 
-        .preview-footer-zone {
-            margin-top: 24px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box;
-        }
+        .preview-footer-zone { margin-top: 24px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box; }
         .preview-footer-text { width: 100%; font-size: 12px; font-weight: normal; word-break: break-word; }
 
         .action-group { display: flex; gap: 10px; width: 100%; }
@@ -242,36 +140,21 @@
         .action-btn.save-img { background: #2563eb; color: white; }
         .action-btn.save-pdf { background: #475569; color: white; }
 
-        /* 🎯 ផ្ទាំង Pop-up សម្រាប់សរសេរអត្ថបទធំ (Modal) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); z-index: 1000;
-            display: none; align-items: center; justify-content: center; padding: 16px;
-        }
-        .modal-content {
-            background: var(--bg-card); width: 100%; max-width: 550px;
-            border-radius: 16px; border: 1px solid var(--border-color);
-            padding: 16px; display: flex; flex-direction: column; gap: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: fadeIn 0.2s ease-out;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-content { background: var(--bg-card); width: 100%; max-width: 550px; border-radius: 16px; border: 1px solid var(--border-color); padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .modal-header { font-size: 14px; font-weight: bold; color: var(--accent-color); display: flex; justify-content: space-between; align-items: center; }
         .modal-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: bold; }
-        .modal-input {
-            width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 8px; border-radius: 8px; font-family: var(--font-default); font-size: 13px; outline: none;
-        }
+        .modal-input { width: 100%; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; font-family: var(--font-default); font-size: 13px; outline: none; }
         .modal-textarea { height: 140px; resize: none; }
         .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
         .modal-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 13px; }
         .modal-btn.save { background: #10b981; color: white; }
         .modal-btn.cancel { background: #475569; color: white; }
 
-        @media (max-width: 480px) {
+        @media (max-width: 520px) {
             body { padding: 6px; }
             .container { padding: 10px; border-radius: 14px; }
-            .preview-box { padding: 16px 10px; }
+            .preview-box { padding: 20px 12px; }
             .preview-main-title { font-size: 22px; margin-bottom: 16px; }
             select, .format-btn, .action-btn, .btn-add-block { padding: 10px; font-size: 12px; }
             .font-select-grid { grid-template-columns: 1fr; gap: 6px; }
@@ -279,8 +162,11 @@
             .row-setting-item { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
             .row-setting-item select { grid-column: span 2; }
             .btn-open-editor { margin-left: 0; padding: 6px 10px; font-size: 11px; }
-            .line-row { flex-direction: column; align-items: flex-start; gap: 4px; }
-            .inline-desc { width: 100%; }
+            
+            .line-row { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 16px; }
+            
+            /* 🛠️ ធានាថាពេលធ្លាក់ជួរលើ Mobile ក៏មិនបង្ខំឱ្យអក្សរពិពណ៌នាទៅជា Bold ដែរ */
+            .inline-desc { width: 100%; padding-left: 6px; opacity: 0.95; font-weight: normal !important; }
         }
     </style>
 </head>
@@ -434,16 +320,13 @@
     function handleMultipleFontUpload(input) {
         const files = input.files;
         if (!files.length) return;
-
         let loadedCount = 0;
         Array.from(files).forEach(file => {
             const fontName = file.name.split('.')[0].replace(/\s+/g, '-');
             const reader = new FileReader();
-
             reader.onload = function(e) {
                 const fontData = e.target.result;
                 const fontFace = new FontFace(fontName, fontData);
-
                 fontFace.load().then(function(loadedFace) {
                     document.fonts.add(loadedFace);
                     if (!uploadedFonts.includes(fontName)) {
@@ -451,20 +334,15 @@
                         updateAllFontDropdowns(fontName, file.name);
                     }
                     loadedCount++;
-                    if (loadedCount === files.length) {
-                        alert(`បានបញ្ចូលពុម្ពអក្សរបានជោគជ័យ!`);
-                    }
-                }).catch(function(error) {
-                    console.error("មិនអាចផ្ទុកពុម្ពអក្សរបាន៖", error);
-                });
+                    if (loadedCount === files.length) { alert(`បានបញ្ចូលពុម្ពអក្សរបានជោគជ័យ!`); }
+                }).catch(err => console.error(err));
             };
             reader.readAsArrayBuffer(file);
         });
     }
 
     function updateAllFontDropdowns(fontValue, fontText) {
-        const selectors = document.querySelectorAll('select');
-        selectors.forEach(select => {
+        document.querySelectorAll('select').forEach(select => {
             const opt = document.createElement('option');
             opt.value = `'${fontValue}', sans-serif`;
             opt.textContent = fontText;
@@ -476,12 +354,12 @@
         const mainTitleEl = document.getElementById('previewMainTitle');
         const sizeVal = document.getElementById('mainTitleSize').value;
         document.getElementById('lbl_mainTitleSize').textContent = sizeVal + 'px';
-        
         mainTitleEl.style.fontFamily = document.getElementById('mainTitleFont').value;
         mainTitleEl.style.fontSize = sizeVal + 'px';
         mainTitleEl.style.color = document.getElementById('mainTitleColor').value;
     }
 
+    /* 🛠️ កែសម្រួលចំណុចនេះដើម្បីឱ្យ Toggle Bold ដំណើរការត្រឹមត្រូវដាច់អហង្ការ */
     function toggleFormat(id, type, target) {
         const btn = document.getElementById(`btn_${type}_${target}_${id}`);
         btn.classList.toggle('active');
@@ -490,7 +368,7 @@
         const isActive = btn.classList.contains('active');
 
         if (type === 'b') {
-            previewEl.style.fontWeight = isActive ? '700' : 'bold';
+            previewEl.style.fontWeight = isActive ? '700' : 'normal';
         } else if (type === 'i') {
             previewEl.style.fontStyle = isActive ? 'italic' : 'normal';
         } else if (type === 'u') {
@@ -502,7 +380,6 @@
         const footerText = document.getElementById('previewFooterText');
         const size = document.getElementById('size_footer').value;
         document.getElementById('lbl_footer').textContent = size + 'px';
-
         footerText.style.fontFamily = document.getElementById('font_footer').value;
         footerText.style.fontSize = size + 'px';
         footerText.style.color = document.getElementById('color_footer').value;
@@ -512,22 +389,15 @@
     function toggleFooterFormat(type) {
         const btn = document.getElementById(`btn_${type}_footer`);
         btn.classList.toggle('active');
-        
         const footerText = document.getElementById('previewFooterText');
         const isActive = btn.classList.contains('active');
-
-        if (type === 'b') {
-            footerText.style.fontWeight = isActive ? '700' : 'normal';
-        } else if (type === 'i') {
-            footerText.style.fontStyle = isActive ? 'italic' : 'normal';
-        } else if (type === 'u') {
-            footerText.style.textDecoration = isActive ? 'underline' : 'none';
-        }
+        if (type === 'b') { footerText.style.fontWeight = isActive ? '700' : 'normal'; }
+        else if (type === 'i') { footerText.style.fontStyle = isActive ? 'italic' : 'normal'; }
+        else if (type === 'u') { footerText.style.textDecoration = isActive ? 'underline' : 'none'; }
     }
 
     function toggleFooterVisibility() {
-        const isChecked = document.getElementById('toggleFooterCheckbox').checked;
-        document.getElementById('previewFooterZone').style.display = isChecked ? 'block' : 'none';
+        document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none';
     }
 
     function openMainTitleEditor() {
@@ -535,11 +405,7 @@
         document.getElementById('modalTitleText').textContent = '👑 កែសម្រួលចំណងជើងធំ';
         document.getElementById('lblModalTitleInput').style.display = 'none';
         document.getElementById('modalTitleInput').style.display = 'none';
-        
-        const currentText = document.getElementById('previewMainTitle').innerText;
-        document.getElementById('modalDescInput').value = currentText;
-        document.getElementById('modalDescInput').placeholder = 'វាយចំណងជើងធំត្រង់នេះ...';
-        
+        document.getElementById('modalDescInput').value = document.getElementById('previewMainTitle').innerText;
         document.getElementById('editorModal').style.display = 'flex';
     }
 
@@ -548,11 +414,7 @@
         document.getElementById('modalTitleText').textContent = 'ℹ️ កែសម្រួលអត្ថបទជួរក្រោមបង្អស់ (Footer)';
         document.getElementById('lblModalTitleInput').style.display = 'none';
         document.getElementById('modalTitleInput').style.display = 'none';
-        
-        const currentText = document.getElementById('previewFooterText').innerText;
-        document.getElementById('modalDescInput').value = currentText;
-        document.getElementById('modalDescInput').placeholder = 'វាយអត្ថបទ Footer ត្រង់នេះ...';
-        
+        document.getElementById('modalDescInput').value = document.getElementById('previewFooterText').innerText;
         document.getElementById('editorModal').style.display = 'flex';
     }
 
@@ -562,128 +424,81 @@
         document.getElementById('modalTitleText').textContent = `📝 កែសម្រួលអត្ថបទជួរទី #${id}`;
         document.getElementById('lblModalTitleInput').style.display = 'block';
         document.getElementById('modalTitleInput').style.display = 'block';
-        
-        const currentTitle = document.getElementById(`p_title_${id}`).innerText;
-        const currentDesc = document.getElementById(`p_desc_${id}`).innerText;
-        
-        document.getElementById('modalTitleInput').value = currentTitle;
-        document.getElementById('modalDescInput').value = currentDesc;
-        document.getElementById('modalDescInput').placeholder = 'វាយខ្លឹមសារពិពណ៌នាត្រង់នេះ...';
-        
+        document.getElementById('modalTitleInput').value = document.getElementById(`p_title_${id}`).innerText;
+        document.getElementById('modalDescInput').value = document.getElementById(`p_desc_${id}`).innerText;
         document.getElementById('editorModal').style.display = 'flex';
     }
 
-    function closeEditorModal() {
-        document.getElementById('editorModal').style.display = 'none';
-    }
+    function closeEditorModal() { document.getElementById('editorModal').style.display = 'none'; }
 
     function saveEditorContent() {
         const target = document.getElementById('currentEditTarget').value;
         const descVal = document.getElementById('modalDescInput').value;
-        
-        if (target === 'mainTitle') {
-            document.getElementById('previewMainTitle').innerText = descVal;
-        } else if (target === 'footer') {
-            document.getElementById('previewFooterText').innerText = descVal;
-        } else if (target === 'line') {
+        if (target === 'mainTitle') { document.getElementById('previewMainTitle').innerText = descVal; }
+        else if (target === 'footer') { document.getElementById('previewFooterText').innerText = descVal; }
+        else if (target === 'line') {
             const id = document.getElementById('currentEditId').value;
-            const titleVal = document.getElementById('modalTitleInput').value;
-            document.getElementById(`p_title_${id}`).innerText = titleVal;
+            document.getElementById(`p_title_${id}`).innerText = document.getElementById('modalTitleInput').value;
             document.getElementById(`p_desc_${id}`).innerText = descVal;
         }
-        
         closeEditorModal();
         applyAllStyles();
     }
 
     function addNewLineBlock(initTitle = "ចំណងជើងរង", initDesc = "ខ្លឹមសារពិពណ៌នា...", titleColor = "#fcd34d", descColor = "#ffffff", titleSize = 20, descSize = 16) {
-        blockCount++;
-        const id = blockCount;
-
+        blockCount++; const id = blockCount;
         const card = document.createElement('div');
-        card.className = 'block-card';
-        card.id = `block_card_${id}`;
-        card.setAttribute('data-id', id);
+        card.className = 'block-card'; card.id = `block_card_${id}`; card.setAttribute('data-id', id);
 
-        let fontOptions = `
-            <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
-            <option value="'Battambang', sans-serif">Battambang</option>
-        `;
-        uploadedFonts.forEach(f => {
-            fontOptions += `<option value="'${f}', sans-serif">${f}</option>`;
-        });
+        let fontOptions = `<option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option>`;
+        uploadedFonts.forEach(f => { fontOptions += `<option value="'${f}', sans-serif">${f}</option>`; });
 
         card.innerHTML = `
-            <div class="block-header-tools">
-                <span>📝 ជួរអក្សរទី #${id}</span>
-                <button class="btn-open-editor" onclick="openLineEditor(${id})">📝 សរសេរអត្ថបទធំ</button>
-                <button class="btn-delete" onclick="removeLineBlock(${id})">លុប</button>
-            </div>
-            
+            <div class="block-header-tools"><span>📝 ជួរអក្សរទី #${id}</span><button class="btn-open-editor" onclick="openLineEditor(${id})">📝 សរសេរអត្ថបទធំ</button><button class="btn-delete" onclick="removeLineBlock(${id})">លុប</button></div>
             <div class="row-setting-item">
-                <span class="compact-label">🅰️ Title:</span>
-                <select id="font_title_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
-                <input type="range" id="size_title_${id}" min="10" max="60" value="${titleSize}" style="width:60px;" oninput="applyLineStyles(${id})">
-                <span class="val" id="lbl_title_${id}">${titleSize}px</span>
-                
+                <span class="compact-label">🅰️ Title:</span><select id="font_title_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
+                <input type="range" id="size_title_${id}" min="10" max="60" value="${titleSize}" style="width:60px;" oninput="applyLineStyles(${id})"><span class="val" id="lbl_title_${id}">${titleSize}px</span>
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_title_${id}" onclick="toggleFormat(${id}, 'b', 'title')">B</button>
                     <button class="format-btn" id="btn_i_title_${id}" onclick="toggleFormat(${id}, 'i', 'title')">I</button>
                     <button class="format-btn" id="btn_u_title_${id}" onclick="toggleFormat(${id}, 'u', 'title')">U</button>
-                </div>
-                <input type="color" id="color_title_${id}" value="${titleColor}" oninput="applyLineStyles(${id})">
+                </div><input type="color" id="color_title_${id}" value="${titleColor}" oninput="applyLineStyles(${id})">
             </div>
-            
             <div class="row-setting-item">
-                <span class="compact-label">🔤 Body:</span>
-                <select id="font_desc_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
-                <input type="range" id="size_desc_${id}" min="10" max="60" value="${descSize}" style="width:60px;" oninput="applyLineStyles(${id})">
-                <span class="val" id="lbl_desc_${id}">${descSize}px</span>
-                
+                <span class="compact-label">🔤 Body:</span><select id="font_desc_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
+                <input type="range" id="size_desc_${id}" min="10" max="60" value="${descSize}" style="width:60px;" oninput="applyLineStyles(${id})"><span class="val" id="lbl_desc_${id}">${descSize}px</span>
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_desc_${id}" onclick="toggleFormat(${id}, 'b', 'desc')">B</button>
                     <button class="format-btn" id="btn_i_desc_${id}" onclick="toggleFormat(${id}, 'i', 'desc')">I</button>
                     <button class="format-btn" id="btn_u_desc_${id}" onclick="toggleFormat(${id}, 'u', 'desc')">U</button>
-                </div>
-                <input type="color" id="color_desc_${id}" value="${descColor}" oninput="applyLineStyles(${id})">
-            </div>
-        `;
-
+                </div><input type="color" id="color_desc_${id}" value="${descColor}" oninput="applyLineStyles(${id})">
+            </div>`;
         document.getElementById('blocksManager').appendChild(card);
 
         const previewRow = document.createElement('div');
-        previewRow.className = 'line-row';
-        previewRow.id = `preview_row_${id}`;
-        previewRow.innerHTML = `
-            <span class="inline-title editable-text" id="p_title_${id}" contenteditable="true">${initTitle}</span>
-            <span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true">${initDesc}</span>
-        `;
+        previewRow.className = 'line-row'; previewRow.id = `preview_row_${id}`;
+        previewRow.innerHTML = `<span class="inline-title editable-text" id="p_title_${id}" contenteditable="true">${initTitle}</span><span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true">${initDesc}</span>`;
         document.getElementById('linesContainer').appendChild(previewRow);
 
-        applyLineStyles(id);
-        applyAllStyles();
+        applyLineStyles(id); applyAllStyles();
     }
 
-    function removeLineBlock(id) {
-        document.getElementById(`block_card_${id}`).remove();
-        document.getElementById(`preview_row_${id}`).remove();
-    }
+    function removeLineBlock(id) { document.getElementById(`block_card_${id}`).remove(); document.getElementById(`preview_row_${id}`).remove(); }
 
     function applyLineStyles(id) {
         const titleSpan = document.getElementById(`p_title_${id}`);
         const descSpan = document.getElementById(`p_desc_${id}`);
-
         if (titleSpan && descSpan) {
             titleSpan.style.fontFamily = document.getElementById(`font_title_${id}`).value;
-            const titleSize = document.getElementById(`size_title_${id}`).value;
-            document.getElementById(`lbl_title_${id}`).textContent = titleSize + 'px';
-            titleSpan.style.fontSize = titleSize + 'px';
+            const tSize = document.getElementById(`size_title_${id}`).value;
+            document.getElementById(`lbl_title_${id}`).textContent = tSize + 'px';
+            titleSpan.style.fontSize = tSize + 'px';
             titleSpan.style.color = document.getElementById(`color_title_${id}`).value;
 
             descSpan.style.fontFamily = document.getElementById(`font_desc_${id}`).value;
-            const descSize = document.getElementById(`size_desc_${id}`).value;
-            document.getElementById(`lbl_desc_${id}`).textContent = descSize + 'px';
-            descSpan.style.fontSize = descSize + 'px';
+            const dSize = document.getElementById(`size_desc_${id}`).value;
+            document.getElementById(`lbl_desc_${id}`).textContent = dSize + 'px';
+            descSpan.style.fontSize = dSize + 'px';
             descSpan.style.color = document.getElementById(`color_desc_${id}`).value;
         }
     }
@@ -691,91 +506,47 @@
     function applyAllStyles() {
         const lh = document.getElementById('globalLineHeight').value;
         const ls = document.getElementById('globalLetterSpacing').value;
-
         document.getElementById('valLineHeight').textContent = lh;
         document.getElementById('valLetterSpacing').textContent = ls + 'px';
+        const isMobile = window.innerWidth <= 520;
 
         document.querySelectorAll('.line-row').forEach(row => {
             row.style.letterSpacing = ls + 'px';
-            
-            // ការតម្រឹម Flexbox ទៅតាមប៊ូតុង Left, Center, Right
-            if (textAlign === 'center') {
-                row.style.justifyContent = 'center';
-            } else if (textAlign === 'right') {
-                row.style.justifyContent = 'flex-end';
-            } else {
+            if (isMobile) {
                 row.style.justifyContent = 'flex-start';
+                row.style.marginBottom = (parseFloat(lh) * 12) + "px";
+            } else {
+                if (textAlign === 'center') row.style.justifyContent = 'center';
+                else if (textAlign === 'right') row.style.justifyContent = 'flex-end';
+                else row.style.justifyContent = 'flex-start';
+                row.style.marginBottom = (parseFloat(lh) * 8) + "px";
             }
-            
-            row.style.marginBottom = (parseFloat(lh) * 8) + "px";
-            
             const t = row.querySelector('.inline-title');
             const d = row.querySelector('.inline-desc');
             if(t) t.style.textAlign = textAlign;
-            if(d) d.style.textAlign = textAlign;
+            if(d) d.style.textAlign = isMobile && textAlign === 'center' ? 'center' : textAlign;
         });
-        
         document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
         document.getElementById('previewMainTitle').style.textAlign = textAlign;
     }
 
-    function setCanvasBg(bgHex) {
-        document.getElementById('customBgColor').value = bgHex;
-        document.getElementById('previewBox').style.backgroundColor = bgHex;
-    }
-
-    function setAlign(type) {
-        textAlign = type;
-        document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active');
-        applyAllStyles();
-    }
+    function setCanvasBg(bgHex) { document.getElementById('customBgColor').value = bgHex; document.getElementById('previewBox').style.backgroundColor = bgHex; }
+    function setAlign(type) { textAlign = type; document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active')); document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active'); applyAllStyles(); }
 
     function generateAdvancedRender(callback) {
-        const previewElement = document.getElementById('previewBox');
-        html2canvas(previewElement, {
-            scale: 3, 
-            useCORS: true,
-            backgroundColor: null,
-            logging: false
-        }).then(canvas => {
-            callback(canvas);
-        });
+        html2canvas(document.getElementById('previewBox'), { scale: 3, useCORS: true, backgroundColor: null, logging: false }).then(canvas => callback(canvas));
     }
+    function exportAsImage() { generateAdvancedRender(canvas => { const link = document.createElement('a'); link.download = 'toathmor-premium-render.png'; link.href = canvas.toDataURL('image/png'); link.click(); }); }
+    function exportAsPDF() { generateAdvancedRender(canvas => { const imgData = canvas.toDataURL('image/png'); const w = canvas.width / 3; const h = canvas.height / 3; const { jsPDF } = window.jspdf; const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(imgData, 'PNG', 0, 0, w, h); pdf.save('toathmor-premium-document.pdf'); }); }
 
-    function exportAsImage() {
-        generateAdvancedRender((canvas) => {
-            const pngUrl = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = 'toathmor-premium-render.png';
-            link.href = pngUrl; 
-            link.click();
-        });
-    }
+    window.addEventListener('resize', applyAllStyles);
 
-    function exportAsPDF() {
-        generateAdvancedRender((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const imgWidth = canvas.width / 3;
-            const imgHeight = canvas.height / 3;
+    // ទិន្នន័យគំរូដំបូង
+    addNewLineBlock('១. ឆន្ទៈ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('២. វីរិយៈ៖', 'ភក្តីភាព និងការគោរពវិន័យការងារឱ្យច្បាស់លាស់។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('៣. ចិត្តៈ៖', 'ការយកចិត្តទុកដាក់ខ្ពស់លើរាល់ការងារដែលបានប្រគល់ជូន។', '#fcd34d', '#ffffff', 20, 16);
 
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF(imgWidth > imgHeight ? 'l' : 'p', 'px', [imgWidth, imgHeight]);
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save('toathmor-premium-document.pdf');
-        });
-    }
-
-    // ទិន្នន័យគំរូដំបូង (សតិបដ្ឋានធម៌ ៤)
-    addNewLineBlock('១. កាយានុបស្សនា៖', 'ការពិចារណាពិនិត្យមើលរូបកាយជាប្រចាំ។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('២. វេទនានុបស្សនា៖', 'ការពិនិត្យមើលរាល់សេចក្តីសុខទុក្ខរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('៣. ចិត្តានុបស្សនា៖', 'ការតាមដានដឹងនូវរាល់សភាវៈនឹកគិតរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('៤. ធម្មានុបស្សនា៖', 'ការពិនិត្យមើលនូវរាល់ធម្មារម្មណ៍ដែលកើតឡើងក្នុងចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
-
-    applyMainTitleStyles();
-    applyFooterStyles();
-    setCanvasBg('#b45309');
+    applyMainTitleStyles(); applyFooterStyles(); setCanvasBg('#b45309');
 </script>
-
 </body>
 </html>
