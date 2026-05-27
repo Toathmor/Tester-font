@@ -2,12 +2,10 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Toathmor Studio - Font Tester Premium</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Battambang:wght@400;700&display=swap">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -24,14 +22,20 @@
             --card-inner: #1a263e;
             --accent-color: #38bdf8;
             --input-bg: #1e2d4a;
+            --font-default: 'Kantumruy Pro', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Kantumruy Pro', sans-serif;
+            font-family: var(--font-default);
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,10 +45,9 @@
             width: 100%;
             max-width: 680px;
             background: var(--bg-card);
-            padding: 24px;
-            border-radius: 24px;
+            padding: 16px;
+            border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            box-sizing: border-box;
             border: 1px solid var(--border-color);
         }
 
@@ -52,142 +55,233 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .app-brand { display: flex; flex-direction: column; }
-        .app-title { font-size: 20px; font-weight: 800; letter-spacing: 1px; color: var(--text-main); }
-        .app-subtitle { font-size: 11px; color: var(--accent-color); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+        .app-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; color: var(--text-main); }
+        .app-subtitle { font-size: 10px; color: var(--accent-color); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
 
-        /* 📤 រចនាបថប៊ូតុងផ្ទុកពុម្ពអក្សរបានច្រើនផ្ដុំគ្នា */
         .upload-zone {
             background: linear-gradient(135deg, #1e40af, #2563eb);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 12px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
-            transition: all 0.2s;
+            font-size: 13px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .upload-zone:hover { opacity: 0.9; transform: translateY(-1px); }
 
         .control-panel {
             background: var(--panel-bg);
-            padding: 14px;
-            border-radius: 16px;
-            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: 14px;
+            margin-bottom: 14px;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .spacing-inline-row { display: flex; gap: 10px; }
+        .spacing-inline-row { 
+            display: flex; 
+            flex-direction: row;
+            gap: 8px; 
+        }
 
         .compact-slider-box {
-            display: flex; align-items: center; gap: 8px; flex: 1;
-            background: var(--input-bg); padding: 6px 12px; border-radius: 10px; border: 1px solid var(--border-color);
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            flex: 1;
+            background: var(--input-bg); 
+            padding: 8px 10px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color);
+            min-width: 0;
         }
-        .compact-slider-box input[type="range"] { flex: 1; accent-color: var(--accent-color); height: 5px; }
-        .compact-slider-box span.val { font-size: 12px; font-weight: bold; color: var(--accent-color); min-width: 35px; text-align: right; }
+        .compact-slider-box input[type="range"] { 
+            flex: 1; 
+            accent-color: var(--accent-color); 
+            height: 6px; 
+            min-width: 40px;
+        }
+        .compact-slider-box span.val { font-size: 11px; font-weight: bold; color: var(--accent-color); min-width: 30px; text-align: right; }
 
-        .color-setting-row { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px; }
+        .color-setting-row { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            flex-wrap: wrap;
+            gap: 8px;
+        }
         .quick-colors { display: flex; gap: 6px; align-items: center; }
-        .color-circle { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 0 4px rgba(0,0,0,0.3); }
+        .color-circle { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #ffffff; }
 
-        /* 👑 ផ្នែកគ្រប់គ្រងរចនាបថមេ */
-        .section-header { font-size: 12px; font-weight: bold; color: var(--accent-color); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .section-header { font-size: 11px; font-weight: bold; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        
         .main-title-panel {
-            background: var(--panel-bg); border: 1px solid var(--border-color); padding: 14px; border-radius: 16px; margin-bottom: 16px;
+            background: var(--panel-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; margin-bottom: 14px;
         }
         
-        .font-select-grid { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; }
+        .font-select-grid { 
+            display: grid; 
+            grid-template-columns: 1fr auto auto; 
+            gap: 8px; 
+            align-items: center; 
+        }
+        
         select {
-            background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color);
-            padding: 6px 10px; border-radius: 10px; font-family: 'Kantumruy Pro', sans-serif; font-size: 13px; outline: none; cursor: pointer;
+            background-color: var(--input-bg); 
+            color: var(--text-main); 
+            border: 1px solid var(--border-color);
+            padding: 8px; 
+            border-radius: 8px; 
+            font-family: var(--font-default); 
+            font-size: 12px; 
+            outline: none; 
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
-        /* 📝 ផ្នែកគ្រប់គ្រងជួរដេកនីមួយៗ */
-        .blocks-manager { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+        .blocks-manager { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
         .block-card {
             background: var(--card-inner); border: 1px solid var(--border-color);
-            padding: 14px; border-radius: 16px; border-left: 5px solid #10b981;
+            padding: 12px; border-radius: 14px; border-left: 4px solid #10b981;
         }
         .block-card.footer-card { border-left-color: #eab308; }
 
         .block-header-tools {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; color: #10b981; font-weight: bold;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: #10b981; font-weight: bold;
         }
         .block-header-tools.footer-tools { color: #eab308; }
+        
+        .btn-open-editor {
+            background: #2563eb; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; margin-right: auto; margin-left: 8px;
+        }
+        .btn-open-editor:hover { background: #1d4ed8; }
 
         .row-setting-item {
-            display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; background: rgba(0,0,0,0.15); padding: 8px; border-radius: 10px;
+            display: flex; 
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 6px; 
+            align-items: center; 
+            margin-bottom: 8px; 
+            background: rgba(0,0,0,0.2); 
+            padding: 8px; 
+            border-radius: 8px;
         }
         .row-setting-item:last-child { margin-bottom: 0; }
-        .compact-label { font-size: 12px; color: var(--text-muted); font-weight: 600; min-width: 45px; }
+        .compact-label { font-size: 11px; color: var(--text-muted); font-weight: 600; min-width: 38px; }
 
-        /* 🔘 រចនាបថប៊ូតុង Format អក្សរ (B, I, U) និងពណ៌រហ័ស */
-        .format-group { display: flex; gap: 4px; }
-        .format-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; font-size: 11px; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .format-group { display: flex; gap: 3px; }
+        .format-btn { 
+            background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); 
+            font-weight: bold; font-size: 11px; width: 26px; height: 26px; border-radius: 6px; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center; 
+        }
         .format-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
-        
-        .mini-palette { display: flex; gap: 4px; align-items: center; margin-left: 4px; }
-        .mini-dot { width: 14px; height: 14px; border-radius: 50%; cursor: pointer; border: 1px solid #fff; }
 
-        input[type="color"] { width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; padding: 0; }
+        input[type="color"] { 
+            width: 26px; height: 26px; border: none; background: transparent; cursor: pointer; padding: 0;
+            -webkit-appearance: none;
+        }
 
         .btn-add-block {
-            background: #10b981; color: white; border: none; padding: 12px; border-radius: 14px; cursor: pointer; font-weight: bold; width: 100%; font-size: 14px; margin-bottom: 20px; transition: all 0.2s;
+            background: #10b981; color: white; border: none; padding: 10px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 16px;
         }
-        .btn-add-block:hover { background: #059669; }
-        .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 3px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-        .btn-delete:hover { background: #ef4444; color: white; }
+        .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 6px; border-radius: 6px; cursor: pointer; font-size: 10px; }
 
-        /* 🖼️ ផ្ទាំងបង្ហាញលទ្ធផល Preview */
+        /* 🖼️ ផ្ទាំង Preview */
         .preview-wrapper { 
-            border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; margin-bottom: 20px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column;
+            border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column;
         }
         
-        /* 🎛️ របារតម្រឹម ឆ្វេង កណ្ដាល ស្ដាំ បែបទំនើប */
-        .align-bar { background: var(--panel-bg); padding: 8px 14px; display: flex; gap: 6px; border-bottom: 1px solid var(--border-color); justify-content: flex-end; }
-        .align-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 5px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .align-bar { background: var(--panel-bg); padding: 6px 12px; display: flex; gap: 4px; border-bottom: 1px solid var(--border-color); justify-content: flex-end; }
+        .align-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; }
         .align-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
 
-        .preview-container-box { width: 100%; overflow-x: auto; padding: 20px; box-sizing: border-box; display: flex; justify-content: center; }
-        .preview-box { padding: 40px; box-sizing: border-box; width: 100%; min-width: 320px; max-width: 560px; border-radius: 16px; background-color: #b45309; position: relative; }
+        .preview-container-box { width: 100%; overflow-x: auto; padding: 12px; box-sizing: border-box; display: flex; justify-content: center; }
+        .preview-box { padding: 24px 16px; box-sizing: border-box; width: 100%; border-radius: 12px; background-color: #b45309; position: relative; }
         
-        .editable-text { outline: none; border-radius: 6px; transition: background 0.2s; display: inline-block; }
-        .editable-text:hover { background: rgba(255, 255, 255, 0.12); cursor: text; }
-        .editable-text:focus { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 0 2px var(--accent-color); }
+        .editable-text { outline: none; border-radius: 4px; transition: background 0.2s; display: inline-block; -webkit-user-modify: read-write-plaintext-only; }
+        .editable-text:focus { background: rgba(255, 255, 255, 0.15); box-shadow: 0 0 0 2px var(--accent-color); }
 
-        /* កែសម្រួលចំណងជើងធំលំនាំដើមជា Kantumruy Pro */
-        .preview-main-title { width: 100%; text-align: center; margin-bottom: 30px; font-weight: 500; font-size: 32px; color: #ffffff; display: block; word-break: break-word; }
+        .preview-main-title { width: 100%; text-align: center; margin-bottom: 24px; font-weight: bold; font-size: 26px; color: #ffffff; display: block; word-break: break-word; }
         
-        .line-row { width: 100%; display: flex; flex-wrap: wrap; align-items: flex-start; margin-bottom: 16px; }
-        .inline-title { font-weight: 500; white-space: nowrap; flex-shrink: 0; margin-right: 8px; }
-        .inline-desc { font-weight: 400; word-break: break-word; text-align: left; flex: 1; min-width: 160px; }
-
-        /* 📍 រចនាបថសម្រាប់ជួរក្រោមគេបង្អស់ */
-        .preview-footer-zone {
-            margin-top: 40px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box;
+        /* ⚡ រៀបចំឱ្យ Title និង Body រត់ចូលជួរដេកតែមួយដោយប្រើ Flexbox */
+        .line-row { 
+            width: 100%; 
+            display: flex; 
+            flex-direction: row; 
+            align-items: baseline; 
+            flex-wrap: wrap; 
+            margin-bottom: 12px; 
+            gap: 8px;
         }
-        .preview-footer-text { width: 100%; font-size: 13px; font-weight: 400; word-break: break-word; }
+        .inline-title { font-weight: bold; white-space: nowrap; }
+        .inline-desc { font-weight: normal; word-break: break-word; flex: 1; min-width: 150px; }
 
-        /* 🔘 ប៊ូតុងរក្សាទុកធម្មតា */
-        .action-group { display: flex; gap: 12px; width: 100%; }
-        .action-btn { flex: 1; padding: 14px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .action-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .action-btn.save-img { background: #2563eb; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
-        .action-btn.save-pdf { background: #475569; color: white; box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3); }
+        .preview-footer-zone {
+            margin-top: 24px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box;
+        }
+        .preview-footer-text { width: 100%; font-size: 12px; font-weight: normal; word-break: break-word; }
+
+        .action-group { display: flex; gap: 10px; width: 100%; }
+        .action-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .action-btn.save-img { background: #2563eb; color: white; }
+        .action-btn.save-pdf { background: #475569; color: white; }
+
+        /* 🎯 ផ្ទាំង Pop-up សម្រាប់សរសេរអត្ថបទធំ (Modal) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); z-index: 1000;
+            display: none; align-items: center; justify-content: center; padding: 16px;
+        }
+        .modal-content {
+            background: var(--bg-card); width: 100%; max-width: 550px;
+            border-radius: 16px; border: 1px solid var(--border-color);
+            padding: 16px; display: flex; flex-direction: column; gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-header { font-size: 14px; font-weight: bold; color: var(--accent-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: bold; }
+        .modal-input {
+            width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 8px; border-radius: 8px; font-family: var(--font-default); font-size: 13px; outline: none;
+        }
+        .modal-textarea { height: 140px; resize: none; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+        .modal-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .modal-btn.save { background: #10b981; color: white; }
+        .modal-btn.cancel { background: #475569; color: white; }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .container { padding: 10px; border-radius: 14px; }
+            .preview-box { padding: 16px 10px; }
+            .preview-main-title { font-size: 22px; margin-bottom: 16px; }
+            select, .format-btn, .action-btn, .btn-add-block { padding: 10px; font-size: 12px; }
+            .font-select-grid { grid-template-columns: 1fr; gap: 6px; }
+            .compact-slider-box { width: 100%; }
+            .row-setting-item { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
+            .row-setting-item select { grid-column: span 2; }
+            .btn-open-editor { margin-left: 0; padding: 6px 10px; font-size: 11px; }
+            .line-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .inline-desc { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -201,21 +295,22 @@
     </div>
 
     <div class="upload-zone" onclick="document.getElementById('fontUploader').click()">
-        <span>📂 បញ្ចូលពុម្ពអក្សរផ្ទាល់ខ្លួនបានច្រើន (.ttf, .otf, .woff)</span>
+        <span>📂 បញ្ចូលពុម្ពអក្សរផ្ទាល់ខ្លួន (.ttf, .otf, .woff)</span>
         <input type="file" id="fontUploader" accept=".ttf,.otf,.woff,.woff2" multiple style="display: none;" onchange="handleMultipleFontUpload(this)">
     </div>
 
     <div class="main-title-panel">
-        <div class="section-header">👑 ម៉ូដចំណងជើងធំ (Main Title Style)</div>
+        <div class="section-header">👑 ម៉ូដចំណងជើងធំ (Main Title Style)
+            <button class="btn-open-editor" onclick="openMainTitleEditor()">📝 សរសេរចំណងជើងធំ</button>
+        </div>
         <div class="font-select-grid">
             <select id="mainTitleFont" onchange="applyMainTitleStyles()">
                 <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
-                <option value="'Khmer OS Muol Light', sans-serif">Khmer OS Muol Light</option>
-                <option value="'Khmer OS Battambang', sans-serif">Khmer OS Battambang</option>
+                <option value="'Battambang', sans-serif">Battambang</option>
             </select>
-            <div class="compact-slider-box" style="max-width: 150px;">
-                <input type="range" id="mainTitleSize" min="14" max="80" value="32" oninput="applyMainTitleStyles()">
-                <span class="val" id="lbl_mainTitleSize">32px</span>
+            <div class="compact-slider-box">
+                <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles()">
+                <span class="val" id="lbl_mainTitleSize">28px</span>
             </div>
             <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyMainTitleStyles()">
         </div>
@@ -226,20 +321,20 @@
 
     <div class="block-card footer-card">
         <div class="block-header-tools footer-tools">
-            <span>ℹ️ ជួរក្រោមគេបង្អស់ (Footer Row - សម្រាប់ឈ្មោះ ឬឯកសារយោង)</span>
-            <label style="font-size: 11px; cursor: pointer; color: var(--text-main);">
-                <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()"> បង្ហាញជួរនេះ
+            <span>ℹ️ ជួរក្រោមគេបង្អស់ (Footer Row)</span>
+            <button class="btn-open-editor" onclick="openFooterEditor()">📝 សរសេរអត្ថបទ Footer</button>
+            <label style="font-size: 11px; cursor: pointer; color: var(--text-main); margin-left: 6px;">
+                <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()"> បង្ហាញ
             </label>
         </div>
         <div class="row-setting-item">
             <span class="compact-label">🏁 ម៉ូដ:</span>
             <select id="font_footer" onchange="applyFooterStyles()">
                 <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
-                <option value="'Khmer OS Muol Light', sans-serif">Khmer OS Muol Light</option>
-                <option value="'Khmer OS Battambang', sans-serif">Khmer OS Battambang</option>
+                <option value="'Battambang', sans-serif">Battambang</option>
             </select>
-            <input type="range" id="size_footer" min="10" max="40" value="13" style="width:70px; accent-color:var(--accent-color);" oninput="applyFooterStyles()">
-            <span class="val" id="lbl_footer" style="font-size:11px; min-width:30px; color:var(--accent-color); font-weight:bold;">13px</span>
+            <input type="range" id="size_footer" min="10" max="40" value="12" style="width:60px;" oninput="applyFooterStyles()">
+            <span class="val" id="lbl_footer">12px</span>
             
             <div class="format-group">
                 <button class="format-btn" id="btn_b_footer" onclick="toggleFooterFormat('b')">B</button>
@@ -247,43 +342,37 @@
                 <button class="format-btn" id="btn_u_footer" onclick="toggleFooterFormat('u')">U</button>
             </div>
             
-            <select id="align_footer" onchange="applyFooterStyles()" style="padding: 4px 6px; font-size: 11px;">
-                <option value="left">តម្រឹមឆ្វេង</option>
-                <option value="center" selected>តម្រឹមខណ្ឌកណ្តាល</option>
-                <option value="right">តម្រឹមស្តាំ</option>
+            <select id="align_footer" onchange="applyFooterStyles()" style="padding: 4px;">
+                <option value="left">ឆ្វេង</option>
+                <option value="center" selected>កណ្តាល</option>
+                <option value="right">ស្តាំ</option>
             </select>
-
-            <div class="mini-palette" style="margin-left: auto;">
-                <div class="mini-dot" style="background:rgba(255,255,255,0.6 warm);" onclick="setQuickFooterColor('rgba(255,255,255,0.6)')"></div>
-                <div class="mini-dot" style="background:#ffffff;" onclick="setQuickFooterColor('#ffffff')"></div>
-                <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
-            </div>
+            <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
         </div>
     </div>
 
-    <div style="margin-bottom: 20px;"></div>
+    <div style="margin-bottom: 14px;"></div>
 
     <div class="preview-wrapper">
         <div class="control-panel">
             <div class="spacing-inline-row">
                 <div class="compact-slider-box" title="គម្លាតបណ្តោយជួរ">
-                    <span class="icon">↕️</span>
+                    <span>↕️</span>
                     <input type="range" id="globalLineHeight" min="1.0" max="3.5" step="0.1" value="1.8" oninput="applyAllStyles()">
                     <span class="val" id="valLineHeight">1.8</span>
                 </div>
                 <div class="compact-slider-box" title="គម្លាតទទឹងតួអក្សរ">
-                    <span class="icon">↔️</span>
+                    <span>↔️</span>
                     <input type="range" id="globalLetterSpacing" min="-2" max="10" step="0.5" value="0" oninput="applyAllStyles()">
                     <span class="val" id="valLetterSpacing">0px</span>
                 </div>
             </div>
 
             <div class="color-setting-row">
-                <label style="font-size: 12px; color: var(--text-muted); font-weight: bold;">🎨 ពណ៌ផ្ទៃក្រោយ:</label>
+                <label style="font-size: 11px; color: var(--text-muted); font-weight: bold;">🎨 ពណ៌ផ្ទៃក្រោយ:</label>
                 <div class="quick-colors">
                     <div class="color-circle" style="background: #ffffff;" onclick="setCanvasBg('#ffffff')"></div>
                     <div class="color-circle" style="background: #0b0f19;" onclick="setCanvasBg('#0b0f19')"></div>
-                    <div class="color-circle" style="background: #1e3a8a;" onclick="setCanvasBg('#1e3a8a')"></div>
                     <div class="color-circle" style="background: #b45309;" onclick="setCanvasBg('#b45309')"></div>
                     <input type="color" id="customBgColor" value="#b45309" oninput="setCanvasBg(this.value)">
                 </div>
@@ -299,9 +388,7 @@
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox">
                 <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true">សតិបដ្ឋានធម៌ ៤</div>
-                
                 <div id="linesContainer"></div>
-
                 <div class="preview-footer-zone" id="previewFooterZone">
                     <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true">រៀបរៀងដោយ៖ Toathmor Studio • ឯកសារយោងពីព្រះត្រៃបិដក</div>
                 </div>
@@ -311,7 +398,31 @@
 
     <div class="action-group">
         <button class="action-btn save-img" onclick="exportAsImage()">🖼️ រក្សារូបភាព</button>
-        <button class="action-btn save-pdf" onclick="exportAsPDF()">📄 ទាញយកជា PDF</button>
+        <button class="action-btn save-pdf" onclick="exportAsPDF()">📄 ទាញយក PDF</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="editorModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="modalTitleText">📝 ផ្ទាំងសរសេរអត្ថបទធំ</span>
+            <span style="cursor:pointer; font-size: 18px;" onclick="closeEditorModal()">✕</span>
+        </div>
+        <input type="hidden" id="currentEditId">
+        <input type="hidden" id="currentEditTarget">
+        
+        <div id="modalInputGroup">
+            <div class="modal-label" id="lblModalTitleInput">ចំណងជើងរង (Title):</div>
+            <input type="text" id="modalTitleInput" class="modal-input" placeholder="វាយចំណងជើងត្រង់នេះ...">
+            <div style="margin-bottom: 10px;"></div>
+            <div class="modal-label">ខ្លឹមសារអត្ថបទពិពណ៌នា (Body Text):</div>
+            <textarea id="modalDescInput" class="modal-input modal-textarea" placeholder="វាយអត្ថបទវែងៗរបស់អ្នកនៅត្រង់នេះ..."></textarea>
+        </div>
+        
+        <div class="modal-actions">
+            <button class="modal-btn cancel" onclick="closeEditorModal()">បោះបង់</button>
+            <button class="modal-btn save" onclick="saveEditorContent()">រក្សាទុក និងបិទ</button>
+        </div>
     </div>
 </div>
 
@@ -320,7 +431,6 @@
     let textAlign = 'left';
     let uploadedFonts = [];
 
-    // មុខងារបញ្ចូលពុម្ពអក្សរបានច្រើនផ្ដុំគ្នាក្នុងពេលតែមួយ
     function handleMultipleFontUpload(input) {
         const files = input.files;
         if (!files.length) return;
@@ -342,7 +452,7 @@
                     }
                     loadedCount++;
                     if (loadedCount === files.length) {
-                        alert(`បានបញ្ចូលពុម្ពអក្សរទាំង ${files.length} រួចរាល់!`);
+                        alert(`បានបញ្ចូលពុម្ពអក្សរបានជោគជ័យ!`);
                     }
                 }).catch(function(error) {
                     console.error("មិនអាចផ្ទុកពុម្ពអក្សរបាន៖", error);
@@ -372,7 +482,6 @@
         mainTitleEl.style.color = document.getElementById('mainTitleColor').value;
     }
 
-    // មុខងារប្ដូរ Format អក្សរ (Bold, Italic, Underline)
     function toggleFormat(id, type, target) {
         const btn = document.getElementById(`btn_${type}_${target}_${id}`);
         btn.classList.toggle('active');
@@ -381,7 +490,7 @@
         const isActive = btn.classList.contains('active');
 
         if (type === 'b') {
-            previewEl.style.fontWeight = isActive ? '700' : '500';
+            previewEl.style.fontWeight = isActive ? '700' : 'bold';
         } else if (type === 'i') {
             previewEl.style.fontStyle = isActive ? 'italic' : 'normal';
         } else if (type === 'u') {
@@ -389,7 +498,6 @@
         }
     }
 
-    // មុខងារគ្រប់គ្រងរចនាបថជួរក្រោមបង្អស់ (Footer Style)
     function applyFooterStyles() {
         const footerText = document.getElementById('previewFooterText');
         const size = document.getElementById('size_footer').value;
@@ -409,7 +517,7 @@
         const isActive = btn.classList.contains('active');
 
         if (type === 'b') {
-            footerText.style.fontWeight = isActive ? '700' : '400';
+            footerText.style.fontWeight = isActive ? '700' : 'normal';
         } else if (type === 'i') {
             footerText.style.fontStyle = isActive ? 'italic' : 'normal';
         } else if (type === 'u') {
@@ -417,24 +525,78 @@
         }
     }
 
-    function setQuickFooterColor(hexColor) {
-        document.getElementById('color_footer').value = hexColor;
-        applyFooterStyles();
-    }
-
     function toggleFooterVisibility() {
         const isChecked = document.getElementById('toggleFooterCheckbox').checked;
         document.getElementById('previewFooterZone').style.display = isChecked ? 'block' : 'none';
     }
 
-    // មុខងារដូរពណ៌រហ័ស
-    function setQuickColor(id, target, hexColor) {
-        document.getElementById(`color_${target}_${id}`).value = hexColor;
-        applyLineStyles(id);
+    function openMainTitleEditor() {
+        document.getElementById('currentEditTarget').value = 'mainTitle';
+        document.getElementById('modalTitleText').textContent = '👑 កែសម្រួលចំណងជើងធំ';
+        document.getElementById('lblModalTitleInput').style.display = 'none';
+        document.getElementById('modalTitleInput').style.display = 'none';
+        
+        const currentText = document.getElementById('previewMainTitle').innerText;
+        document.getElementById('modalDescInput').value = currentText;
+        document.getElementById('modalDescInput').placeholder = 'វាយចំណងជើងធំត្រង់នេះ...';
+        
+        document.getElementById('editorModal').style.display = 'flex';
     }
 
-    // ប្ដូរ Default ទិន្នន័យដំបូងក្នុង Selection ទៅជា 'Kantumruy Pro'
-    function addNewLineBlock(initTitle = "ចំណងជើងរង", initDesc = "ខ្លឹមសារអត្ថបទពិពណ៌នា...", titleColor = "#fcd34d", descColor = "#ffffff", titleSize = 22, descSize = 18) {
+    function openFooterEditor() {
+        document.getElementById('currentEditTarget').value = 'footer';
+        document.getElementById('modalTitleText').textContent = 'ℹ️ កែសម្រួលអត្ថបទជួរក្រោមបង្អស់ (Footer)';
+        document.getElementById('lblModalTitleInput').style.display = 'none';
+        document.getElementById('modalTitleInput').style.display = 'none';
+        
+        const currentText = document.getElementById('previewFooterText').innerText;
+        document.getElementById('modalDescInput').value = currentText;
+        document.getElementById('modalDescInput').placeholder = 'វាយអត្ថបទ Footer ត្រង់នេះ...';
+        
+        document.getElementById('editorModal').style.display = 'flex';
+    }
+
+    function openLineEditor(id) {
+        document.getElementById('currentEditTarget').value = 'line';
+        document.getElementById('currentEditId').value = id;
+        document.getElementById('modalTitleText').textContent = `📝 កែសម្រួលអត្ថបទជួរទី #${id}`;
+        document.getElementById('lblModalTitleInput').style.display = 'block';
+        document.getElementById('modalTitleInput').style.display = 'block';
+        
+        const currentTitle = document.getElementById(`p_title_${id}`).innerText;
+        const currentDesc = document.getElementById(`p_desc_${id}`).innerText;
+        
+        document.getElementById('modalTitleInput').value = currentTitle;
+        document.getElementById('modalDescInput').value = currentDesc;
+        document.getElementById('modalDescInput').placeholder = 'វាយខ្លឹមសារពិពណ៌នាត្រង់នេះ...';
+        
+        document.getElementById('editorModal').style.display = 'flex';
+    }
+
+    function closeEditorModal() {
+        document.getElementById('editorModal').style.display = 'none';
+    }
+
+    function saveEditorContent() {
+        const target = document.getElementById('currentEditTarget').value;
+        const descVal = document.getElementById('modalDescInput').value;
+        
+        if (target === 'mainTitle') {
+            document.getElementById('previewMainTitle').innerText = descVal;
+        } else if (target === 'footer') {
+            document.getElementById('previewFooterText').innerText = descVal;
+        } else if (target === 'line') {
+            const id = document.getElementById('currentEditId').value;
+            const titleVal = document.getElementById('modalTitleInput').value;
+            document.getElementById(`p_title_${id}`).innerText = titleVal;
+            document.getElementById(`p_desc_${id}`).innerText = descVal;
+        }
+        
+        closeEditorModal();
+        applyAllStyles();
+    }
+
+    function addNewLineBlock(initTitle = "ចំណងជើងរង", initDesc = "ខ្លឹមសារពិពណ៌នា...", titleColor = "#fcd34d", descColor = "#ffffff", titleSize = 20, descSize = 16) {
         blockCount++;
         const id = blockCount;
 
@@ -445,8 +607,7 @@
 
         let fontOptions = `
             <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
-            <option value="'Khmer OS Muol Light', sans-serif">Khmer OS Muol Light</option>
-            <option value="'Khmer OS Battambang', sans-serif">Khmer OS Battambang</option>
+            <option value="'Battambang', sans-serif">Battambang</option>
         `;
         uploadedFonts.forEach(f => {
             fontOptions += `<option value="'${f}', sans-serif">${f}</option>`;
@@ -454,46 +615,37 @@
 
         card.innerHTML = `
             <div class="block-header-tools">
-                <span>📝 ជួរអក្សរឆ្លាស់គ្នាទី #${id}</span>
-                <button class="btn-delete" onclick="removeLineBlock(${id})">លុបជួរនេះ</button>
+                <span>📝 ជួរអក្សរទី #${id}</span>
+                <button class="btn-open-editor" onclick="openLineEditor(${id})">📝 សរសេរអត្ថបទធំ</button>
+                <button class="btn-delete" onclick="removeLineBlock(${id})">លុប</button>
             </div>
             
             <div class="row-setting-item">
                 <span class="compact-label">🅰️ Title:</span>
                 <select id="font_title_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
-                <input type="range" id="size_title_${id}" min="10" max="60" value="${titleSize}" style="width:70px; accent-color:var(--accent-color);" oninput="applyLineStyles(${id})">
-                <span class="val" id="lbl_title_${id}" style="font-size:11px; min-width:30px; color:var(--accent-color); font-weight:bold;">${titleSize}px</span>
+                <input type="range" id="size_title_${id}" min="10" max="60" value="${titleSize}" style="width:60px;" oninput="applyLineStyles(${id})">
+                <span class="val" id="lbl_title_${id}">${titleSize}px</span>
                 
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_title_${id}" onclick="toggleFormat(${id}, 'b', 'title')">B</button>
                     <button class="format-btn" id="btn_i_title_${id}" onclick="toggleFormat(${id}, 'i', 'title')">I</button>
                     <button class="format-btn" id="btn_u_title_${id}" onclick="toggleFormat(${id}, 'u', 'title')">U</button>
                 </div>
-                
-                <div class="mini-palette">
-                    <div class="mini-dot" style="background:#fcd34d;" onclick="setQuickColor(${id}, 'title', '#fcd34d')"></div>
-                    <div class="mini-dot" style="background:#ffffff;" onclick="setQuickColor(${id}, 'title', '#ffffff')"></div>
-                    <input type="color" id="color_title_${id}" value="${titleColor}" oninput="applyLineStyles(${id})">
-                </div>
+                <input type="color" id="color_title_${id}" value="${titleColor}" oninput="applyLineStyles(${id})">
             </div>
             
             <div class="row-setting-item">
                 <span class="compact-label">🔤 Body:</span>
                 <select id="font_desc_${id}" onchange="applyLineStyles(${id})">${fontOptions}</select>
-                <input type="range" id="size_desc_${id}" min="10" max="60" value="${descSize}" style="width:70px; accent-color:var(--accent-color);" oninput="applyLineStyles(${id})">
-                <span class="val" id="lbl_desc_${id}" style="font-size:11px; min-width:30px; color:var(--accent-color); font-weight:bold;">${descSize}px</span>
+                <input type="range" id="size_desc_${id}" min="10" max="60" value="${descSize}" style="width:60px;" oninput="applyLineStyles(${id})">
+                <span class="val" id="lbl_desc_${id}">${descSize}px</span>
                 
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_desc_${id}" onclick="toggleFormat(${id}, 'b', 'desc')">B</button>
                     <button class="format-btn" id="btn_i_desc_${id}" onclick="toggleFormat(${id}, 'i', 'desc')">I</button>
                     <button class="format-btn" id="btn_u_desc_${id}" onclick="toggleFormat(${id}, 'u', 'desc')">U</button>
                 </div>
-                
-                <div class="mini-palette">
-                    <div class="mini-dot" style="background:#ffffff;" onclick="setQuickColor(${id}, 'desc', '#ffffff')"></div>
-                    <div class="mini-dot" style="background:#38bdf8;" onclick="setQuickColor(${id}, 'desc', '#38bdf8')"></div>
-                    <input type="color" id="color_desc_${id}" value="${descColor}" oninput="applyLineStyles(${id})">
-                </div>
+                <input type="color" id="color_desc_${id}" value="${descColor}" oninput="applyLineStyles(${id})">
             </div>
         `;
 
@@ -544,10 +696,23 @@
         document.getElementById('valLetterSpacing').textContent = ls + 'px';
 
         document.querySelectorAll('.line-row').forEach(row => {
-            row.style.lineHeight = lh;
             row.style.letterSpacing = ls + 'px';
-            row.style.justifyContent = textAlign === 'center' ? 'center' : (textAlign === 'right' ? 'flex-end' : 'flex-start');
+            
+            // ការតម្រឹម Flexbox ទៅតាមប៊ូតុង Left, Center, Right
+            if (textAlign === 'center') {
+                row.style.justifyContent = 'center';
+            } else if (textAlign === 'right') {
+                row.style.justifyContent = 'flex-end';
+            } else {
+                row.style.justifyContent = 'flex-start';
+            }
+            
             row.style.marginBottom = (parseFloat(lh) * 8) + "px";
+            
+            const t = row.querySelector('.inline-title');
+            const d = row.querySelector('.inline-desc');
+            if(t) t.style.textAlign = textAlign;
+            if(d) d.style.textAlign = textAlign;
         });
         
         document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
@@ -582,7 +747,7 @@
         generateAdvancedRender((canvas) => {
             const pngUrl = canvas.toDataURL('image/png');
             const link = document.createElement('a');
-            link.download = 'toathmor-studio-render.png';
+            link.download = 'toathmor-premium-render.png';
             link.href = pngUrl; 
             link.click();
         });
@@ -597,14 +762,15 @@
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(imgWidth > imgHeight ? 'l' : 'p', 'px', [imgWidth, imgHeight]);
             pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save('toathmor-studio-document.pdf');
+            pdf.save('toathmor-premium-document.pdf');
         });
     }
 
-    // 🎯 កែសម្រួលទិន្នន័យគំរូដំបូងឱ្យចាប់យកពុម្ពអក្សរ Kantumruy Pro ជា Default ភ្លាមៗ
-    addNewLineBlock('១. ឆន្ទៈ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ។', '#fcd34d', '#ffffff', 22, 18);
-    addNewLineBlock('២. វីរិយៈ៖', 'ភក្តីភាព និងការគោរពវិន័យការងារឱ្យច្បាស់លាស់។', '#fcd34d', '#ffffff', 22, 18);
-    addNewLineBlock('៣. ចិត្តៈ៖', 'ការយកចិត្តទុកដាក់ខ្ពស់លើរាល់ការងារដែលបានប្រគល់ជូន។', '#fcd34d', '#ffffff', 22, 18);
+    // ទិន្នន័យគំរូដំបូង (សតិបដ្ឋានធម៌ ៤)
+    addNewLineBlock('១. កាយានុបស្សនា៖', 'ការពិចារណាពិនិត្យមើលរូបកាយជាប្រចាំ។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('២. វេទនានុបស្សនា៖', 'ការពិនិត្យមើលរាល់សេចក្តីសុខទុក្ខរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('៣. ចិត្តានុបស្សនា៖', 'ការតាមដានដឹងនូវរាល់សភាវៈនឹកគិតរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('៤. ធម្មានុបស្សនា៖', 'ការពិនិត្យមើលនូវរាល់ធម្មារម្មណ៍ដែលកើតឡើងក្នុងចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
 
     applyMainTitleStyles();
     applyFooterStyles();
