@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Font Tester Pro V2</title>
+    <title>Toathmor Studio - Font Tester Pro V3</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Battambang:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -53,7 +53,6 @@
         .btn-quick-text { background: #8b5cf6; color: white; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; margin-bottom: 8px; display: inline-block; }
         .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; }
         
-        /* 🎛️ របារបញ្ជាគម្លាត និងតម្រឹមអត្ថបទ (Sliders & Alignment) */
         .preview-wrapper { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column; }
         .control-panel-box { background: var(--bg-card); padding: 14px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px; }
         .control-row-slider { display: flex; flex-direction: column; gap: 6px; }
@@ -69,7 +68,6 @@
         .align-btn { flex: 1; background: none; border: none; color: var(--text-muted); padding: 6px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; text-align: center; }
         .align-btn.active { background: var(--primary-color); color: white; }
 
-        /* 🎨 ផ្ទាំងបង្ហាញលទ្ធផល (Preview Box) */
         .preview-container-box { width: 100%; padding: 14px; display: flex; justify-content: center; }
         .preview-box { padding: 28px 20px; width: 100%; border-radius: 12px; background-color: #2e5a44; position: relative; }
         .editable-text { outline: none; border-radius: 4px; display: block; -webkit-user-modify: read-write-plaintext-only; }
@@ -85,13 +83,13 @@
         
         .simple-text-container { width: 100%; display: none; white-space: pre-wrap; font-size: 16px; color: #ffffff; word-break: break-word; }
         
-        /* Layout Visibility Toggles */
-        body.mode-grid .btn-add-block, body.mode-grid #linesContainer { display: block; }
-        body.mode-grid #panel_simpleText { display: none; }
-        body.mode-simple .btn-add-block, body.mode-simple #linesContainer { display: none; }
-        body.mode-simple #panel_simpleText { display: block; }
+        /* 👁️ គ្រប់គ្រងការបង្ហាញផ្ទាំងបញ្ជា (Visibility Layout Control) */
+        body.mode-grid .grid-only-component { display: block; }
+        body.mode-grid .simple-only-component { display: none; }
         
-        /* Footer Zone */
+        body.mode-simple .grid-only-component { display: none !important; }
+        body.mode-simple .simple-only-component { display: block; }
+        
         .preview-footer-zone { margin-top: 28px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; }
         .footer-flex-container { display: flex; align-items: center; gap: 8px; width: 100%; }
         .preview-footer-logo { display: none; object-fit: contain; }
@@ -113,7 +111,7 @@
 
 <div class="container">
     <div class="app-header">
-        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V2</span></div>
+        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V3</span></div>
         <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 Dark Mode</button>
     </div>
 
@@ -131,7 +129,7 @@
 
     <div class="accordion-panel active" id="panel_mainTitle">
         <div class="accordion-header" onclick="toggleAccordion('panel_mainTitle')">
-            <div class="accordion-title-text" style="color: var(--accent-color);">👑 ម៉ូដចំណងជើងធំ</div>
+            <div class="accordion-title-text" style="color: var(--accent-color);">👑 ម៉ូដចំណងជើងធំ (Main Title)</div>
             <div><button style="padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); openMainTitleEditor()">📝 កែអត្ថបទ</button> <span class="accordion-arrow">▶</span></div>
         </div>
         <div class="accordion-content">
@@ -147,8 +145,8 @@
         </div>
     </div>
 
-    <div class="accordion-panel active" id="panel_simpleText" style="display: none;">
-        <div class="accordion-header" onclick="toggleAccordion('panel_simpleText')"><div class="accordion-title-text" style="color: #38bdf8;">📄 ខ្លឹមសារផ្ទាំងអត្ថបទធម្មតា</div><span class="accordion-arrow">▶</span></div>
+    <div class="accordion-panel active simple-only-component" id="panel_simpleText">
+        <div class="accordion-header" onclick="toggleAccordion('panel_simpleText')"><div class="accordion-title-text" style="color: #38bdf8;">📄 ខ្លឹមសារផ្ទាំងអត្ថបទធម្មតា (Body Text)</div><span class="accordion-arrow">▶</span></div>
         <div class="accordion-content">
             <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                 <button class="btn-quick-text" onclick="insertQuickSample(1)">➕ បន្ថែមអត្ថបទគំរូ ១</button>
@@ -163,13 +161,13 @@
         </div>
     </div>
 
-    <div id="blocksManager"></div>
+    <div id="blocksManager" class="grid-only-component"></div>
     
-    <button class="btn-add-block" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរថ្មី</button>
+    <button class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរថ្មី</button>
 
     <div class="accordion-panel" id="panel_footer">
         <div class="accordion-header" onclick="toggleAccordion('panel_footer')">
-            <div class="accordion-title-text" style="color: #eab308;">ℹ️ ជួរក្រោមគេបង្អស់ (Footer)</div>
+            <div class="accordion-title-text" style="color: #eab308;">ℹ️ ជួរក្រោមគេបង្អស់ (Footer Row)</div>
             <div>
                 <button style="padding:2px 6px; font-size:11px;" onclick="event.stopPropagation(); document.getElementById('logoUploader').click()">🖼️ ឡូហ្គូ</button>
                 <input type="file" id="logoUploader" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
@@ -241,9 +239,9 @@
             <div class="preview-box" id="previewBox">
                 <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true">សភាវធម៌ ៤ យ៉ាង</div>
                 
-                <div id="linesContainer"></div>
+                <div id="linesContainer" class="grid-only-component"></div>
                 
-                <div class="simple-text-container editable-text" id="simpleTextContainer" contenteditable="true">ខ្លឹមសារអត្ថបទសម្រាប់ផ្ទាំងធម្មតា...</div>
+                <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true">ខ្លឹមសារអត្ថបទសម្រាប់ផ្ទាំងធម្មតា...</div>
                 
                 <div class="preview-footer-zone" id="previewFooterZone">
                     <div class="footer-flex-container" id="footerFlexContainer" style="justify-content: center;">
@@ -300,17 +298,17 @@
         document.body.className = mode === 'simple' ? 'mode-simple' : 'mode-grid';
         document.getElementById('btnLayoutSimple').classList.toggle('active', mode === 'simple');
         document.getElementById('btnLayoutGrid').classList.toggle('active', mode === 'grid');
-        
-        // Dynamic styling sync based on layout activation
-        const sContainer = document.getElementById('simpleTextContainer');
-        sContainer.style.display = mode === 'simple' ? 'block' : 'none';
         applyAllStyles();
     }
 
     function toggleAccordion(id) {
         const el = document.getElementById(id); if(!el) return;
         const open = el.classList.contains('active');
-        document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.accordion-panel').forEach(p => {
+            // កុំបិទប្រអប់ Simple Text បើសិនជាស្ថិតក្នុង Simple Mode
+            if(currentLayoutMode === 'simple' && p.id === 'panel_simpleText') return;
+            p.classList.remove('active');
+        });
         if(!open) el.classList.add('active');
     }
 
@@ -367,7 +365,7 @@
 
     function addNewLineBlock(t = "ចំណងជើងរង", d = "ខ្លឹមសារពិពណ៌នា...") {
         blockCount++; const id = blockCount;
-        const panel = document.createElement('div'); panel.className = 'accordion-panel'; panel.id = `panel_line_${id}`;
+        const panel = document.createElement('div'); panel.className = 'accordion-panel grid-only-component'; panel.id = `panel_line_${id}`;
         let opts = `<option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option>`;
         uploadedFonts.forEach(f => { opts += `<option value="'${f}', sans-serif">${f}</option>`; });
 
@@ -449,28 +447,25 @@
         closeEditorModal(); applyAllStyles();
     }
 
-    // ⚡ មុខងារគ្រប់គ្រងការតម្រឹម និងគម្លាតជួររួម
     function applyAllStyles() {
         const lh = document.getElementById('globalLineHeight').value;
         const ls = document.getElementById('globalLetterSpacing').value;
         document.getElementById('valLineHeight').innerText = lh; 
         document.getElementById('valLetterSpacing').innerText = ls + 'px';
         
-        // 1. អនុវត្តលើ Grid Layout Mode
+        // Apply Grid Elements
         document.querySelectorAll('.line-row-wrapper').forEach(w => {
             w.style.letterSpacing = ls + 'px'; 
             w.style.marginBottom = (parseFloat(lh) * 8) + "px";
-            
             const r = w.querySelector('.line-row'); 
             if(r) {
                 r.style.textAlign = textAlign;
-                // បញ្ជាទៅកាន់តួ inline-title និង inline-desc ឱ្យរត់តាមការតម្រឹម
                 const title = r.querySelector('.inline-title');
                 const desc = r.querySelector('.inline-desc');
                 if (textAlign === 'center' || textAlign === 'right') {
                     r.style.display = 'block';
                     if(title) title.style.display = 'block';
-                    if(desc) desc.style.style = 'block';
+                    if(desc) desc.style.display = 'block';
                 } else {
                     r.style.display = 'block';
                     if(title) title.style.display = 'inline-block';
@@ -479,13 +474,13 @@
             }
         });
         
-        // 2. អនុវត្តលើ Simple Layout Mode
+        // Apply Simple Layout Element
         const sBox = document.getElementById('simpleTextContainer');
         sBox.style.letterSpacing = ls + 'px'; 
         sBox.style.lineHeight = lh; 
         sBox.style.textAlign = textAlign;
         
-        // 3. អនុវត្តលើ ចំណងជើងធំ (Main Title)
+        // Apply Main Title Element
         const mTitle = document.getElementById('previewMainTitle');
         mTitle.style.letterSpacing = ls + 'px'; 
         mTitle.style.textAlign = mainTitleAlign;
