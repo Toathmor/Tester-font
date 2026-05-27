@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Font Tester Pro V3</title>
+    <title>Toathmor Studio - Font Tester Pro V3.2</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Battambang:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -44,7 +44,7 @@
         .row-setting-item { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px; width: 100%; }
         .compact-label { font-size: 11px; color: var(--text-muted); font-weight: 600; min-width: 45px; }
         .format-group { display: flex; gap: 3px; }
-        .format-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; font-size: 11px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; }
+        .format-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; font-size: 11px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .format-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
         input[type="color"] { width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; }
         input[type="range"] { cursor: pointer; }
@@ -73,7 +73,7 @@
         .editable-text { outline: none; border-radius: 4px; display: block; -webkit-user-modify: read-write-plaintext-only; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 0 2px var(--accent-color); }
         
-        .preview-main-title { width: 100%; font-weight: bold; font-size: 26px; color: #ffffff; margin-bottom: 24px; text-align: center; }
+        .preview-main-title { width: 100%; font-weight: bold; font-size: 26px; color: #ffffff; margin-bottom: 24px; text-align: center; text-decoration: none; }
         
         #linesContainer { width: 100%; display: flex; flex-direction: column; }
         .line-row-wrapper { width: 100%; }
@@ -83,7 +83,7 @@
         
         .simple-text-container { width: 100%; display: none; white-space: pre-wrap; font-size: 16px; color: #ffffff; word-break: break-word; }
         
-        /* 👁️ គ្រប់គ្រងការបង្ហាញផ្ទាំងបញ្ជា (Visibility Layout Control) */
+        /* Visibility Layout Control */
         body.mode-grid .grid-only-component { display: block; }
         body.mode-grid .simple-only-component { display: none; }
         
@@ -111,7 +111,7 @@
 
 <div class="container">
     <div class="app-header">
-        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V3</span></div>
+        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V3.2</span></div>
         <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 Dark Mode</button>
     </div>
 
@@ -129,17 +129,20 @@
 
     <div class="accordion-panel active" id="panel_mainTitle">
         <div class="accordion-header" onclick="toggleAccordion('panel_mainTitle')">
-            <div class="accordion-title-text" style="color: var(--accent-color);">👑 ម៉ូដចំណងជើងធំ (Main Title)</div>
+            <div class="accordion-title-text" style="color: var(--accent-color);">👑 ម៉ូដចំណងជើងធំ (Main Title Style)</div>
             <div><button style="padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); openMainTitleEditor()">📝 កែអត្ថបទ</button> <span class="accordion-arrow">▶</span></div>
         </div>
         <div class="accordion-content">
             <div class="font-select-grid">
-                <select id="mainTitleFont" onchange="applyMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <select id="mainTitleFont" class="font-selector" onchange="applyMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles()"><span class="val" id="lbl_mainTitleSize">28px</span>
+                
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_mainTitle" onclick="toggleMainTitleFormat('b')">B</button>
                     <button class="format-btn" id="btn_i_mainTitle" onclick="toggleMainTitleFormat('i')">I</button>
+                    <button class="format-btn" id="btn_u_mainTitle" onclick="toggleMainTitleFormat('u')"><span style="text-decoration: underline;">U</span></button>
                 </div>
+                
                 <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyMainTitleStyles()">
             </div>
         </div>
@@ -154,7 +157,7 @@
             </div>
             <textarea id="simpleTextAreaInput" class="simple-textarea-input" oninput="syncSimpleTextFromInput()"></textarea>
             <div class="row-setting-item">
-                <select id="font_simple" onchange="applySimpleTextStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <select id="font_simple" class="font-selector" onchange="applySimpleTextStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="size_simple" min="12" max="60" value="16" oninput="applySimpleTextStyles()"><span class="val" id="lbl_simpleSize">16px</span>
                 <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleTextStyles()">
             </div>
@@ -162,7 +165,6 @@
     </div>
 
     <div id="blocksManager" class="grid-only-component"></div>
-    
     <button class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរថ្មី</button>
 
     <div class="accordion-panel" id="panel_footer">
@@ -182,8 +184,9 @@
                 <button class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
             </div>
             <div class="row-setting-item">
-                <select id="font_footer" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option></select>
+                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option></select>
                 <input type="range" id="size_footer" min="10" max="40" value="12" oninput="applyFooterStyles()"><span class="val" id="lbl_footer">12px</span>
+                
                 <select id="align_footer" onchange="applyFooterStyles()"><option value="left">ឆ្វេង</option><option value="center" selected>កណ្តាល</option><option value="right">ស្តាំ</option></select>
                 <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
             </div>
@@ -193,15 +196,11 @@
     <div class="preview-wrapper">
         <div class="control-panel-box">
             <div class="control-row-slider">
-                <div class="slider-header">
-                    <span class="slider-title">↕️ គម្លាតជួរអត្ថបទ (Line Height): <span class="val" id="valLineHeight">1.8</span></span>
-                </div>
+                <div class="slider-header"><span class="slider-title">↕️ គម្លាតជួរអត្ថបទ (Line Height): <span class="val" id="valLineHeight">1.8</span></span></div>
                 <input type="range" class="big-slider" id="globalLineHeight" min="1.0" max="4.0" step="0.1" value="1.8" oninput="applyAllStyles()">
             </div>
             <div class="control-row-slider">
-                <div class="slider-header">
-                    <span class="slider-title">↔️ គម្លាតចន្លោះអក្សរ (Letter Spacing): <span class="val" id="valLetterSpacing">0px</span></span>
-                </div>
+                <div class="slider-header"><span class="slider-title">↔️ គម្លាតចន្លោះអក្សរ (Letter Spacing): <span class="val" id="valLetterSpacing">0px</span></span></div>
                 <input type="range" class="big-slider" id="globalLetterSpacing" min="-2" max="12" step="0.5" value="0" oninput="applyAllStyles()">
             </div>
 
@@ -240,7 +239,6 @@
                 <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true">សភាវធម៌ ៤ យ៉ាង</div>
                 
                 <div id="linesContainer" class="grid-only-component"></div>
-                
                 <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true">ខ្លឹមសារអត្ថបទសម្រាប់ផ្ទាំងធម្មតា...</div>
                 
                 <div class="preview-footer-zone" id="previewFooterZone">
@@ -286,7 +284,7 @@
     const textSample2 = `សភាពល្អ ៤ យ៉ាង\n\n១. ព្រះរាជសភាវៈ ៖ ព្រោះទ្រង់សរសើរពិភពជនធំ\n២. នរជនសភាវៈ ៖ ព្រោះមានប្រាជ្ញា\n៣. មិត្តអគ្គសភាវៈ ៖ ព្រោះមិនប្រទូស្តមិត្ត\n៤. សេចក្តីសុខសភាវៈ ៖ ព្រោះមិនធ្វើបាប ។`;
 
     window.onload = function() {
-        addNewLineBlock('១. ឆន្ទៈ ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ។');
+        addNewLineBlock('១. ឆន្ទៈ ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ聲');
         addNewLineBlock('២. វីរិយៈ ៖', 'ភក្តីភាព និងការគោរពវិន័យការងារឱ្យច្បាស់លាស់។');
         addNewLineBlock('៣. ចិត្តៈ ៖', 'ការយកចិត្តទុកដាក់ខ្ពស់លើរាល់ការងារដែលបានប្រគល់ជូន។');
         document.getElementById('simpleTextAreaInput').value = textSample1;
@@ -305,7 +303,6 @@
         const el = document.getElementById(id); if(!el) return;
         const open = el.classList.contains('active');
         document.querySelectorAll('.accordion-panel').forEach(p => {
-            // កុំបិទប្រអប់ Simple Text បើសិនជាស្ថិតក្នុង Simple Mode
             if(currentLayoutMode === 'simple' && p.id === 'panel_simpleText') return;
             p.classList.remove('active');
         });
@@ -317,6 +314,7 @@
         document.querySelector('.theme-toggle-btn').innerText = document.body.classList.contains('light-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
+    // 🎯 មុខងារត្រូវបានកែសម្រួលដើម្បីរុញពុម្ពអក្សរចូលតែ select ណាដែលមាន class="font-selector" ប៉ុណ្ណោះ
     function handleMultipleFontUpload(input) {
         Array.from(input.files).forEach(file => {
             const fName = file.name.split('.')[0].replace(/\s+/g, '-');
@@ -324,7 +322,9 @@
             reader.onload = function(e) {
                 new FontFace(fName, e.target.result).load().then(f => {
                     document.fonts.add(f); uploadedFonts.push(fName);
-                    document.querySelectorAll('select').forEach(s => {
+                    
+                    // ចាប់យកតែ select ណាដែលមាន class="font-selector"
+                    document.querySelectorAll('select.font-selector').forEach(s => {
                         s.appendChild(new Option(file.name, `'${fName}', sans-serif`));
                     });
                     applyAllStyles(); applyMainTitleStyles(); applySimpleTextStyles();
@@ -352,8 +352,17 @@
     }
 
     function toggleMainTitleFormat(t) {
-        const b = document.getElementById(`btn_${t}_mainTitle`); b.classList.toggle('active');
-        document.getElementById('previewMainTitle').style[t === 'b' ? 'fontWeight' : 'fontStyle'] = b.classList.contains('active') ? (t === 'b' ? '700' : 'italic') : 'normal';
+        const b = document.getElementById(`btn_${t}_mainTitle`); 
+        b.classList.toggle('active');
+        const el = document.getElementById('previewMainTitle');
+        
+        if (t === 'b') {
+            el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
+        } else if (t === 'i') {
+            el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
+        } else if (t === 'u') {
+            el.style.textDecoration = b.classList.contains('active') ? 'underline' : 'none';
+        }
     }
 
     function applySimpleTextStyles() {
@@ -378,8 +387,8 @@
                 </div>
             </div>
             <div class="accordion-content">
-                <div class="row-setting-item"><span class="compact-label">🅰️ Title:</span><select id="font_title_${id}" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})"><span class="val" id="lbl_title_${id}">20px</span><input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})"></div>
-                <div class="row-setting-item"><span class="compact-label">🔤 Body:</span><select id="font_desc_${id}" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_desc_${id}" min="10" max="60" value="16" oninput="applyLineStyles(${id})"><span class="val" id="lbl_desc_${id}">16px</span><input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})"></div>
+                <div class="row-setting-item"><span class="compact-label">🅰️ Title:</span><select id="font_title_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})"><span class="val" id="lbl_title_${id}">20px</span><input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})"></div>
+                <div class="row-setting-item"><span class="compact-label">🔤 Body:</span><select id="font_desc_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_desc_${id}" min="10" max="60" value="16" oninput="applyLineStyles(${id})"><span class="val" id="lbl_desc_${id}">16px</span><input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})"></div>
             </div>`;
         document.getElementById('blocksManager').appendChild(panel);
 
@@ -453,7 +462,6 @@
         document.getElementById('valLineHeight').innerText = lh; 
         document.getElementById('valLetterSpacing').innerText = ls + 'px';
         
-        // Apply Grid Elements
         document.querySelectorAll('.line-row-wrapper').forEach(w => {
             w.style.letterSpacing = ls + 'px'; 
             w.style.marginBottom = (parseFloat(lh) * 8) + "px";
@@ -474,13 +482,11 @@
             }
         });
         
-        // Apply Simple Layout Element
         const sBox = document.getElementById('simpleTextContainer');
         sBox.style.letterSpacing = ls + 'px'; 
         sBox.style.lineHeight = lh; 
         sBox.style.textAlign = textAlign;
         
-        // Apply Main Title Element
         const mTitle = document.getElementById('previewMainTitle');
         mTitle.style.letterSpacing = ls + 'px'; 
         mTitle.style.textAlign = mainTitleAlign;
