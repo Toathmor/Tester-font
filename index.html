@@ -3,123 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Font Tester Pro V4.5</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Battambang:wght@400;700&display=swap">
+    <title>Toathmor Studio - Premium Font Tester Studio Pro V5.5</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Siemreap&family=Noto+Serif+Khmer:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root {
-            --bg-body: #0b0f19; --bg-card: #131c2e; --text-main: #f8fafc; --text-muted: #94a3b8;
-            --border-color: #22314d; --primary-color: #3b82f6; --panel-bg: #0b0f19;
-            --accent-color: #38bdf8; --input-bg: #1e2d4a; --font-default: 'Kantumruy Pro', sans-serif;
+            --bg-body: #0a0f1d;
+            --bg-card: #151f32;
+            --bg-input: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #2e3e56;
+            --primary-color: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent-color: #38bdf8;
+            --success-color: #10b981;
+            --danger-color: #f43f5e;
+            --font-default: 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            --card-radius: 20px;
+            --inner-radius: 12px;
         }
+
         body.light-mode {
-            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a; --text-muted: #64748b;
-            --border-color: #cbd5e1; --primary-color: #2563eb; --panel-bg: #f8fafc; --input-bg: #e2e8f0;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-input: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary-color: #1d4ed8;
+            --primary-glow: rgba(29, 78, 216, 0.15);
+            --accent-color: #0284c7;
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: var(--font-default); background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 12px; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 100%; max-width: 680px; background: var(--bg-card); padding: 16px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
-        .app-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
-        .app-subtitle { font-size: 10px; color: var(--accent-color); font-weight: 700; }
-        .theme-toggle-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        
-        .upload-zone { background: linear-gradient(135deg, #1e40af, #2563eb); border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 16px; cursor: pointer; font-weight: bold; font-size: 13px; color: white; }
-        
-        /* LAYOUT SELECTOR IN PREVIEW CARD */
-        .layout-selector-box { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); border-radius: 10px; padding: 6px; margin-bottom: 4px; }
-        .layout-btn-group { display: flex; gap: 6px; }
-        .layout-btn { flex: 1; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; transition: all 0.2s; }
-        .layout-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
-        
-        /* ACCORDION PANELS */
-        .accordion-panel { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 14px; margin-bottom: 12px; overflow: hidden; }
-        .accordion-header { padding: 12px; background: rgba(255,255,255,0.02); cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
-        .accordion-title-text { font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
-        .accordion-arrow { font-size: 10px; color: var(--text-muted); transition: transform 0.2s; }
-        .accordion-content { padding: 12px; display: none; flex-direction: column; gap: 10px; border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.15); }
-        .accordion-panel.active .accordion-content { display: flex; }
-        .accordion-panel.active .accordion-arrow { transform: rotate(90deg); color: var(--accent-color); }
-        
-        .font-select-grid { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-        select { background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; font-size: 12px; outline: none; }
-        .row-setting-item { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px; width: 100%; }
-        .compact-label { font-size: 11px; color: var(--text-muted); font-weight: 600; min-width: 45px; }
-        .format-group { display: flex; gap: 3px; }
-        .format-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; font-size: 11px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .format-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
-        input[type="color"] { width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; }
-        input[type="range"] { cursor: pointer; }
 
-        .btn-add-block { background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 12px; }
-        .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; }
-        
-        /* INTEGRATED CONTROLS BAR FOR SIMPLE MODE */
-        .integrated-control-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; }
-        .control-label-tag { font-size: 11px; font-weight: bold; min-width: 75px; padding: 4px 8px; border-radius: 4px; text-align: center; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* PREVIEW SYSTEM */
-        .preview-wrapper { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column; }
-        .control-panel-box { background: var(--bg-card); padding: 14px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px; }
-        .control-row-slider { display: flex; flex-direction: column; gap: 6px; }
-        .slider-header { display: flex; justify-content: space-between; align-items: center; }
-        .slider-title { font-size: 12px; font-weight: bold; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
-        .slider-title .val { color: var(--accent-color); font-weight: 700; }
-        .big-slider { width: 100%; height: 6px; }
-        
-        /* ALIGNMENT SYSTEM */
-        .alignment-master-row { display: flex; flex-wrap: wrap; gap: 10px; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 10px; }
-        .align-block { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 4px; }
-        .align-label { font-size: 11px; font-weight: bold; color: var(--text-muted); }
-        .align-control-container { display: flex; background: var(--input-bg); border-radius: 8px; padding: 2px; border: 1px solid var(--border-color); width: 100%; }
-        .align-btn { flex: 1; background: none; border: none; color: var(--text-muted); padding: 6px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; text-align: center; }
-        .align-btn.active { background: var(--primary-color); color: white; }
+        body {
+            font-family: var(--font-default);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 24px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-        .preview-container-box { width: 100%; padding: 14px; display: flex; justify-content: center; }
-        .preview-box { padding: 28px 20px; width: 100%; border-radius: 12px; background-color: #2e5a44; position: relative; }
-        .editable-text { outline: none; border-radius: 4px; display: block; -webkit-user-modify: read-write-plaintext-only; }
-        .editable-text:focus { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 0 2px var(--accent-color); }
-        
-        .preview-main-title { width: 100%; font-size: 26px; color: #ffffff; margin-bottom: 24px; text-align: center; font-weight: normal; }
-        
-        #linesContainer { width: 100%; display: flex; flex-direction: column; }
-        .line-row-wrapper { width: 100%; }
-        .line-row { display: block; width: 100%; word-break: break-word; text-rendering: optimizeLegibility; }
-        .inline-title { margin-right: 6px; font-weight: normal; }
-        .inline-desc { font-weight: normal; }
-        
-        .simple-text-container { width: 100%; display: none; white-space: pre-wrap; font-size: 16px; color: #ffffff; word-break: break-word; text-rendering: optimizeLegibility; }
-        
-        /* LAYOUT VISIBILITY CONTROLS */
+        .container {
+            width: 100%;
+            max-width: 760px;
+            background: var(--bg-card);
+            padding: 28px;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-box h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #60a5fa, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-box span {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .upload-zone {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(56, 189, 248, 0.08));
+            border: 2px dashed var(--primary-color);
+            border-radius: var(--inner-radius);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .layout-selector-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: var(--inner-radius);
+            padding: 6px;
+            margin-bottom: 18px;
+            width: 100%;
+        }
+
+        .layout-btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .layout-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .layout-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .accordion-panel {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--inner-radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .accordion-header {
+            padding: 14px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.01);
+            user-select: none;
+        }
+
+        .accordion-title-text {
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .accordion-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .accordion-actions button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .accordion-actions button:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .accordion-arrow {
+            font-size: 10px;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .accordion-content {
+            padding: 18px;
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .accordion-panel.active .accordion-content {
+            display: flex;
+        }
+
+        .accordion-panel.active .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .flex-row-center {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .format-group {
+            display: flex;
+            gap: 2px;
+            background: var(--bg-card);
+            padding: 2px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .format-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .format-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: none;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .range-val {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-color);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        .btn-add-block {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            font-size: 13px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-delete {
+            background: rgba(244, 63, 94, 0.1);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .simple-textarea-input {
+            width: 100%;
+            height: 110px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 10px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .preview-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            margin-bottom: 24px;
+            width: 100%;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .control-panel-box {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 18px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .alignment-master-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .align-block {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .align-control-container {
+            display: flex;
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 2px;
+            border: 1px solid var(--border-color);
+        }
+
+        .align-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 7px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .align-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .preview-container-box {
+            width: 100%;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.04);
+        }
+
+        .preview-box {
+            padding: 40px 35px;
+            width: 100%;
+            border-radius: 14px;
+            background-color: #14532d;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            display: grid;
+            grid-template-rows: auto 1fr auto; 
+            row-gap: 24px;
+            min-height: 400px;
+        }
+
+        .editable-text {
+            outline: none;
+            border-radius: 4px;
+        }
+
+        .editable-text:focus {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        .preview-main-title {
+            width: 100%;
+            font-weight: 700;
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.4;
+            grid-row: 1;
+        }
+
+        .canvas-middle-content-area {
+            grid-row: 2;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #linesContainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .line-row-wrapper {
+            width: 100%;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .line-row {
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            line-height: 1.6;
+            white-space: normal;
+        }
+
+        .inline-title {
+            font-weight: 700;
+            margin-right: 6px;
+            display: inline-block;
+        }
+
+        .inline-desc {
+            font-weight: 400;
+            display: inline;
+        }
+
+        .simple-text-container {
+            width: 100%;
+            white-space: pre-wrap;
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+
+        .preview-footer-zone {
+            grid-row: 3;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(255, 255, 255, 0.25); 
+            width: 100%;
+            box-sizing: border-box;
+            contain: layout style; 
+        }
+
+        .footer-render-block {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .preview-footer-logo {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-bottom: 6px;
+            max-width: 120px;
+            height: auto;
+        }
+
+        .preview-footer-text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.3;
+        }
+
+        /* បង្ហាញនិងលាក់ទៅតាមផ្ទាំងនីមួយៗ */
         body.mode-grid .grid-only-component { display: block; }
+        body.mode-grid .grid-title-view { display: block; }
         body.mode-grid .simple-only-component { display: none !important; }
+        body.mode-grid .simple-title-view { display: none !important; }
+
         body.mode-simple .grid-only-component { display: none !important; }
+        body.mode-simple .grid-title-view { display: none !important; }
         body.mode-simple .simple-only-component { display: block !important; }
-        
-        .preview-footer-zone { margin-top: 28px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; }
-        .footer-flex-container { display: flex; align-items: center; gap: 8px; width: 100%; }
-        .preview-footer-logo { display: none; object-fit: contain; }
-        .preview-footer-text { font-size: 12px; flex: 1; }
-        
-        .action-group { display: flex; gap: 10px; width: 100%; }
-        .action-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 13px; color: white; }
-        .simple-textarea-input { width: 100%; height: 160px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px; border-radius: 10px; outline: none; font-family: inherit; font-size: 14px; resize: vertical; margin: 8px 0; line-height: 1.5; }
-        
-        /* Modal Editor */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
-        .modal-content { background: var(--bg-card); width: 100%; max-width: 500px; border-radius: 16px; border: 1px solid var(--border-color); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .modal-input { width: 100%; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; outline: none; }
-        .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
-        .modal-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+        body.mode-simple .simple-title-view { display: block !important; }
+
+        .action-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 480px;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="mode-grid">
 
 <div class="container">
     <div class="app-header">
-        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V4.5</span></div>
-        <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 Dark Mode</button>
+        <div class="brand-box">
+            <h1>TOATHMOR STUDIO</h1>
+            <span>Premium Font Tester Studio Pro</span>
+        </div>
+        <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 របៀបងងឹត</button>
     </div>
 
     <div class="upload-zone" onclick="document.getElementById('fontUploader').click()">
@@ -127,114 +663,194 @@
         <input type="file" id="fontUploader" accept=".ttf,.otf,.woff" multiple style="display: none;" onchange="handleMultipleFontUpload(this)">
     </div>
 
-    <div class="accordion-panel active grid-only-component" id="panel_mainTitle">
-        <div class="accordion-header" onclick="toggleAccordion('panel_mainTitle')">
-            <div class="accordion-title-text" style="color: var(--accent-color);">👑 ម៉ូដចំណងជើងធំ (Main Title Style)</div>
-            <div><button style="padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); openMainTitleEditor()">📝 កែអត្ថបទ</button> <span class="accordion-arrow">▶</span></div>
+    <div class="accordion-panel active grid-only-component" id="panel_gridWorkspace">
+        <div class="accordion-header" style="background: rgba(255,255,255,0.02);">
+            <div class="accordion-title-text" style="color: var(--primary-color);">🔲 ខ្លឹមសារផ្ទាំងឆ្លាស់គ្នា (Grid Workspace Settings)</div>
         </div>
-        <div class="accordion-content">
-            <div class="font-select-grid">
-                <select id="mainTitleFont" class="font-selector" onchange="applyGridMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
-                <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyGridMainTitleStyles()"><span class="val" id="lbl_mainTitleSize">28px</span>
-                <div class="format-group">
-                    <button class="format-btn" id="btn_b_mainTitle" onclick="toggleGridMainTitleFormat('b')">B</button>
-                    <button class="format-btn" id="btn_i_mainTitle" onclick="toggleGridMainTitleFormat('i')">I</button>
-                    <button class="format-btn" id="btn_u_mainTitle" onclick="toggleGridMainTitleFormat('u')">U</button>
+        <div class="accordion-content" style="display: flex; background: transparent;">
+            <div class="control-grid" style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: var(--inner-radius); border: 1px solid var(--border-color);">
+                <div class="control-item">
+                    <span class="control-label">ពុម្ពអក្សរចំណងជើង Grid</span>
+                    <select id="gridTitleFont" class="font-selector" onchange="applyMainTitleStyles(true)">
+                        <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
+                        <option value="'Siemreap', sans-serif">Siemreap</option>
+                        <option value="'Noto Serif Khmer', serif">Noto Serif Khmer</option>
+                    </select>
                 </div>
-                <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyGridMainTitleStyles()">
+                <div class="control-item">
+                    <span class="control-label">ទំហំចំណងជើង Grid</span>
+                    <div class="range-container">
+                        <input type="range" id="gridTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles(false)">
+                        <span class="range-val" id="lbl_gridTitleSize">28px</span>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <span class="control-label">ទម្រង់ & ពណ៌</span>
+                    <div class="flex-row-center">
+                        <div class="format-group">
+                            <button type="button" class="format-btn" id="btn_b_gridTitle" onclick="toggleMainTitleFormat('b')">B</button>
+                            <button type="button" class="format-btn" id="btn_i_gridTitle" onclick="toggleMainTitleFormat('i')">I</button>
+                            <button type="button" class="format-btn" id="btn_u_gridTitle" onclick="toggleMainTitleFormat('u')">U</button>
+                        </div>
+                        <input type="color" id="gridTitleColor" value="#ffffff" oninput="applyMainTitleStyles(false)">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="accordion-panel active simple-only-component" id="panel_simpleWorkspace">
-        <div class="accordion-header" style="cursor: default; background: rgba(56, 189, 248, 0.05);">
-            <div class="accordion-title-text" style="color: #38bdf8;">📝 ម៉ូដចំណងជើងធំ (Main Title Style)</div>
-            <button style="padding:4px 8px; font-size:11px;" onclick="openMainTitleEditor()">👑 កែចំណងជើងធំ</button>
+        <div class="accordion-header" style="background: rgba(255,255,255,0.02);">
+            <div class="accordion-title-text" style="color: var(--accent-color);">📄 ខ្លឹមសារផ្ទាំងធម្មតា (Simple Workspace Settings)</div>
         </div>
-        <div class="accordion-content" style="display: flex; padding: 12px; gap: 10px;">
-            
-            <div class="integrated-control-row">
-                <span class="control-label-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">👑 ចំណងជើង</span>
-                <select id="simpleMainTitleFont" class="font-selector" onchange="applySimpleMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
-                <input type="range" id="simpleMainTitleSize" min="14" max="80" value="28" oninput="applySimpleMainTitleStyles()">
-                <span class="val" id="lbl_simpleMainTitleSize" style="font-weight:bold; color:var(--accent-color); min-width:32px;">28px</span>
-                <div class="format-group">
-                    <button class="format-btn" id="btn_b_simpleMain" onclick="toggleSimpleMainTitleFormat('b')">B</button>
-                    <button class="format-btn" id="btn_i_simpleMain" onclick="toggleSimpleMainTitleFormat('i')">I</button>
-                    <button class="format-btn" id="btn_u_simpleMain" onclick="toggleSimpleMainTitleFormat('u')">U</button>
+        <div class="accordion-content" style="display: flex; background: transparent;">
+            <div class="control-grid" style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: var(--inner-radius); border: 1px solid var(--border-color); margin-bottom: 12px;">
+                <div class="control-item">
+                    <span class="control-label">ពុម្ពអក្សរចំណងជើង Simple</span>
+                    <select id="simpleTitleFont" class="font-selector" onchange="applyMainTitleStyles(true)">
+                        <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
+                        <option value="'Siemreap', sans-serif">Siemreap</option>
+                        <option value="'Noto Serif Khmer', serif">Noto Serif Khmer</option>
+                    </select>
                 </div>
-                <input type="color" id="simpleMainTitleColor" value="#ffffff" oninput="applySimpleMainTitleStyles()">
+                <div class="control-item">
+                    <span class="control-label">ទំហំចំណងជើង Simple</span>
+                    <div class="range-container">
+                        <input type="range" id="simpleTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles(false)">
+                        <span class="range-val" id="lbl_simpleTitleSize">28px</span>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <span class="control-label">ទម្រង់ & ពណ៌</span>
+                    <div class="flex-row-center">
+                        <div class="format-group">
+                            <button type="button" class="format-btn" id="btn_b_simpleTitle" onclick="toggleMainTitleFormat('b')">B</button>
+                            <button type="button" class="format-btn" id="btn_i_simpleTitle" onclick="toggleMainTitleFormat('i')">I</button>
+                            <button type="button" class="format-btn" id="btn_u_simpleTitle" onclick="toggleMainTitleFormat('u')">U</button>
+                        </div>
+                        <input type="color" id="simpleTitleColor" value="#ffffff" oninput="applyMainTitleStyles(false)">
+                    </div>
+                </div>
             </div>
 
-            <textarea id="simpleTextAreaInput" class="simple-textarea-input" placeholder="សូមវាយបញ្ចូលអត្ថបទនៅទីនេះ..." oninput="syncSimpleTextFromInput()"></textarea>
-
-            <div class="integrated-control-row" style="background: rgba(16, 185, 129, 0.03); border-color: rgba(16, 185, 129, 0.2);">
-                <span class="control-label-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔤 តួអត្ថបទ</span>
-                <select id="font_simple" class="font-selector" onchange="applySimpleBodyStyles()">
-                    <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
-                    <option value="'Battambang', sans-serif">Battambang</option>
-                </select>
-                <input type="range" id="size_simple" min="10" max="70" value="16" oninput="applySimpleBodyStyles()">
-                <span class="val" id="lbl_simpleSize" style="font-weight: bold; color: #10b981; min-width:32px;">16px</span>
-                <div class="format-group">
-                    <button class="format-btn" id="btn_b_simple" onclick="toggleSimpleBodyFormat('b')">B</button>
-                    <button class="format-btn" id="btn_i_simple" onclick="toggleSimpleBodyFormat('i')">I</button>
-                    <button class="format-btn" id="btn_u_simple" onclick="toggleSimpleBodyFormat('u')">U</button>
+            <div class="control-item" style="width: 100%;">
+                <span class="control-label">វាយបញ្ចូលអត្ថបទតួសេចក្តី (Simple Body Text)</span>
+                <textarea id="simpleTextAreaInput" class="simple-textarea-input" placeholder="សូមបញ្ចូលអត្ថបទរបស់អ្នកទីនេះ..." oninput="syncSimpleTextFromInput()"></textarea>
+                
+                <div class="control-grid" style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: var(--inner-radius); border: 1px solid var(--border-color); margin-top: 10px;">
+                    <div class="control-item">
+                        <span class="control-label">ពុម្ពអក្សរតួសេចក្តី</span>
+                        <select id="font_simple" class="font-selector" onchange="applySimpleBodyStyles(true)">
+                            <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
+                            <option value="'Siemreap', sans-serif">Siemreap</option>
+                            <option value="'Noto Serif Khmer', serif">Noto Serif Khmer</option>
+                        </select>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-label">ទំហំតួសេចក្តី</span>
+                        <div class="range-container">
+                            <input type="range" id="size_simple" min="10" max="70" value="16" oninput="applySimpleBodyStyles(false)">
+                            <span class="range-val" id="lbl_simpleSize">16px</span>
+                        </div>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-label">ទម្រង់ & ពណ៌</span>
+                        <div class="flex-row-center">
+                            <div class="format-group">
+                                <button type="button" class="format-btn" id="btn_b_simple" onclick="toggleSimpleBodyFormat('b')">B</button>
+                                <button type="button" class="format-btn" id="btn_i_simple" onclick="toggleSimpleBodyFormat('i')">I</button>
+                                <button type="button" class="format-btn" id="btn_u_simple" onclick="toggleSimpleBodyFormat('u')">U</button>
+                            </div>
+                            <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleBodyStyles(false)">
+                        </div>
+                    </div>
                 </div>
-                <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleBodyStyles()">
             </div>
         </div>
     </div>
 
     <div id="blocksManager" class="grid-only-component"></div>
-    <button class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរថ្មី</button>
+    <button type="button" class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរឆ្លាស់គ្នាថ្មី</button>
 
     <div class="accordion-panel" id="panel_footer">
         <div class="accordion-header" onclick="toggleAccordion('panel_footer')">
-            <div class="accordion-title-text" style="color: #eab308;">ℹ️ ជួរក្រោមគេបង្អស់ (Footer Row)</div>
-            <div>
-                <button style="padding:2px 6px; font-size:11px;" onclick="event.stopPropagation(); document.getElementById('logoUploader').click()">🖼️ ឡូហ្គូ</button>
+            <div class="accordion-title-text" style="color: #eab308;">ℹ️ ជួរខាងក្រោមបង្អស់ (Footer Row)</div>
+            <div class="accordion-actions">
+                <button type="button" onclick="event.stopPropagation(); document.getElementById('logoUploader').click()">🖼️ បញ្ចូលឡូហ្គូ</button>
                 <input type="file" id="logoUploader" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
-                <button style="padding:2px 6px; font-size:11px;" onclick="event.stopPropagation(); openFooterEditor()">📝 កែអត្ថបទ</button>
-                <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()">
+                <button type="button" onclick="event.stopPropagation(); openFooterEditor()">📝 កែអត្ថបទ Footer</button>
+                <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()" style="width:16px; height:16px; margin-left:4px; cursor:pointer;">
                 <span class="accordion-arrow">▶</span>
             </div>
         </div>
         <div class="accordion-content">
-            <div class="row-setting-item" id="logoControlRow" style="display: none;">
-                <input type="range" id="logoSizeSlider" min="10" max="120" value="30" oninput="applyFooterStyles()"><span class="val" id="lbl_logoSize">30px</span>
-                <button class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
+            <div class="control-grid" id="logoControlRow" style="display: none; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px;">
+                <div class="control-item">
+                    <span class="control-label">ទំហំឡូហ្គូ (Logo Brand Size)</span>
+                    <div class="range-container">
+                        <input type="range" id="logoSizeSlider" min="10" max="180" value="45" oninput="applyFooterStyles(false)">
+                        <span class="range-val" id="lbl_logoSize">45px</span>
+                    </div>
+                </div>
+                <div class="control-item" style="justify-content: flex-end; align-items: flex-end;">
+                    <button type="button" class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
+                </div>
             </div>
-            <div class="row-setting-item">
-                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
-                <input type="range" id="size_footer" min="10" max="40" value="12" oninput="applyFooterStyles()"><span class="val" id="lbl_footer">12px</span>
-                <select id="align_footer" onchange="applyFooterStyles()"><option value="left">ឆ្វេង</option><option value="center" selected>កណ្តាល</option><option value="right">ស្តាំ</option></select>
-                <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
+
+            <div class="control-grid">
+                <div class="control-item">
+                    <span class="control-label">ពុម្ពអក្សរ Footer</span>
+                    <select id="font_footer" class="font-selector" onchange="applyFooterStyles(true)">
+                        <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
+                        <option value="'Siemreap', sans-serif">Siemreap</option>
+                        <option value="'Noto Serif Khmer', serif">Noto Serif Khmer</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <span class="control-label">ទំហំអក្សរ Footer</span>
+                    <div class="range-container">
+                        <input type="range" id="size_footer" min="8" max="40" value="12" oninput="applyFooterStyles(false)">
+                        <span class="range-val" id="lbl_footer">12px</span>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <span class="control-label">ការតម្រឹម និងពណ៌</span>
+                    <div class="flex-row-center">
+                        <select id="align_footer" onchange="applyFooterStyles(false)" style="padding: 8px 10px;">
+                            <option value="left">ឆ្វេង</option>
+                            <option value="center" selected>កណ្តាល</option>
+                            <option value="right">ស្តាំ</option>
+                        </select>
+                        <input type="color" id="color_footer" value="#94a3b8" oninput="applyFooterStyles(false)">
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="layout-selector-box">
+        <div class="layout-btn-group">
+            <button type="button" class="layout-btn active" id="btnLayoutGrid" onclick="switchLayoutMode('grid')">🔲 ផ្ទាំងឆ្លាស់គ្នា (Grid Layout)</button>
+            <button type="button" class="layout-btn" id="btnLayoutSimple" onclick="switchLayoutMode('simple')">📄 ផ្ទាំងធម្មតា (Simple Text)</button>
         </div>
     </div>
 
     <div class="preview-wrapper">
         <div class="control-panel-box">
-            <div class="layout-selector-box">
-                <div class="layout-btn-group">
-                    <button class="layout-btn active" id="btnLayoutGrid" onclick="switchLayoutMode('grid')">🔲 ផ្ទាំងឆ្លាស់គ្នា (Grid)</button>
-                    <button class="layout-btn" id="btnLayoutSimple" onclick="switchLayoutMode('simple')">📄 ផ្ទាំងធម្មតា (Simple)</button>
+            <div class="control-grid" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="control-item">
+                    <span class="control-label">↕️ គម្លាតជួរអត្ថបទ (Line Height): <span id="valLineHeight" style="color:var(--accent-color); font-weight:700;">1.8</span></span>
+                    <input type="range" id="globalLineHeight" min="1.0" max="4.0" step="0.1" value="1.8" oninput="applyAllStyles()">
                 </div>
-            </div>
-
-            <div class="control-row-slider">
-                <div class="slider-header"><span class="slider-title">↕️ គម្លាតជួរអត្ថបទ (Line Height): <span class="val" id="valLineHeight">1.8</span></span></div>
-                <input type="range" class="big-slider" id="globalLineHeight" min="1.0" max="4.0" step="0.1" value="1.8" oninput="applyAllStyles()">
-            </div>
-            <div class="control-row-slider">
-                <div class="slider-header"><span class="slider-title">↔️ គម្លាតចន្លោះអក្សរ (Letter Spacing): <span class="val" id="valLetterSpacing">0px</span></span></div>
-                <input type="range" class="big-slider" id="globalLetterSpacing" min="-2" max="15" step="0.5" value="0" oninput="applyAllStyles()">
+                <div class="control-item">
+                    <span class="control-label">↔️ គម្លាតចន្លោះអក្សរ (Letter Spacing): <span id="valLetterSpacing" style="color:var(--accent-color); font-weight:700;">0px</span></span>
+                    <input type="range" id="globalLetterSpacing" min="-2" max="15" step="0.5" value="0" oninput="applyAllStyles()">
+                </div>
             </div>
 
             <div class="alignment-master-row">
                 <div class="align-block">
-                    <span class="align-label">👑 តម្រឹមចំណងជើងធំ:</span>
+                    <span class="control-label">👑 តម្រឹមចំណងជើងធំ (Title Alignment):</span>
                     <div class="align-control-container">
                         <button type="button" class="align-btn" id="btnMainLeft" onclick="setMainTitleAlign('left')">ឆ្វេង</button>
                         <button type="button" class="align-btn active" id="btnMainCenter" onclick="setMainTitleAlign('center')">កណ្ដាល</button>
@@ -242,7 +858,7 @@
                     </div>
                 </div>
                 <div class="align-block">
-                    <span class="align-label">📝 តម្រឹមតួអត្ថបទ (Body):</span>
+                    <span class="control-label">📝 តម្រឹមតួអត្ថបទ (Body Alignment):</span>
                     <div class="align-control-container">
                         <button type="button" class="align-btn active" id="btnLeft" onclick="setAlign('left')">ឆ្វេង</button>
                         <button type="button" class="align-btn" id="btnCenter" onclick="setAlign('center')">កណ្ដាល</button>
@@ -252,27 +868,33 @@
             </div>
         </div>
 
-        <div style="padding: 10px 14px; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
-            <span style="font-size: 11px; color: var(--text-muted); font-weight: bold;">🎨 ពណ៌ផ្ទៃក្រោយផ្ទាំងគំនូរ:</span>
+        <div style="padding: 12px 18px; background: rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); font-family:inherit;">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: bold;">🎨 ពណ៌ផ្ទៃខាងក្រោយផ្ទាំងគំនូរ (Canvas Board Backdrop):</span>
             <div style="display:flex; gap:8px; align-items: center;">
-                <div style="width:22px; height:22px; background:#ffffff; border-radius:50%; border:1px solid #ddd; cursor:pointer;" onclick="setCanvasBg('#ffffff')"></div>
-                <div style="width:22px; height:22px; background:#0b0f19; border-radius:50%; cursor:pointer;" onclick="setCanvasBg('#0b0f19')"></div>
-                <div style="width:22px; height:22px; background:#2e5a44; border-radius:50%; cursor:pointer;" onclick="setCanvasBg('#2e5a44')"></div>
-                <input type="color" id="customBgColor" value="#2e5a44" oninput="setCanvasBg(this.value)">
+                <div style="width:24px; height:24px; background:#ffffff; border-radius:50%; border:1px solid #ddd; cursor:pointer;" onclick="setCanvasBg('#ffffff')"></div>
+                <div style="width:24px; height:24px; background:#0f172a; border-radius:50%; cursor:pointer;" onclick="setCanvasBg('#0f172a')"></div>
+                <div style="width:24px; height:24px; background:#1e3a8a; border-radius:50%; cursor:pointer;" onclick="setCanvasBg('#1e3a8a')"></div>
+                <div style="width:24px; height:24px; background:#14532d; border-radius:50%; cursor:pointer;" onclick="setCanvasBg('#14532d')"></div>
+                <input type="color" id="customBgColor" value="#14532d" oninput="setCanvasBg(this.value)">
             </div>
         </div>
 
         <div class="preview-container-box">
-            <div class="preview-box" id="previewBox">
-                <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true" oninput="storeDirectTypingTitle()">ត្រៃកូដធម៌ ៤ យ៉ាង</div>
+            <div class="preview-box" id="previewBox" style="background-color: #14532d;">
                 
-                <div id="linesContainer" class="grid-only-component"></div>
-                <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true" oninput="storeDirectTypingSimpleBody()"></div>
+                <div class="preview-main-title editable-text grid-title-view" id="previewGridTitle" contenteditable="true" oninput="storeDirectTypingTitle()">គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ</div>
+                
+                <div class="preview-main-title editable-text simple-title-view" id="previewSimpleTitle" contenteditable="true" oninput="storeDirectTypingTitle()">របៀបបង្កើតក្តីសុខឱ្យខ្លួនឯង</div>
+                
+                <div class="canvas-middle-content-area">
+                    <div id="linesContainer" class="grid-only-component"></div>
+                    <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true" oninput="storeDirectTypingSimpleBody()"></div>
+                </div>
                 
                 <div class="preview-footer-zone" id="previewFooterZone">
-                    <div class="footer-flex-container" id="footerFlexContainer" style="justify-content: center;">
-                        <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Logo">
-                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦</div>
+                    <div class="footer-render-block" id="footerRenderBlock">
+                        <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Brand Logo" style="display: none;">
+                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio</div>
                     </div>
                 </div>
             </div>
@@ -280,44 +902,55 @@
     </div>
 
     <div class="action-group">
-        <button class="action-btn" style="background:#2563eb;" onclick="exportAsImage()">🖼️ រក្សារូបភាព (PNG)</button>
-        <button class="action-btn" style="background:#475569;" onclick="exportAsPDF()">📄 ទាញយកឯកសារ PDF</button>
+        <button type="button" class="action-btn" style="background:#2563eb;" onclick="exportAsImage()">🖼️ រក្សារូបភាព (PNG High-Res)</button>
+        <button type="button" class="action-btn" style="background:#4b5563;" onclick="exportAsPDF()">📄 ទាញយកឯកសារ PDF</button>
     </div>
 </div>
 
 <div class="modal-overlay" id="editorModal">
     <div class="modal-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
-            <span id="modalTitleText" style="font-weight:bold; font-size:14px;">📝 កែសម្រួលអត្ថបទ</span>
-            <span style="cursor:pointer; font-weight:bold;" onclick="closeEditorModal()">✕</span>
+        <div class="modal-header">
+            <span id="modalTitleText" style="font-weight:700; font-size:14px;">📝 កែសម្រួលខ្លឹមសារអត្ថបទ</span>
+            <span style="cursor:pointer; font-weight:700;" onclick="closeEditorModal()">✕</span>
         </div>
-        <input type="hidden" id="currentEditId"><input type="hidden" id="currentEditTarget">
+        <input type="hidden" id="currentEditId">
+        <input type="hidden" id="currentEditTarget">
         <div id="modalTitleArea">
-            <span style="font-size:12px; color:var(--text-muted); font-weight:bold;">ចំណងជើងរង (Title):</span>
-            <input type="text" id="modalTitleInput" class="modal-input" style="margin-top:4px; margin-bottom:8px;">
+            <span style="font-size:11px; color:var(--text-muted); font-weight:700;">ចំណងជើងរង (Sub-Title):</span>
+            <input type="text" id="modalTitleInput" style="margin-top:4px; margin-bottom:8px;">
         </div>
-        <span style="font-size:12px; color:var(--text-muted); font-weight:bold;">ខ្លឹមសារលម្អិត (Body):</span>
-        <textarea id="modalDescInput" class="modal-input" style="height:120px; resize:none; margin-top:4px;"></textarea>
+        <div>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:700;">ខ្លឹមសារពិពណ៌នា:</span>
+            <textarea id="modalDescInput" class="simple-textarea-input" style="height:100px; margin-top:4px CONTAINER;"></textarea>
+        </div>
         <div class="modal-actions">
-            <button class="modal-btn" style="background:#475569; color:white;" onclick="closeEditorModal()">បោះបង់</button>
-            <button class="modal-btn" style="background:#10b981; color:white;" onclick="saveEditorContent()">រក្សាទុក</button>
+            <button type="button" class="modal-btn" style="background:var(--bg-input); color:var(--text-main);" onclick="closeEditorModal()">បោះបង់</button>
+            <button type="button" class="modal-btn" style="background:var(--primary-color); color:white;" onclick="saveEditorContent()">រក្សាទុក</button>
         </div>
     </div>
 </div>
 
 <script>
-    // 🧠 🛠️ DATA STORAGE SYSTEMS (INDEPENDENT DATA SEPARATION)
+    // រក្សាទុកទិន្នន័យចំណងជើង ពណ៌ ទំហំ និងទម្រង់ដាច់ដោយឡែកពីគ្នា
     const storageData = {
         grid: {
-            mainTitle: "ត្រៃកូដធម៌ ៣ យ៉ាង",
-            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦",
+            mainTitle: "គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ",
+            titleFont: "'Kantumruy Pro', sans-serif",
+            titleSize: "28",
+            titleColor: "#ffffff",
+            titleB: false, titleI: false, titleU: false,
+            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio",
             textAlign: "left",
             mainTitleAlign: "center"
         },
         simple: {
-            mainTitle: "ឥទ្ធិបាទធម៌ ៤ ប្រការ",
-            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦",
-            bodyText: `១. ឆន្ទៈ ៖ បំណង\n២. វីរិយៈ ៖ ព្យាយាម ការខិតខំ\n៣. ចិត្តៈ ៖ គំនិត (ចេះតែរស់រវើក)\n៤. វីមំសា ៖ ការពិចារណា, ល្បងមើល, ពិសោធមើល, ប្រឡង។`,
+            mainTitle: "របៀបបង្កើតក្តីសុខឱ្យខ្លួនឯង",
+            titleFont: "'Kantumruy Pro', sans-serif",
+            titleSize: "28",
+            titleColor: "#ffffff",
+            titleB: false, titleI: false, titleU: false,
+            footerText: "Toathmor Studio • សម្រង់អត្ថបទអប់រំចិត្ត",
+            bodyText: `ការបង្កើតក្តីសុខឱ្យខ្លួនឯងមិនមែនជារឿងពិបាកនោះទេ វាចាប់ផ្តើមចេញពីចំណុចតូចៗ និងការផ្លាស់ប្តូរការគិតរបស់យើង៖\n\n១. រៀនព្រលែងចោលនូវរឿងរ៉ាវអតីតកាលដែលមិនអាចកែប្រែបាន ហើយផ្តោតលើបច្ចុប្បន្នភាព។\n២. បញ្ឈប់ការប្រៀបធៀបជីវិតខ្លួនឯងទៅនឹងអ្នកដទៃ ព្រោះគ្រប់គ្នាសុទ្ធតែមានផ្លូវដើររៀងៗខ្លួន។\n៣. ចំណាយពេលធ្វើអ្វីដែលខ្លួនស្រឡាញ់ ទោះបីជាការអានសៀវភៅ ស្ដាប់តន្ត្រី ឬដើរកម្សាន្ត។\n៤. ស្គាល់ពីតម្លៃខ្លួនឯង និងរៀនអរគុណចំពោះអ្វីៗគ្រប់យ៉ាងដែលខ្លួនមាននៅពេលបច្ចុប្បន្ន។\n៥. ជុំវិញខ្លួនដោយមនុស្សវិជ្ជមាន ដែលតែងតែផ្តល់កម្លាំងចិត្ត និងក្តីស្រឡាញ់ដ៏ពិតប្រាកដ។`,
             textAlign: "left",
             mainTitleAlign: "center"
         }
@@ -325,68 +958,93 @@
 
     let blockCount = 0;
     let uploadedFonts = [];
-    let currentLayoutMode = 'grid'; // 'grid' ឬ 'simple'
+    let currentLayoutMode = 'grid'; 
 
     window.onload = function() {
-        // បង្កើតកោសិកាគំរូសម្រាប់ Grid Mode
-        addNewLineBlock('១. ខន្តី ៖', 'សេចក្ដីអត់ធន់');
-        addNewLineBlock('២. សច្ច ៖', 'ទៀងត្រង់ រក្សាពាក្យពិត');
-        addNewLineBlock('៣. កតញ្ញូ ៖', 'សេចក្ដីដឹងគុណ។');
+        // បង្កើត Block គំរូសម្រាប់ Grid Layout
+        addNewLineBlock('១. ការយល់ដឹងពីមូលដ្ឋានគ្រឹះ ៖', 'ត្រូវយល់ដឹងពីទ្រឹស្តីពណ៌ គម្លាត និងរបៀបរៀបចំរចនាសម្ព័ន្ធអត្ថបទឱ្យមានរបៀបរៀបរយ។');
+        addNewLineBlock('២. អភិវឌ្ឍជំនាញជានិច្ច ៖', 'រៀនសូត្រពីបច្ចេកវិទ្យាថ្មីៗ និងការវិវត្តនៃ Trend រចនាជារៀងរាល់ថ្ងៃដើម្បីកុំឱ្យដើរក្រោយគេ។');
+        addNewLineBlock('៣. ស្តាប់មតិស្ថាបនា ៖', 'បើកចិត្តទទួលយកការរិះគន់ដើម្បីកែលម្អ និងពង្រឹងគុណភាពការងារឱ្យកាន់តែប្រសើរឡើង។');
+        addNewLineBlock('៤. បង្កើតអត្តសញ្ញាណផ្ទាល់ខ្លួន ៖', 'ស្វែងរក Style ផ្ទាល់ខ្លួនដែលធ្វើឱ្យស្នាដៃរបស់អ្នកប្លែក និងងាយចំណាំក្នុងចំណោមអ្នកដទៃ។');
         
-        // បញ្ចូលទិន្នន័យគំរូទៅក្នុង Simple Textarea Input
         document.getElementById('simpleTextAreaInput').value = storageData.simple.bodyText;
-        
-        // ចាប់ផ្តើមដំណើរការ Refresh Layout ដើមដំបូង
         refreshViewFromStorage();
-        setCanvasBg('#2e5a44');
+        setCanvasBg('#14532d');
     };
 
-    // 🔄 មុខងារប្តូរ Layout ឆ្លាតវៃ (ទិន្នន័យមិនជាន់គ្នា)
     function switchLayoutMode(mode) {
         currentLayoutMode = mode;
         document.body.className = mode === 'simple' ? 'mode-simple' : 'mode-grid';
         document.getElementById('btnLayoutSimple').classList.toggle('active', mode === 'simple');
         document.getElementById('btnLayoutGrid').classList.toggle('active', mode === 'grid');
         
-        // ហៅទិន្នន័យដែលបានរក្សាទុកតាម mode នីមួយៗមកបង្ហាញឡើងវិញ
+        const linesCont = document.getElementById('linesContainer');
+        const simpleCont = document.getElementById('simpleTextContainer');
+        
+        if (mode === 'simple') {
+            linesCont.style.display = 'none';
+            simpleCont.style.display = 'block';
+        } else {
+            linesCont.style.display = 'flex';
+            simpleCont.style.display = 'none';
+        }
+        
         refreshViewFromStorage();
     }
 
-    // 🔄 ដំណើរការទាញទិន្នន័យពី Storage មកបង្ហាញលើ UI ជាក់ស្តែង
     function refreshViewFromStorage() {
-        const titleEl = document.getElementById('previewMainTitle');
+        const gridTitleEl = document.getElementById('previewGridTitle');
+        const simpleTitleEl = document.getElementById('previewSimpleTitle');
         const footerEl = document.getElementById('previewFooterText');
         
+        // សមស្របទៅតាមរបៀប Layout នីមួយៗ
         if (currentLayoutMode === 'grid') {
-            titleEl.innerText = storageData.grid.mainTitle;
+            gridTitleEl.innerText = storageData.grid.mainTitle;
             footerEl.innerText = storageData.grid.footerText;
             
+            document.getElementById('gridTitleFont').value = storageData.grid.titleFont;
+            document.getElementById('gridTitleSize').value = storageData.grid.titleSize;
+            document.getElementById('gridTitleColor').value = storageData.grid.titleColor;
+            
             setActiveAlignButtons(storageData.grid.mainTitleAlign, storageData.grid.textAlign);
-            applyGridMainTitleStyles();
         } else {
-            titleEl.innerText = storageData.simple.mainTitle;
+            simpleTitleEl.innerText = storageData.simple.mainTitle;
             footerEl.innerText = storageData.simple.footerText;
             document.getElementById('simpleTextContainer').innerText = storageData.simple.bodyText;
             
+            document.getElementById('simpleTitleFont').value = storageData.simple.titleFont;
+            document.getElementById('simpleTitleSize').value = storageData.simple.titleSize;
+            document.getElementById('simpleTitleColor').value = storageData.simple.titleColor;
+            
             setActiveAlignButtons(storageData.simple.mainTitleAlign, storageData.simple.textAlign);
-            applySimpleMainTitleStyles();
-            applySimpleBodyStyles();
+            
+            const currentFont = document.getElementById('font_simple').value;
+            const currentSize = document.getElementById('size_simple').value;
+            const currentColor = document.getElementById('color_simple').value;
+            
+            const el = document.getElementById('simpleTextContainer');
+            el.style.fontFamily = currentFont;
+            el.style.fontSize = currentSize + 'px';
+            el.style.color = currentColor;
         }
-        applyFooterStyles();
+        
+        applyMainTitleStyles(false);
+        applyFooterStyles(false);
         applyAllStyles();
+        syncFormatButtonStates();
     }
 
-    // ✍️ តាមដានការលួចវាយអត្ថបទផ្ទាល់នៅលើផ្ទាំង Preview Box (Direct Inline Typing)
     function storeDirectTypingTitle() {
-        const val = document.getElementById('previewMainTitle').innerText;
-        if (currentLayoutMode === 'grid') { storageData.grid.mainTitle = val; } 
-        else { storageData.simple.mainTitle = val; }
+        if (currentLayoutMode === 'grid') { 
+            storageData.grid.mainTitle = document.getElementById('previewGridTitle').innerText; 
+        } else { 
+            storageData.simple.mainTitle = document.getElementById('previewSimpleTitle').innerText; 
+        }
     }
 
     function storeDirectTypingFooter() {
         const val = document.getElementById('previewFooterText').innerText;
-        if (currentLayoutMode === 'grid') { storageData.grid.footerText = val; } 
-        else { storageData.simple.footerText = val; }
+        if (currentLayoutMode === 'grid') { storageData.grid.footerText = val; } else { storageData.simple.footerText = val; }
     }
 
     function storeDirectTypingSimpleBody() {
@@ -397,7 +1055,6 @@
         }
     }
 
-    document.getElementById('simpleTextAreaInput').addEventListener('input', syncSimpleTextFromInput);
     function syncSimpleTextFromInput() {
         if (currentLayoutMode === 'simple') {
             const val = document.getElementById('simpleTextAreaInput').value;
@@ -406,104 +1063,141 @@
         }
     }
 
-    // 👑 APPLY MAIN TITLE STYLES (GRID MODE)
-    function applyGridMainTitleStyles() {
-        if (currentLayoutMode !== 'grid') return;
-        const el = document.getElementById('previewMainTitle'), sz = document.getElementById('mainTitleSize').value;
-        document.getElementById('lbl_mainTitleSize').innerText = sz + 'px';
-        el.style.fontFamily = document.getElementById('mainTitleFont').value; 
-        el.style.fontSize = sz + 'px';
-        el.style.color = document.getElementById('mainTitleColor').value; 
-        el.style.textAlign = storageData.grid.mainTitleAlign;
-
-        const bb = document.getElementById('btn_b_mainTitle');
-        const bi = document.getElementById('btn_i_mainTitle');
-        const bu = document.getElementById('btn_u_mainTitle');
-        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
-        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
-        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
+    // អនុវត្តស្ទាយ៍ចំណងជើងដាច់ដោយឡែក
+    function applyMainTitleStyles(isFontChanged = false) {
+        if (currentLayoutMode === 'grid') {
+            const el = document.getElementById('previewGridTitle');
+            const font = document.getElementById('gridTitleFont').value;
+            const size = document.getElementById('gridTitleSize').value;
+            const color = document.getElementById('gridTitleColor').value;
+            
+            storageData.grid.titleFont = font;
+            storageData.grid.titleSize = size;
+            storageData.grid.titleColor = color;
+            document.getElementById('lbl_gridTitleSize').innerText = size + 'px';
+            
+            el.style.fontFamily = font;
+            el.style.fontSize = size + 'px';
+            el.style.color = color;
+            el.style.textAlign = storageData.grid.mainTitleAlign;
+            
+            if (isFontChanged) {
+                storageData.grid.titleB = false;
+                el.style.fontWeight = 'normal';
+                document.getElementById('btn_b_gridTitle').classList.remove('active');
+            }
+        } else {
+            const el = document.getElementById('previewSimpleTitle');
+            const font = document.getElementById('simpleTitleFont').value;
+            const size = document.getElementById('simpleTitleSize').value;
+            const color = document.getElementById('simpleTitleColor').value;
+            
+            storageData.simple.titleFont = font;
+            storageData.simple.titleSize = size;
+            storageData.simple.titleColor = color;
+            document.getElementById('lbl_simpleTitleSize').innerText = size + 'px';
+            
+            el.style.fontFamily = font;
+            el.style.fontSize = size + 'px';
+            el.style.color = color;
+            el.style.textAlign = storageData.simple.mainTitleAlign;
+            
+            if (isFontChanged) {
+                storageData.simple.titleB = false;
+                el.style.fontWeight = 'normal';
+                document.getElementById('btn_b_simpleTitle').classList.remove('active');
+            }
+        }
     }
 
-    // 👑 APPLY MAIN TITLE STYLES (SIMPLE MODE)
-    function applySimpleMainTitleStyles() {
-        if (currentLayoutMode !== 'simple') return;
-        const el = document.getElementById('previewMainTitle'), sz = document.getElementById('simpleMainTitleSize').value;
-        document.getElementById('lbl_simpleMainTitleSize').innerText = sz + 'px';
-        el.style.fontFamily = document.getElementById('simpleMainTitleFont').value; 
-        el.style.fontSize = sz + 'px';
-        el.style.color = document.getElementById('simpleMainTitleColor').value; 
-        el.style.textAlign = storageData.simple.mainTitleAlign;
-
-        const bb = document.getElementById('btn_b_simpleMain');
-        const bi = document.getElementById('btn_i_simpleMain');
-        const bu = document.getElementById('btn_u_simpleMain');
-        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
-        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
-        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
+    function toggleMainTitleFormat(type) {
+        if (currentLayoutMode === 'grid') {
+            const btn = document.getElementById(`btn_${type}_gridTitle`);
+            btn.classList.toggle('active');
+            const el = document.getElementById('previewGridTitle');
+            const isActive = btn.classList.contains('active');
+            
+            if (type === 'b') { storageData.grid.titleB = isActive; el.style.fontWeight = isActive ? '700' : 'normal'; }
+            if (type === 'i') { storageData.grid.titleI = isActive; el.style.fontStyle = isActive ? 'italic' : 'normal'; }
+            if (type === 'u') { storageData.grid.titleU = isActive; el.style.textDecoration = isActive ? 'underline' : 'none'; }
+        } else {
+            const btn = document.getElementById(`btn_${type}_simpleTitle`);
+            btn.classList.toggle('active');
+            const el = document.getElementById('previewSimpleTitle');
+            const isActive = btn.classList.contains('active');
+            
+            if (type === 'b') { storageData.simple.titleB = isActive; el.style.fontWeight = isActive ? '700' : 'normal'; }
+            if (type === 'i') { storageData.simple.titleI = isActive; el.style.fontStyle = isActive ? 'italic' : 'normal'; }
+            if (type === 'u') { storageData.simple.titleU = isActive; el.style.textDecoration = isActive ? 'underline' : 'none'; }
+        }
     }
 
-    // 🔤 APPLY BODY TEXT STYLES (SIMPLE MODE)
-    function applySimpleBodyStyles() {
+    function syncFormatButtonStates() {
+        if (currentLayoutMode === 'grid') {
+            document.getElementById('btn_b_gridTitle').classList.toggle('active', storageData.grid.titleB);
+            document.getElementById('btn_i_gridTitle').classList.toggle('active', storageData.grid.titleI);
+            document.getElementById('btn_u_gridTitle').classList.toggle('active', storageData.grid.titleU);
+            
+            const el = document.getElementById('previewGridTitle');
+            el.style.fontWeight = storageData.grid.titleB ? '700' : 'normal';
+            el.style.fontStyle = storageData.grid.titleI ? 'italic' : 'normal';
+            el.style.textDecoration = storageData.grid.titleU ? 'underline' : 'none';
+        } else {
+            document.getElementById('btn_b_simpleTitle').classList.toggle('active', storageData.simple.titleB);
+            document.getElementById('btn_i_simpleTitle').classList.toggle('active', storageData.simple.titleI);
+            document.getElementById('btn_u_simpleTitle').classList.toggle('active', storageData.simple.titleU);
+            
+            const el = document.getElementById('previewSimpleTitle');
+            el.style.fontWeight = storageData.simple.titleB ? '700' : 'normal';
+            el.style.fontStyle = storageData.simple.titleI ? 'italic' : 'normal';
+            el.style.textDecoration = storageData.simple.titleU ? 'underline' : 'none';
+        }
+    }
+
+    function applySimpleBodyStyles(isFontChanged = false) {
         if (currentLayoutMode !== 'simple') return;
-        const el = document.getElementById('simpleTextContainer'), sz = document.getElementById('size_simple').value;
+        const el = document.getElementById('simpleTextContainer');
+        const sz = document.getElementById('size_simple').value;
         document.getElementById('lbl_simpleSize').innerText = sz + 'px';
         el.style.fontFamily = document.getElementById('font_simple').value; 
         el.style.fontSize = sz + 'px';
         el.style.color = document.getElementById('color_simple').value;
-
-        const bb = document.getElementById('btn_b_simple');
-        const bi = document.getElementById('btn_i_simple');
-        const bu = document.getElementById('btn_u_simple');
-        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
-        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
-        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
-    }
-
-    // 🔤 FONT STYLES FORMATTER (BOLD / ITALIC / UNDERLINE)
-    function toggleGridMainTitleFormat(t) {
-        const b = document.getElementById(`btn_${t}_mainTitle`); b.classList.toggle('active');
-        applyGridMainTitleStyles();
-    }
-
-    // 🔤 មុខងារបន្ថែមសម្រាប់កែទម្រង់ជួរ Block នីមួយៗ (B I U)
-    function toggleLineBlockFormat(id, t) {
-        const b = document.getElementById(`btn_${t}_line_${id}`); b.classList.toggle('active');
-        applyLineStyles(id);
-    }
-
-    function toggleSimpleMainTitleFormat(t) {
-        const b = document.getElementById(`btn_${t}_simpleMain`); b.classList.toggle('active');
-        applySimpleMainTitleStyles();
-    }
-
-    document.getElementById('btn_b_simple').addEventListener('click', function() { toggleSimpleBodyFormat('b'); });
-    document.getElementById('btn_i_simple').addEventListener('click', function() { toggleSimpleBodyFormat('i'); });
-    document.getElementById('btn_u_simple').addEventListener('click', function() { toggleSimpleBodyFormat('u'); });
-
-    function toggleSimpleBodyFormat(t) {
-        const b = document.getElementById(`btn_${t}_simple`); b.classList.toggle('active');
-        applySimpleBodyStyles();
-    }
-
-    // 🎯 MASTER ALIGNMENT MANAGEMENT
-    function setMainTitleAlign(t) {
-        if (currentLayoutMode === 'grid') {
-            storageData.grid.mainTitleAlign = t;
-            applyGridMainTitleStyles();
-        } else {
-            storageData.simple.mainTitleAlign = t;
-            applySimpleMainTitleStyles();
+        
+        if (isFontChanged) {
+            el.style.fontWeight = 'normal';
+            document.getElementById('btn_b_simple').classList.remove('active');
         }
-        setActiveAlignButtons(t, null);
     }
 
-    function setAlign(t) {
-        if (currentLayoutMode === 'grid') {
-            storageData.grid.textAlign = t;
-        } else {
-            storageData.simple.textAlign = t;
-        }
-        setActiveAlignButtons(null, t);
+    function toggleSimpleBodyFormat(type) {
+        const btn = document.getElementById(`btn_${type}_simple`);
+        btn.classList.toggle('active');
+        const el = document.getElementById('simpleTextContainer');
+        if (type === 'b') el.style.fontWeight = btn.classList.contains('active') ? '700' : 'normal';
+        if (type === 'i') el.style.fontStyle = btn.classList.contains('active') ? 'italic' : 'normal';
+        if (type === 'u') el.style.textDecoration = btn.classList.contains('active') ? 'underline' : 'none';
+    }
+
+    function toggleLineBlockFormat(id, target, type) {
+        const btn = document.getElementById(`btn_${type}_line_${target}_${id}`);
+        btn.classList.toggle('active');
+        const el = document.getElementById(target === 'title' ? `p_title_${id}` : `p_desc_${id}`);
+        if (type === 'b') el.style.fontWeight = btn.classList.contains('active') ? '700' : 'normal';
+        if (type === 'i') el.style.fontStyle = btn.classList.contains('active') ? 'italic' : 'normal';
+        if (type === 'u') el.style.textDecoration = btn.classList.contains('active') ? 'underline' : 'none';
+    }
+
+    function setMainTitleAlign(alignType) {
+        if (currentLayoutMode === 'grid') { storageData.grid.mainTitleAlign = alignType; } 
+        else { storageData.simple.mainTitleAlign = alignType; }
+        applyMainTitleStyles(false);
+        setActiveAlignButtons(alignType, null);
+    }
+
+    function setAlign(alignType) {
+        if (currentLayoutMode === 'grid') { storageData.grid.textAlign = alignType; } 
+        else { storageData.simple.textAlign = alignType; }
+        setActiveAlignButtons(null, alignType);
         applyAllStyles();
     }
 
@@ -522,183 +1216,280 @@
         }
     }
 
-    // ➕ SYSTEM DYNAMIC BLOCKS (FOR GRID LAYOUT)
-    function addNewLineBlock(t = "ចំណងជើងរង", d = "ខ្លឹមសារពិពណ៌នា...") {
+    function addNewLineBlock(titleVal = "ចំណងជើងរងថ្មី", descVal = "ខ្លឹមសារពិពណ៌នាលម្អិត...") {
         blockCount++; const id = blockCount;
         const panel = document.createElement('div'); panel.className = 'accordion-panel grid-only-component'; panel.id = `panel_line_${id}`;
-        let opts = `<option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option>`;
-        uploadedFonts.forEach(f => { opts += `<option value="'${f}', sans-serif">${f}</option>`; });
+        let fontOptions = `<option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Siemreap', sans-serif">Siemreap</option><option value="'Noto Serif Khmer', serif">Noto Serif Khmer</option>`;
+        uploadedFonts.forEach(f => { fontOptions += `<option value="'${f}', sans-serif">${f}</option>`; });
 
         panel.innerHTML = `
             <div class="accordion-header" onclick="toggleAccordion('panel_line_${id}')">
-                <div class="accordion-title-text" style="color:#10b981;">📝 ជួរទី #${id} (<span id="header_lbl_${id}">${t}</span>)</div>
-                <div>
-                    <button style="padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); openLineEditor(${id})">📝 កែ</button>
-                    <button class="btn-delete" onclick="event.stopPropagation(); removeLineBlock(${id})">លុប</button>
+                <div class="accordion-title-text" style="color:var(--success-color);">📝 ជួរអត្ថបទឆ្លាស់ទី #${id} (<span id="header_lbl_${id}">${titleVal}</span>)</div>
+                <div class="accordion-actions">
+                    <button type="button" onclick="event.stopPropagation(); openLineEditor(${id})">📝 កែសម្រួល</button>
+                    <button type="button" class="btn-delete" onclick="event.stopPropagation(); removeLineBlock(${id})">លុប</button>
                 </div>
             </div>
             <div class="accordion-content">
-                <div class="row-setting-item">
-                    <span class="compact-label">🅰️ Title:</span>
-                    <select id="font_title_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select>
-                    <input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})">
-                    <span class="val" id="lbl_title_${id}">20px</span>
-                    <div class="format-group">
-                        <button class="format-btn" id="btn_b_line_${id}" onclick="toggleLineBlockFormat(${id}, 'b')">B</button>
-                        <button class="format-btn" id="btn_i_line_${id}" onclick="toggleLineBlockFormat(${id}, 'i')">I</button>
-                        <button class="format-btn" id="btn_u_line_${id}" onclick="toggleLineBlockFormat(${id}, 'u')">U</button>
+                <div class="control-grid">
+                    <div class="control-item">
+                        <span class="control-label">ពុម្ពចំណងជើងរង</span>
+                        <select id="font_title_${id}" class="font-selector" onchange="applyLineStyles(${id}, 'title')">${fontOptions}</select>
                     </div>
-                    <input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})">
+                    <div class="control-item">
+                        <span class="control-label">ទំហំ & ពណ៌</span>
+                        <div class="flex-row-center">
+                            <input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})">
+                            <span class="range-val" id="lbl_title_${id}">20px</span>
+                            <input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})">
+                        </div>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-label">ទម្រង់អក្សរ</span>
+                        <div class="format-group" style="align-self: flex-start;">
+                            <button type="button" class="format-btn" id="btn_b_line_title_${id}" onclick="toggleLineBlockFormat(${id}, 'title', 'b')">B</button>
+                            <button type="button" class="format-btn" id="btn_i_line_title_${id}" onclick="toggleLineBlockFormat(${id}, 'title', 'i')">I</button>
+                            <button type="button" class="format-btn" id="btn_u_line_title_${id}" onclick="toggleLineBlockFormat(${id}, 'title', 'u')">U</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="row-setting-item">
-                    <span class="compact-label">🔤 Body:</span>
-                    <select id="font_desc_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select>
-                    <input type="range" id="size_desc_${id}" min="10" max="60" value="16" oninput="applyLineStyles(${id})">
-                    <span class="val" id="lbl_desc_${id}">16px</span>
-                    <input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})">
+                <div class="control-grid" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--border-color);">
+                    <div class="control-item">
+                        <span class="control-label">ពុម្ពខ្លឹមសារលម្អិត</span>
+                        <select id="font_desc_${id}" class="font-selector" onchange="applyLineStyles(${id}, 'desc')">${fontOptions}</select>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-label">ទំហំ & ពណ៌</span>
+                        <div class="flex-row-center">
+                            <input type="range" id="size_desc_${id}" min="10" max="60" value="15" oninput="applyLineStyles(${id})">
+                            <span class="range-val" id="lbl_desc_${id}">15px</span>
+                            <input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})">
+                        </div>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-label">ទម្រង់អក្សរ</span>
+                        <div class="format-group" style="align-self: flex-start;">
+                            <button type="button" class="format-btn" id="btn_b_line_desc_${id}" onclick="toggleLineBlockFormat(${id}, 'desc', 'b')">B</button>
+                            <button type="button" class="format-btn" id="btn_i_line_desc_${id}" onclick="toggleLineBlockFormat(${id}, 'desc', 'i')">I</button>
+                            <button type="button" class="format-btn" id="btn_u_line_desc_${id}" onclick="toggleLineBlockFormat(${id}, 'desc', 'u')">U</button>
+                        </div>
+                    </div>
                 </div>
             </div>`;
         document.getElementById('blocksManager').appendChild(panel);
 
         const wrap = document.createElement('div'); wrap.className = 'line-row-wrapper'; wrap.id = `preview_row_wrapper_${id}`;
-        wrap.innerHTML = `<div class="line-row" id="preview_row_${id}"><span class="inline-title editable-text" id="p_title_${id}" contenteditable="true"></span><span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true"></span></div>`;
+        wrap.innerHTML = `
+            <div class="line-row" id="preview_row_${id}">
+                <span class="inline-title editable-text" id="p_title_${id}" contenteditable="true" oninput="document.getElementById('header_lbl_${id}').innerText=this.innerText">${titleVal}</span>
+                <span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true">${descVal}</span>
+            </div>`;
         document.getElementById('linesContainer').appendChild(wrap);
         
-        document.getElementById(`p_title_${id}`).innerText = t;
-        document.getElementById(`p_desc_${id}`).innerText = d;
-
-        toggleAccordion(`panel_line_${id}`); applyLineStyles(id); applyAllStyles();
+        applyLineStyles(id); 
+        applyAllStyles();
     }
 
-    function removeLineBlock(id) { document.getElementById(`panel_line_${id}`).remove(); document.getElementById(`preview_row_wrapper_${id}`).remove(); }
+    function removeLineBlock(id) { 
+        document.getElementById(`panel_line_${id}`).remove(); 
+        document.getElementById(`preview_row_wrapper_${id}`).remove(); 
+    }
     
-    function applyLineStyles(id) {
+    function applyLineStyles(id, sectionChanged = null) {
         const t = document.getElementById(`p_title_${id}`), d = document.getElementById(`p_desc_${id}`);
         if(t && d) {
-            t.style.fontFamily = document.getElementById(`font_title_${id}`).value; t.style.fontSize = document.getElementById(`size_title_${id}`).value + 'px'; t.style.color = document.getElementById(`color_title_${id}`).value;
-            d.style.fontFamily = document.getElementById(`font_desc_${id}`).value; d.style.fontSize = document.getElementById(`size_desc_${id}`).value + 'px'; d.style.color = document.getElementById(`color_desc_${id}`).value;
+            t.style.fontFamily = document.getElementById(`font_title_${id}`).value; 
+            t.style.fontSize = document.getElementById(`size_title_${id}`).value + 'px'; 
+            t.style.color = document.getElementById(`color_title_${id}`).value;
+            d.style.fontFamily = document.getElementById(`font_desc_${id}`).value; 
+            d.style.fontSize = document.getElementById(`size_desc_${id}`).value + 'px'; 
+            d.style.color = document.getElementById(`color_desc_${id}`).value;
             document.getElementById(`lbl_title_${id}`).innerText = document.getElementById(`size_title_${id}`).value + 'px';
             document.getElementById(`lbl_desc_${id}`).innerText = document.getElementById(`size_desc_${id}`).value + 'px';
-
-            const bb = document.getElementById(`btn_b_line_${id}`);
-            const bi = document.getElementById(`btn_i_line_${id}`);
-            const bu = document.getElementById(`btn_u_line_${id}`);
-            t.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
-            t.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
-            t.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
+            
+            if (sectionChanged === 'title') {
+                t.style.fontWeight = 'normal';
+                document.getElementById(`btn_b_line_title_${id}`).classList.remove('active');
+            }
+            if (sectionChanged === 'desc') {
+                d.style.fontWeight = 'normal';
+                document.getElementById(`btn_b_line_desc_${id}`).classList.remove('active');
+            }
         }
     }
 
-    // ℹ️ FOOTER ROW RENDERING
-    function applyFooterStyles() {
-        const txt = document.getElementById('previewFooterText'), sz = document.getElementById('size_footer').value;
-        document.getElementById('lbl_footer').innerText = sz + 'px'; txt.style.fontFamily = document.getElementById('font_footer').value;
-        txt.style.fontSize = sz + 'px'; txt.style.color = document.getElementById('color_footer').value;
-        const al = document.getElementById('align_footer').value; document.getElementById('footerFlexContainer').style.justifyContent = al === 'left' ? 'flex-start' : (al === 'right' ? 'flex-end' : 'center');
-        txt.style.textAlign = al; const lgSz = document.getElementById('logoSizeSlider').value;
-        document.getElementById('lbl_logoSize').innerText = lgSz + 'px'; document.getElementById('previewFooterLogo').style.width = lgSz + 'px';
+    function applyFooterStyles(isFontChanged = false) {
+        const txt = document.getElementById('previewFooterText');
+        const sz = document.getElementById('size_footer').value;
+        const align = document.getElementById('align_footer').value;
+        const logoSize = document.getElementById('logoSizeSlider').value;
+        const block = document.getElementById('footerRenderBlock');
+        
+        document.getElementById('lbl_footer').innerText = sz + 'px'; 
+        document.getElementById('lbl_logoSize').innerText = logoSize + 'px';
+        txt.style.fontFamily = document.getElementById('font_footer').value;
+        txt.style.fontSize = sz + 'px'; 
+        txt.style.color = document.getElementById('color_footer').value;
+        
+        block.style.textAlign = align;
+        txt.style.textAlign = align;
+        document.getElementById('previewFooterLogo').style.width = logoSize + 'px';
+        
+        if (isFontChanged) {
+            txt.style.fontWeight = 'normal';
+        }
     }
 
-    // GLOBAL STYLES (LINE HEIGHT / LETTER SPACING)
     function applyAllStyles() {
         const lh = document.getElementById('globalLineHeight').value;
         const ls = document.getElementById('globalLetterSpacing').value;
-        document.getElementById('valLineHeight').innerText = lh; document.getElementById('valLetterSpacing').innerText = ls + 'px';
-        
+        document.getElementById('valLineHeight').innerText = lh; 
+        document.getElementById('valLetterSpacing').innerText = ls + 'px';
         const activeAlign = currentLayoutMode === 'grid' ? storageData.grid.textAlign : storageData.simple.textAlign;
         
         document.querySelectorAll('.line-row-wrapper').forEach(w => {
-            w.style.letterSpacing = ls + 'px'; w.style.marginBottom = (parseFloat(lh) * 8) + "px";
+            w.style.marginBottom = (parseFloat(lh) * 8) + "px";
             const r = w.querySelector('.line-row'); 
             if(r) {
                 r.style.textAlign = activeAlign;
-                const title = r.querySelector('.inline-title'), desc = r.querySelector('.inline-desc');
+                r.style.letterSpacing = ls + 'px';
+                const title = r.querySelector('.inline-title');
+                const desc = r.querySelector('.inline-desc');
                 if (activeAlign === 'center' || activeAlign === 'right') {
-                    r.style.display = 'block'; if(title) title.style.display = 'block'; if(desc) desc.style.display = 'block';
+                    if(title) title.style.display = 'block'; 
+                    if(desc) desc.style.display = 'block';
                 } else {
-                    r.style.display = 'block'; if(title) title.style.display = 'inline-block'; if(desc) desc.style.display = 'inline';
+                    if(title) title.style.display = 'inline-block'; 
+                    if(desc) desc.style.display = 'inline';
                 }
             }
         });
-        const sBox = document.getElementById('simpleTextContainer');
-        sBox.style.letterSpacing = ls + 'px'; sBox.style.lineHeight = lh; sBox.style.textAlign = activeAlign;
-        document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
+        
+        const simpleBox = document.getElementById('simpleTextContainer');
+        simpleBox.style.letterSpacing = ls + 'px'; 
+        simpleBox.style.lineHeight = lh; 
+        simpleBox.style.textAlign = activeAlign;
+        
+        document.getElementById('previewGridTitle').style.letterSpacing = ls + 'px';
+        document.getElementById('previewSimpleTitle').style.letterSpacing = ls + 'px';
+        applyFooterStyles(false);
     }
 
-    // MISC SYSTEM UTILITIES
     function toggleAccordion(id) {
         const el = document.getElementById(id); if(!el) return;
-        const open = el.classList.contains('active');
-        document.querySelectorAll('.accordion-panel').forEach(p => { if(p.id !== 'panel_simpleWorkspace' && p.id !== 'panel_mainTitle') p.classList.remove('active'); });
-        if(!open) el.classList.add('active');
+        const isOpen = el.classList.contains('active');
+        document.querySelectorAll('.accordion-panel').forEach(p => {
+            if(p.id !== 'panel_gridWorkspace' && p.id !== 'panel_simpleWorkspace') p.classList.remove('active');
+        });
+        if(!isOpen) el.classList.add('active');
+        else el.classList.remove('active');
     }
 
     function toggleThemeMode() {
         document.body.classList.toggle('light-mode');
-        document.querySelector('.theme-toggle-btn').innerText = document.body.classList.contains('light-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+        const isLight = document.body.classList.contains('light-mode');
+        document.querySelector('.theme-toggle-btn').innerText = isLight ? "☀️ របៀបពន្លឺ" : "🌙 របៀបងងឹត";
     }
 
     function handleMultipleFontUpload(input) {
+        if (input.files.length === 0) return;
+
         Array.from(input.files).forEach(file => {
             const fName = file.name.split('.')[0].replace(/\s+/g, '-');
             const reader = new FileReader();
+            
             reader.onload = function(e) {
                 new FontFace(fName, e.target.result).load().then(f => {
-                    document.fonts.add(f); uploadedFonts.push(fName);
+                    document.fonts.add(f); 
+                    
+                    if (!uploadedFonts.includes(fName)) {
+                        uploadedFonts.push(fName);
+                    }
+
                     document.querySelectorAll('select.font-selector').forEach(s => {
-                        s.appendChild(new Option(file.name, `'${fName}', sans-serif`));
+                        const previousSelection = s.value;
+                        const opt = new Option(file.name, `'${fName}', sans-serif`);
+                        
+                        let isExist = false;
+                        for (let idx = 0; idx < s.options.length; idx++) {
+                            if (s.options[idx].value === opt.value) {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!isExist) {
+                            s.add(opt, 0);
+                            s.value = previousSelection;
+                        }
                     });
-                    refreshViewFromStorage();
+                }).catch(err => {
+                    console.error("ការ load ហ្វាលពុម្ពអក្សរមានបញ្ហា៖ ", err);
                 });
             };
             reader.readAsArrayBuffer(file);
         });
+
+        input.value = '';
     }
 
     function handleLogoUpload(input) {
         const file = input.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
-            const logo = document.getElementById('previewFooterLogo'); logo.src = e.target.result; logo.style.display = 'block';
-            document.getElementById('logoControlRow').style.display = 'flex'; applyFooterStyles();
+            const logo = document.getElementById('previewFooterLogo'); 
+            logo.src = e.target.result; logo.style.display = 'inline-block';
+            document.getElementById('logoControlRow').style.display = 'grid'; 
+            applyFooterStyles(false);
         };
         reader.readAsDataURL(file);
     }
-    function removeFooterLogo() { document.getElementById('previewFooterLogo').style.display = 'none'; document.getElementById('logoControlRow').style.display = 'none'; }
-    function toggleFooterVisibility() { document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none'; }
-    function setCanvasBg(c) { document.getElementById('customBgColor').value = c; document.getElementById('previewBox').style.backgroundColor = c; }
+    
+    function removeFooterLogo() { 
+        document.getElementById('previewFooterLogo').style.display = 'none'; 
+        document.getElementById('logoControlRow').style.display = 'none'; 
+    }
+    
+    function toggleFooterVisibility() { 
+        document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none'; 
+    }
+    
+    function setCanvasBg(colorHex) { 
+        document.getElementById('customBgColor').value = colorHex; 
+        document.getElementById('previewBox').style.backgroundColor = colorHex; 
+    }
 
-    // MODAL WINDOW INTERACTION
-    function openMainTitleEditor() { showModal('mainTitle', '', document.getElementById('previewMainTitle').innerText, false); }
     function openFooterEditor() { showModal('footer', '', document.getElementById('previewFooterText').innerText, false); }
     function openLineEditor(id) { showModal('line', id, document.getElementById(`p_desc_${id}`).innerText, true, document.getElementById(`p_title_${id}`).innerText); }
     
     function showModal(target, id, desc, showTitleInput, titleVal = '') {
-        document.getElementById('currentEditTarget').value = target; document.getElementById('currentEditId').value = id;
-        document.getElementById('modalDescInput').value = desc; document.getElementById('modalTitleArea').style.display = showTitleInput ? 'block' : 'none';
+        document.getElementById('currentEditTarget').value = target; 
+        document.getElementById('currentEditId').value = id;
+        document.getElementById('modalDescInput').value = desc; 
+        document.getElementById('modalTitleArea').style.display = showTitleInput ? 'block' : 'none';
         if(showTitleInput) document.getElementById('modalTitleInput').value = titleVal;
         document.getElementById('editorModal').style.display = 'flex';
     }
+    
     function closeEditorModal() { document.getElementById('editorModal').style.display = 'none'; }
+    
     function saveEditorContent() {
-        const tg = document.getElementById('currentEditTarget').value, id = document.getElementById('currentEditId').value, desc = document.getElementById('modalDescInput').value;
-        if(tg === 'mainTitle') {
-            document.getElementById('previewMainTitle').innerText = desc;
-            if (currentLayoutMode === 'grid') { storageData.grid.mainTitle = desc; } else { storageData.simple.mainTitle = desc; }
-        }
-        else if(tg === 'footer') {
+        const tg = document.getElementById('currentEditTarget').value;
+        const id = document.getElementById('currentEditId').value;
+        const desc = document.getElementById('modalDescInput').value;
+        
+        if(tg === 'footer') {
             document.getElementById('previewFooterText').innerText = desc;
             if (currentLayoutMode === 'grid') { storageData.grid.footerText = desc; } else { storageData.simple.footerText = desc; }
-        }
-        else if(tg === 'line') {
+        } else if(tg === 'line') {
             document.getElementById(`p_title_${id}`).innerText = document.getElementById('modalTitleInput').value;
             document.getElementById(`header_lbl_${id}`).innerText = document.getElementById('modalTitleInput').value;
             document.getElementById(`p_desc_${id}`).innerText = desc;
         }
-        closeEditorModal(); refreshViewFromStorage();
+        closeEditorModal(); 
+        refreshViewFromStorage();
     }
 
-    // CANVAS GRAPHICS EXPORT QUALITY
     function renderAdvancedCanvas(callback) {
         const target = document.getElementById('previewBox');
         const originalStyle = target.style.textRendering;
@@ -706,15 +1497,34 @@
         
         html2canvas(target, {
             scale: 3, useCORS: true, allowTaint: false, logging: false, backgroundColor: null, scrollX: 0, scrollY: -window.scrollY,
+            windowWidth: document.documentElement.offsetWidth, windowHeight: document.documentElement.offsetHeight,
             onclone: (clonedDoc) => {
                 const clonedBox = clonedDoc.getElementById('previewBox');
-                clonedBox.style.transform = 'none'; clonedBox.style.textRendering = "geometricPrecision";
+                clonedBox.style.transform = 'none'; 
+                clonedBox.style.textRendering = "geometricPrecision";
             }
-        }).then(canvas => { target.style.textRendering = originalStyle; callback(canvas); });
+        }).then(canvas => { 
+            target.style.textRendering = originalStyle; 
+            callback(canvas); 
+        });
     }
 
-    function exportAsImage() { renderAdvancedCanvas(c => { const l = document.createElement('a'); l.download = 'toathmor-khmer-render.png'; l.href = c.toDataURL('image/png'); l.click(); }); }
-    function exportAsPDF() { renderAdvancedCanvas(c => { const img = c.toDataURL('image/png'), w = c.width/3, h = c.height/3; const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-khmer-document.pdf'); }); }
+    function exportAsImage() { 
+        renderAdvancedCanvas(c => { 
+            const l = document.createElement('a'); 
+            l.download = 'toathmor-premium-pro-render.png'; 
+            l.href = c.toDataURL('image/png'); l.click(); 
+        }); 
+    }
+    
+    function exportAsPDF() { 
+        renderAdvancedCanvas(c => { 
+            const img = c.toDataURL('image/png');
+            const w = c.width / 3; const h = c.height / 3; 
+            const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); 
+            pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-premium-pro-document.pdf'); 
+        }); 
+    }
 </script>
 </body>
 </html>
