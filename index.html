@@ -25,6 +25,19 @@
             --font-default: 'Kantumruy Pro', sans-serif;
         }
 
+        body.light-mode {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --primary-color: #2563eb;
+            --panel-bg: #f8fafc;
+            --card-inner: #f1f5f9;
+            --accent-color: #0284c7;
+            --input-bg: #e2e8f0;
+        }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -33,6 +46,7 @@
             color: var(--text-main);
             margin: 0; padding: 12px;
             display: flex; flex-direction: column; align-items: center;
+            transition: background 0.3s, color 0.3s;
         }
 
         .container {
@@ -51,11 +65,18 @@
         .app-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
         .app-subtitle { font-size: 10px; color: var(--accent-color); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
 
+        .theme-toggle-btn {
+            background: var(--input-bg); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 6px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;
+        }
+
         .upload-zone {
             background: linear-gradient(135deg, #1e40af, #2563eb);
             border-radius: 12px; padding: 12px; text-align: center;
             margin-bottom: 16px; cursor: pointer; font-weight: bold; font-size: 13px;
             display: flex; align-items: center; justify-content: center; gap: 8px;
+            color: white;
         }
 
         .control-panel {
@@ -81,7 +102,8 @@
         .section-header { font-size: 11px; font-weight: bold; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
         
         .main-title-panel { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; margin-bottom: 14px; }
-        .font-select-grid { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+        .font-select-grid { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        .font-select-grid select { flex: 1; min-width: 120px; }
         
         select {
             background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color);
@@ -93,11 +115,12 @@
         .block-card.footer-card { border-left-color: #eab308; }
 
         .block-header-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: #10b981; font-weight: bold; }
-        .block-header-tools.footer-tools { color: #eab308; }
+        .block-header-tools.footer-tools { color: #eab308; display: flex; flex-wrap: wrap; gap: 8px; }
         
         .btn-open-editor { background: #2563eb; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; margin-left: auto; }
+        .btn-upload-logo { background: #eab308; color: #0f172a; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; }
 
-        .row-setting-item { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; }
+        .row-setting-item { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px; }
         .row-setting-item:last-child { margin-bottom: 0; }
         .compact-label { font-size: 11px; color: var(--text-muted); font-weight: 600; min-width: 38px; }
 
@@ -115,8 +138,17 @@
         .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 6px; border-radius: 6px; cursor: pointer; font-size: 10px; }
 
         .preview-wrapper { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 16px; width: 100%; background: var(--panel-bg); display: flex; flex-direction: column; }
-        .align-bar { background: var(--panel-bg); padding: 6px 12px; display: flex; gap: 4px; border-bottom: 1px solid var(--border-color); justify-content: flex-end; }
-        .align-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; }
+        
+        .align-control-container {
+            background: var(--panel-bg); padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid var(--border-color);
+        }
+        .align-row-item { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+        .align-label-tag { font-size: 11px; color: var(--text-muted); font-weight: bold; }
+        .align-btn-group { display: flex; gap: 3px; }
+        .align-btn { 
+            background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); 
+            padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 500;
+        }
         .align-btn.active { background: var(--primary-color); border-color: var(--primary-color); color: white; }
 
         .preview-container-box { width: 100%; overflow-x: auto; padding: 12px; box-sizing: border-box; display: flex; justify-content: center; }
@@ -125,15 +157,31 @@
         .editable-text { outline: none; border-radius: 4px; transition: background 0.2s; display: inline-block; -webkit-user-modify: read-write-plaintext-only; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.15); box-shadow: 0 0 0 2px var(--accent-color); }
 
-        .preview-main-title { width: 100%; text-align: center; margin-bottom: 24px; font-weight: bold; font-size: 26px; color: #ffffff; display: block; word-break: break-word; }
+        .preview-main-title { width: 100%; font-weight: bold; font-size: 26px; color: #ffffff; display: block; word-break: break-word; margin-bottom: 24px; }
         
-        /* 🛠️ រៀបចំការបង្ហាញជួរឱ្យនៅជាជួរដេកជានិច្ច */
-        .line-row { width: 100%; display: flex; flex-direction: row; align-items: baseline; margin-bottom: 14px; gap: 10px; flex-wrap: nowrap; }
-        .inline-title { font-weight: bold; white-space: nowrap; flex-shrink: 0; }
-        .inline-desc { font-weight: normal; word-break: break-word; flex-grow: 1; }
+        .line-row-wrapper { width: 100%; display: flex; margin-bottom: 14px; }
+        .line-row { display: inline-flex; flex-direction: row; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+        .inline-title { font-weight: bold; flex-shrink: 0; display: inline-block; }
+        .inline-desc { font-weight: normal; display: inline-block; }
 
-        .preview-footer-zone { margin-top: 24px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box; }
-        .preview-footer-text { width: 100%; font-size: 12px; font-weight: normal; word-break: break-word; }
+        /* 🛠️ កែសម្រួលផ្ទាំង Layout របស់ Footer ឱ្យគាំទ្រការដាក់រូបភាព */
+        .preview-footer-zone { 
+            margin-top: 24px; padding-top: 10px; 
+            border-top: 1px dashed rgba(255,255,255,0.2); 
+            width: 100%; box-sizing: border-box;
+        }
+        .footer-flex-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .preview-footer-logo {
+            display: none; /* បង្ហាញនៅពេលមានរូបភាពចូល */
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .preview-footer-text { font-size: 12px; font-weight: normal; word-break: break-word; flex: 1; }
 
         .action-group { display: flex; gap: 10px; width: 100%; }
         .action-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -151,32 +199,16 @@
         .modal-btn.save { background: #10b981; color: white; }
         .modal-btn.cancel { background: #475569; color: white; }
 
-        /* Mobile View Media Query */
         @media (max-width: 520px) {
             body { padding: 6px; }
             .container { padding: 10px; border-radius: 14px; }
             .preview-box { padding: 20px 12px; }
             .preview-main-title { font-size: 22px; margin-bottom: 16px; }
             select, .format-btn, .action-btn, .btn-add-block { padding: 10px; font-size: 12px; }
-            .font-select-grid { grid-template-columns: 1fr; gap: 6px; }
             .compact-slider-box { width: 100%; }
-            .row-setting-item { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
-            .row-setting-item select { grid-column: span 2; }
+            .row-setting-item { display: flex; flex-direction: row; gap: 6px; }
             .btn-open-editor { margin-left: 0; padding: 6px 10px; font-size: 11px; }
-            
-            /* 🚀 ជួសជុល៖ រក្សាឱ្យនៅជួរដេកដដែល ទោះនៅលើទូរស័ព្ទដៃ iPhone ក៏ដោយ */
-            .line-row { 
-                flex-direction: row !important; 
-                align-items: baseline; 
-                flex-wrap: nowrap;
-                gap: 10px;
-            }
-            .inline-desc { 
-                width: auto; 
-                padding-left: 0; 
-                opacity: 1; 
-                font-weight: normal !important; 
-            }
+            .align-row-item { justify-content: space-between; }
         }
     </style>
 </head>
@@ -188,6 +220,7 @@
             <span class="app-title">TOATHMOR STUDIO</span>
             <span class="app-subtitle">FONT TESTER PRO</span>
         </div>
+        <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 Dark Mode</button>
     </div>
 
     <div class="upload-zone" onclick="document.getElementById('fontUploader').click()">
@@ -208,6 +241,13 @@
                 <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles()">
                 <span class="val" id="lbl_mainTitleSize">28px</span>
             </div>
+            
+            <div class="format-group">
+                <button class="format-btn" id="btn_b_mainTitle" onclick="toggleMainTitleFormat('b')">B</button>
+                <button class="format-btn" id="btn_i_mainTitle" onclick="toggleMainTitleFormat('i')">I</button>
+                <button class="format-btn" id="btn_u_mainTitle" onclick="toggleMainTitleFormat('u')">U</button>
+            </div>
+            
             <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyMainTitleStyles()">
         </div>
     </div>
@@ -218,11 +258,22 @@
     <div class="block-card footer-card">
         <div class="block-header-tools footer-tools">
             <span>ℹ️ ជួរក្រោមគេបង្អស់ (Footer Row)</span>
+            <button class="btn-upload-logo" onclick="document.getElementById('logoUploader').click()">🖼️ បញ្ចូលឡូហ្គូ Footer</button>
+            <input type="file" id="logoUploader" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
+            
             <button class="btn-open-editor" onclick="openFooterEditor()">📝 សរសេរអត្ថបទ Footer</button>
-            <label style="font-size: 11px; cursor: pointer; color: var(--text-main); margin-left: 6px;">
+            <label style="font-size: 11px; cursor: pointer; color: var(--text-main); margin-left: auto;">
                 <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()"> បង្ហាញ
             </label>
         </div>
+        
+        <div class="row-setting-item" id="logoControlRow" style="display: none;">
+            <span class="compact-label">📐 ទំហំឡូហ្គូ:</span>
+            <input type="range" id="logoSizeSlider" min="10" max="120" value="30" oninput="applyFooterStyles()">
+            <span class="val" id="lbl_logoSize">30px</span>
+            <button class="btn-delete" style="margin-left: auto; padding: 4px 8px;" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
+        </div>
+
         <div class="row-setting-item">
             <span class="compact-label">🏁 ម៉ូដ:</span>
             <select id="font_footer" onchange="applyFooterStyles()">
@@ -275,18 +326,35 @@
             </div>
         </div>
 
-        <div class="align-bar">
-            <button class="align-btn active" id="btnLeft" onclick="setAlign('left')">ឆ្វេង</button>
-            <button class="align-btn" id="btnCenter" onclick="setAlign('center')">កណ្តាល</button>
-            <button class="align-btn" id="btnRight" onclick="setAlign('right')">ស្តាំ</button>
+        <div class="align-control-container">
+            <div class="align-row-item">
+                <span class="align-label-tag">👑 ចំណងជើងធំ:</span>
+                <div class="align-btn-group">
+                    <button class="align-btn" id="btnMainLeft" onclick="setMainTitleAlign('left')">ឆ្វេង</button>
+                    <button class="align-btn active" id="btnMainCenter" onclick="setMainTitleAlign('center')">កណ្តាល</button>
+                    <button class="align-btn" id="btnMainRight" onclick="setMainTitleAlign('right')">ស្តាំ</button>
+                </div>
+            </div>
+            <div class="align-row-item">
+                <span class="align-label-tag">📝 ជួរអត្ថបទរួម:</span>
+                <div class="align-btn-group">
+                    <button class="align-btn active" id="btnLeft" onclick="setAlign('left')">ឆ្វេង</button>
+                    <button class="align-btn" id="btnCenter" onclick="setAlign('center')">កណ្តាល</button>
+                    <button class="align-btn" id="btnRight" onclick="setAlign('right')">ស្តាំ</button>
+                </div>
+            </div>
         </div>
 
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox">
                 <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true">សតិបដ្ឋានធម៌ ៤</div>
                 <div id="linesContainer"></div>
+                
                 <div class="preview-footer-zone" id="previewFooterZone">
-                    <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true">រៀបរៀងដោយ៖ Toathmor Studio • ឯកសារយោងពីព្រះត្រៃបិដក</div>
+                    <div class="footer-flex-container" id="footerFlexContainer" style="justify-content: center;">
+                        <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Logo">
+                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true">រៀបរៀងដោយ៖ Toathmor Studio • ឯកសារយោងពីព្រះត្រៃបិដក</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,9 +393,19 @@
 <script>
     let blockCount = 0;
     let textAlign = 'left';
+    let mainTitleAlign = 'center';
     let uploadedFonts = [];
 
-    // Font Uploader Handler
+    function toggleThemeMode() {
+        document.body.classList.toggle('light-mode');
+        const btn = document.querySelector('.theme-toggle-btn');
+        if(document.body.classList.contains('light-mode')) {
+            btn.innerHTML = "☀️ Light Mode";
+        } else {
+            btn.innerHTML = "🌙 Dark Mode";
+        }
+    }
+
     function handleMultipleFontUpload(input) {
         const files = input.files;
         if (!files.length) return;
@@ -368,23 +446,53 @@
         mainTitleEl.style.fontFamily = document.getElementById('mainTitleFont').value;
         mainTitleEl.style.fontSize = sizeVal + 'px';
         mainTitleEl.style.color = document.getElementById('mainTitleColor').value;
+        mainTitleEl.style.textAlign = mainTitleAlign;
     }
 
-    /* 🚀 ជួសជុល៖ មុខងារ Toggle Format (B/I/U) ឱ្យបិទ-បើកដាច់ស្រឡះ */
+    function toggleMainTitleFormat(type) {
+        const btn = document.getElementById(`btn_${type}_mainTitle`);
+        btn.classList.toggle('active');
+        const mainTitleEl = document.getElementById('previewMainTitle');
+        const isActive = btn.classList.contains('active');
+
+        if (type === 'b') mainTitleEl.style.fontWeight = isActive ? '700' : 'normal';
+        else if (type === 'i') mainTitleEl.style.fontStyle = isActive ? 'italic' : 'normal';
+        else if (type === 'u') mainTitleEl.style.textDecoration = isActive ? 'underline' : 'none';
+    }
+
     function toggleFormat(id, type, target) {
         const btn = document.getElementById(`btn_${type}_${target}_${id}`);
         btn.classList.toggle('active');
-        
         const previewEl = document.getElementById(`p_${target}_${id}`);
         const isActive = btn.classList.contains('active');
 
-        if (type === 'b') {
-            previewEl.style.fontWeight = isActive ? '700' : 'normal';
-        } else if (type === 'i') {
-            previewEl.style.fontStyle = isActive ? 'italic' : 'normal';
-        } else if (type === 'u') {
-            previewEl.style.textDecoration = isActive ? 'underline' : 'none';
+        if (type === 'b') { previewEl.style.fontWeight = isActive ? '700' : 'normal'; }
+        else if (type === 'i') { previewEl.style.fontStyle = isActive ? 'italic' : 'normal'; }
+        else if (type === 'u') { previewEl.style.textDecoration = isActive ? 'underline' : 'none'; }
+    }
+
+    /* 🛠️ មុខងារគ្រប់គ្រងរូបភាពឡូហ្គូ Footer */
+    function handleLogoUpload(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const logoImg = document.getElementById('previewFooterLogo');
+                logoImg.src = e.target.result;
+                logoImg.style.display = 'block';
+                document.getElementById('logoControlRow').style.display = 'flex';
+                applyFooterStyles();
+            };
+            reader.readAsDataURL(file);
         }
+    }
+
+    function removeFooterLogo() {
+        const logoImg = document.getElementById('previewFooterLogo');
+        logoImg.src = '';
+        logoImg.style.display = 'none';
+        document.getElementById('logoControlRow').style.display = 'none';
+        document.getElementById('logoUploader').value = '';
     }
 
     function applyFooterStyles() {
@@ -394,7 +502,20 @@
         footerText.style.fontFamily = document.getElementById('font_footer').value;
         footerText.style.fontSize = size + 'px';
         footerText.style.color = document.getElementById('color_footer').value;
-        footerText.style.textAlign = document.getElementById('align_footer').value;
+        
+        // កំណត់ទិសដៅរត់សម្រាប់ផ្ទាំង Flex របស់ Footer រួមទាំងឡូហ្គូ
+        const alignVal = document.getElementById('align_footer').value;
+        const flexContainer = document.getElementById('footerFlexContainer');
+        if (alignVal === 'left') { flexContainer.style.justifyContent = 'flex-start'; footerText.style.textAlign = 'left'; }
+        else if (alignVal === 'right') { flexContainer.style.justifyContent = 'flex-end'; footerText.style.textAlign = 'right'; }
+        else { flexContainer.style.justifyContent = 'center'; footerText.style.textAlign = 'center'; }
+
+        // កំណត់ទំហំរូបភាពឡូហ្គូ
+        const logoSize = document.getElementById('logoSizeSlider').value;
+        document.getElementById('lbl_logoSize').textContent = logoSize + 'px';
+        const logoImg = document.getElementById('previewFooterLogo');
+        logoImg.style.width = logoSize + 'px';
+        logoImg.style.height = 'auto';
     }
 
     function toggleFooterFormat(type) {
@@ -411,7 +532,6 @@
         document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none';
     }
 
-    // Modal Actions
     function openMainTitleEditor() {
         document.getElementById('currentEditTarget').value = 'mainTitle';
         document.getElementById('modalTitleText').textContent = '👑 កែសម្រួលចំណងជើងធំ';
@@ -441,6 +561,10 @@
         document.getElementById('editorModal').style.display = 'flex';
     }
 
+    document.getElementById('editorModal').addEventListener('click', function(e) {
+        if(e.target === this) closeEditorModal();
+    });
+
     function closeEditorModal() { document.getElementById('editorModal').style.display = 'none'; }
 
     function saveEditorContent() {
@@ -457,7 +581,6 @@
         applyAllStyles();
     }
 
-    // Add & Remove Dynamic Blocks
     function addNewLineBlock(initTitle = "ចំណងជើងរង", initDesc = "ខ្លឹមសារពិពណ៌នា...", titleColor = "#fcd34d", descColor = "#ffffff", titleSize = 20, descSize = 16) {
         blockCount++; const id = blockCount;
         const card = document.createElement('div');
@@ -488,15 +611,20 @@
             </div>`;
         document.getElementById('blocksManager').appendChild(card);
 
+        const wrapper = document.createElement('div');
+        wrapper.className = 'line-row-wrapper'; wrapper.id = `preview_row_wrapper_${id}`;
+        
         const previewRow = document.createElement('div');
         previewRow.className = 'line-row'; previewRow.id = `preview_row_${id}`;
         previewRow.innerHTML = `<span class="inline-title editable-text" id="p_title_${id}" contenteditable="true">${initTitle}</span><span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true">${initDesc}</span>`;
-        document.getElementById('linesContainer').appendChild(previewRow);
+        
+        wrapper.appendChild(previewRow);
+        document.getElementById('linesContainer').appendChild(wrapper);
 
         applyLineStyles(id); applyAllStyles();
     }
 
-    function removeLineBlock(id) { document.getElementById(`block_card_${id}`).remove(); document.getElementById(`preview_row_${id}`).remove(); }
+    function removeLineBlock(id) { document.getElementById(`block_card_${id}`).remove(); document.getElementById(`preview_row_wrapper_${id}`).remove(); }
 
     function applyLineStyles(id) {
         const titleSpan = document.getElementById(`p_title_${id}`);
@@ -516,35 +644,49 @@
         }
     }
 
-    /* 🚀 ជួសជុល៖ កែប្រែប្រព័ន្ធ Layout ឱ្យស្មើគ្នាជានិច្ចទាំងលើ PC/Mobile */
     function applyAllStyles() {
         const lh = document.getElementById('globalLineHeight').value;
         const ls = document.getElementById('globalLetterSpacing').value;
         document.getElementById('valLineHeight').textContent = lh;
         document.getElementById('valLetterSpacing').textContent = ls + 'px';
 
-        document.querySelectorAll('.line-row').forEach(row => {
-            row.style.letterSpacing = ls + 'px';
+        document.querySelectorAll('.line-row-wrapper').forEach(wrapper => {
+            wrapper.style.letterSpacing = ls + 'px';
+            wrapper.style.marginBottom = (parseFloat(lh) * 8) + "px";
             
-            if (textAlign === 'center') row.style.justifyContent = 'center';
-            else if (textAlign === 'right') row.style.justifyContent = 'flex-end';
-            else row.style.justifyContent = 'flex-start';
+            if (textAlign === 'center') { wrapper.style.justifyContent = 'center'; } 
+            else if (textAlign === 'right') { wrapper.style.justifyContent = 'flex-end'; } 
+            else { wrapper.style.justifyContent = 'flex-start'; }
             
-            row.style.marginBottom = (parseFloat(lh) * 8) + "px";
-            
-            const t = row.querySelector('.inline-title');
-            const d = row.querySelector('.inline-desc');
-            if(t) t.style.textAlign = textAlign;
-            if(d) d.style.textAlign = textAlign;
+            const row = wrapper.querySelector('.line-row');
+            if(row) { row.style.textAlign = textAlign; }
         });
-        document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
-        document.getElementById('previewMainTitle').style.textAlign = textAlign;
+        
+        const mainTitleEl = document.getElementById('previewMainTitle');
+        mainTitleEl.style.letterSpacing = ls + 'px';
+        mainTitleEl.style.textAlign = mainTitleAlign;
     }
 
     function setCanvasBg(bgHex) { document.getElementById('customBgColor').value = bgHex; document.getElementById('previewBox').style.backgroundColor = bgHex; }
-    function setAlign(type) { textAlign = type; document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active')); document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active'); applyAllStyles(); }
+    
+    function setMainTitleAlign(type) {
+        mainTitleAlign = type;
+        document.querySelectorAll('.align-control-container .align-row-item:nth-child(1) .align-btn').forEach(b => b.classList.remove('active'));
+        if(type === 'left') document.getElementById('btnMainLeft').classList.add('active');
+        if(type === 'center') document.getElementById('btnMainCenter').classList.add('active');
+        if(type === 'right') document.getElementById('btnMainRight').classList.add('active');
+        applyAllStyles();
+    }
 
-    // Export Advanced Functions
+    function setAlign(type) { 
+        textAlign = type; 
+        document.querySelectorAll('.align-control-container .align-row-item:nth-child(2) .align-btn').forEach(b => b.classList.remove('active')); 
+        if(type === 'left') document.getElementById('btnLeft').classList.add('active');
+        if(type === 'center') document.getElementById('btnCenter').classList.add('active');
+        if(type === 'right') document.getElementById('btnRight').classList.add('active');
+        applyAllStyles(); 
+    }
+
     function generateAdvancedRender(callback) {
         html2canvas(document.getElementById('previewBox'), { scale: 3, useCORS: true, backgroundColor: null, logging: false }).then(canvas => callback(canvas));
     }
@@ -553,10 +695,10 @@
 
     window.addEventListener('resize', applyAllStyles);
 
-    // ទិន្នន័យគំរូដំបូងបង្អស់
-    addNewLineBlock('១. កាយានុបស្សនា៖', 'ការពិចារណាពិនិត្យមើលរូបកាយជាប្រចាំ។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('២. វេទនានុបស្សនា៖', 'ការពិនិត្យមើលរាល់សេចក្តីសុខទុក្ខរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('៣. ចិត្តានុបស្សនា៖', 'ការតាមដានដឹងជានិច្ចនូវសភាវៈគំនិតរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
+    // ទិន្នន័យគំរូដំបូង
+    addNewLineBlock('១. ឆន្ទៈ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('២. វីរិយៈ៖', 'ភក្តីភាព និងការគោរពវិន័យការងារឱ្យច្បាស់លាស់។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('៣. ចិត្តៈ៖', 'ការយកចិត្តទុកដាក់ខ្ពស់លើរាល់ការងារដែលបានប្រគល់ជូន។', '#fcd34d', '#ffffff', 20, 16);
 
     applyMainTitleStyles(); applyFooterStyles(); setCanvasBg('#b45309');
 </script>
