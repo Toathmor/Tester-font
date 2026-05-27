@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Font Tester Premium</title>
+    <title>Toathmor Studio - Font Tester Pro</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Battambang:wght@400;700&display=swap">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -126,10 +127,9 @@
 
         .preview-main-title { width: 100%; text-align: center; margin-bottom: 24px; font-weight: bold; font-size: 26px; color: #ffffff; display: block; word-break: break-word; }
         
+        /* 🛠️ រៀបចំការបង្ហាញជួរឱ្យនៅជាជួរដេកជានិច្ច */
         .line-row { width: 100%; display: flex; flex-direction: row; align-items: baseline; margin-bottom: 14px; gap: 10px; flex-wrap: nowrap; }
         .inline-title { font-weight: bold; white-space: nowrap; flex-shrink: 0; }
-        
-        /* 🛠️ កែសម្រួលចំណុចនេះឱ្យសោភ័ណភាពអក្សរស្រដីពិពណ៌នាមិនជាប់ Bold តាមមេ */
         .inline-desc { font-weight: normal; word-break: break-word; flex-grow: 1; }
 
         .preview-footer-zone { margin-top: 24px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); width: 100%; box-sizing: border-box; }
@@ -151,6 +151,7 @@
         .modal-btn.save { background: #10b981; color: white; }
         .modal-btn.cancel { background: #475569; color: white; }
 
+        /* Mobile View Media Query */
         @media (max-width: 520px) {
             body { padding: 6px; }
             .container { padding: 10px; border-radius: 14px; }
@@ -163,10 +164,19 @@
             .row-setting-item select { grid-column: span 2; }
             .btn-open-editor { margin-left: 0; padding: 6px 10px; font-size: 11px; }
             
-            .line-row { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 16px; }
-            
-            /* 🛠️ ធានាថាពេលធ្លាក់ជួរលើ Mobile ក៏មិនបង្ខំឱ្យអក្សរពិពណ៌នាទៅជា Bold ដែរ */
-            .inline-desc { width: 100%; padding-left: 6px; opacity: 0.95; font-weight: normal !important; }
+            /* 🚀 ជួសជុល៖ រក្សាឱ្យនៅជួរដេកដដែល ទោះនៅលើទូរស័ព្ទដៃ iPhone ក៏ដោយ */
+            .line-row { 
+                flex-direction: row !important; 
+                align-items: baseline; 
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+            .inline-desc { 
+                width: auto; 
+                padding-left: 0; 
+                opacity: 1; 
+                font-weight: normal !important; 
+            }
         }
     </style>
 </head>
@@ -176,7 +186,7 @@
     <div class="app-header">
         <div class="app-brand">
             <span class="app-title">TOATHMOR STUDIO</span>
-            <span class="app-subtitle">FONT TESTER PREMIUM</span>
+            <span class="app-subtitle">FONT TESTER PRO</span>
         </div>
     </div>
 
@@ -317,6 +327,7 @@
     let textAlign = 'left';
     let uploadedFonts = [];
 
+    // Font Uploader Handler
     function handleMultipleFontUpload(input) {
         const files = input.files;
         if (!files.length) return;
@@ -359,7 +370,7 @@
         mainTitleEl.style.color = document.getElementById('mainTitleColor').value;
     }
 
-    /* 🛠️ កែសម្រួលចំណុចនេះដើម្បីឱ្យ Toggle Bold ដំណើរការត្រឹមត្រូវដាច់អហង្ការ */
+    /* 🚀 ជួសជុល៖ មុខងារ Toggle Format (B/I/U) ឱ្យបិទ-បើកដាច់ស្រឡះ */
     function toggleFormat(id, type, target) {
         const btn = document.getElementById(`btn_${type}_${target}_${id}`);
         btn.classList.toggle('active');
@@ -400,6 +411,7 @@
         document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none';
     }
 
+    // Modal Actions
     function openMainTitleEditor() {
         document.getElementById('currentEditTarget').value = 'mainTitle';
         document.getElementById('modalTitleText').textContent = '👑 កែសម្រួលចំណងជើងធំ';
@@ -445,6 +457,7 @@
         applyAllStyles();
     }
 
+    // Add & Remove Dynamic Blocks
     function addNewLineBlock(initTitle = "ចំណងជើងរង", initDesc = "ខ្លឹមសារពិពណ៌នា...", titleColor = "#fcd34d", descColor = "#ffffff", titleSize = 20, descSize = 16) {
         blockCount++; const id = blockCount;
         const card = document.createElement('div');
@@ -503,28 +516,26 @@
         }
     }
 
+    /* 🚀 ជួសជុល៖ កែប្រែប្រព័ន្ធ Layout ឱ្យស្មើគ្នាជានិច្ចទាំងលើ PC/Mobile */
     function applyAllStyles() {
         const lh = document.getElementById('globalLineHeight').value;
         const ls = document.getElementById('globalLetterSpacing').value;
         document.getElementById('valLineHeight').textContent = lh;
         document.getElementById('valLetterSpacing').textContent = ls + 'px';
-        const isMobile = window.innerWidth <= 520;
 
         document.querySelectorAll('.line-row').forEach(row => {
             row.style.letterSpacing = ls + 'px';
-            if (isMobile) {
-                row.style.justifyContent = 'flex-start';
-                row.style.marginBottom = (parseFloat(lh) * 12) + "px";
-            } else {
-                if (textAlign === 'center') row.style.justifyContent = 'center';
-                else if (textAlign === 'right') row.style.justifyContent = 'flex-end';
-                else row.style.justifyContent = 'flex-start';
-                row.style.marginBottom = (parseFloat(lh) * 8) + "px";
-            }
+            
+            if (textAlign === 'center') row.style.justifyContent = 'center';
+            else if (textAlign === 'right') row.style.justifyContent = 'flex-end';
+            else row.style.justifyContent = 'flex-start';
+            
+            row.style.marginBottom = (parseFloat(lh) * 8) + "px";
+            
             const t = row.querySelector('.inline-title');
             const d = row.querySelector('.inline-desc');
             if(t) t.style.textAlign = textAlign;
-            if(d) d.style.textAlign = isMobile && textAlign === 'center' ? 'center' : textAlign;
+            if(d) d.style.textAlign = textAlign;
         });
         document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
         document.getElementById('previewMainTitle').style.textAlign = textAlign;
@@ -533,18 +544,19 @@
     function setCanvasBg(bgHex) { document.getElementById('customBgColor').value = bgHex; document.getElementById('previewBox').style.backgroundColor = bgHex; }
     function setAlign(type) { textAlign = type; document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active')); document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active'); applyAllStyles(); }
 
+    // Export Advanced Functions
     function generateAdvancedRender(callback) {
         html2canvas(document.getElementById('previewBox'), { scale: 3, useCORS: true, backgroundColor: null, logging: false }).then(canvas => callback(canvas));
     }
-    function exportAsImage() { generateAdvancedRender(canvas => { const link = document.createElement('a'); link.download = 'toathmor-premium-render.png'; link.href = canvas.toDataURL('image/png'); link.click(); }); }
-    function exportAsPDF() { generateAdvancedRender(canvas => { const imgData = canvas.toDataURL('image/png'); const w = canvas.width / 3; const h = canvas.height / 3; const { jsPDF } = window.jspdf; const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(imgData, 'PNG', 0, 0, w, h); pdf.save('toathmor-premium-document.pdf'); }); }
+    function exportAsImage() { generateAdvancedRender(canvas => { const link = document.createElement('a'); link.download = 'toathmor-pro-render.png'; link.href = canvas.toDataURL('image/png'); link.click(); }); }
+    function exportAsPDF() { generateAdvancedRender(canvas => { const imgData = canvas.toDataURL('image/png'); const w = canvas.width / 3; const h = canvas.height / 3; const { jsPDF } = window.jspdf; const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(imgData, 'PNG', 0, 0, w, h); pdf.save('toathmor-pro-document.pdf'); }); }
 
     window.addEventListener('resize', applyAllStyles);
 
-    // ទិន្នន័យគំរូដំបូង
-    addNewLineBlock('១. ឆន្ទៈ៖', 'មានសេចក្តីប្រាថ្នាមោះមុតក្នុងការរៀនសូត្រ និងធ្វើការងារ។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('២. វីរិយៈ៖', 'ភក្តីភាព និងការគោរពវិន័យការងារឱ្យច្បាស់លាស់។', '#fcd34d', '#ffffff', 20, 16);
-    addNewLineBlock('៣. ចិត្តៈ៖', 'ការយកចិត្តទុកដាក់ខ្ពស់លើរាល់ការងារដែលបានប្រគល់ជូន។', '#fcd34d', '#ffffff', 20, 16);
+    // ទិន្នន័យគំរូដំបូងបង្អស់
+    addNewLineBlock('១. កាយានុបស្សនា៖', 'ការពិចារណាពិនិត្យមើលរូបកាយជាប្រចាំ។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('២. វេទនានុបស្សនា៖', 'ការពិនិត្យមើលរាល់សេចក្តីសុខទុក្ខរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
+    addNewLineBlock('៣. ចិត្តានុបស្សនា៖', 'ការតាមដានដឹងជានិច្ចនូវសភាវៈគំនិតរបស់ចិត្ត។', '#fcd34d', '#ffffff', 20, 16);
 
     applyMainTitleStyles(); applyFooterStyles(); setCanvasBg('#b45309');
 </script>
