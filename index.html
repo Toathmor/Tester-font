@@ -55,7 +55,7 @@
         .btn-add-block { background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 12px; }
         .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; }
         
-        /* REWORKED INTEGRATED CONTROLS BAR FOR SIMPLE MODE */
+        /* INTEGRATED CONTROLS BAR FOR SIMPLE MODE */
         .integrated-control-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; }
         .control-label-tag { font-size: 11px; font-weight: bold; min-width: 75px; padding: 4px 8px; border-radius: 4px; text-align: center; }
 
@@ -81,12 +81,12 @@
         .editable-text { outline: none; border-radius: 4px; display: block; -webkit-user-modify: read-write-plaintext-only; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 0 2px var(--accent-color); }
         
-        .preview-main-title { width: 100%; font-weight: bold; font-size: 26px; color: #ffffff; margin-bottom: 24px; text-align: center; }
+        .preview-main-title { width: 100%; font-size: 26px; color: #ffffff; margin-bottom: 24px; text-align: center; font-weight: normal; }
         
         #linesContainer { width: 100%; display: flex; flex-direction: column; }
         .line-row-wrapper { width: 100%; }
         .line-row { display: block; width: 100%; word-break: break-word; text-rendering: optimizeLegibility; }
-        .inline-title { font-weight: bold; margin-right: 6px; }
+        .inline-title { margin-right: 6px; font-weight: normal; }
         .inline-desc { font-weight: normal; }
         
         .simple-text-container { width: 100%; display: none; white-space: pre-wrap; font-size: 16px; color: #ffffff; word-break: break-word; text-rendering: optimizeLegibility; }
@@ -134,11 +134,12 @@
         </div>
         <div class="accordion-content">
             <div class="font-select-grid">
-                <select id="mainTitleFont" class="font-selector" onchange="applyGridMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <select id="mainTitleFont" class="font-selector" onchange="applyGridMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyGridMainTitleStyles()"><span class="val" id="lbl_mainTitleSize">28px</span>
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_mainTitle" onclick="toggleGridMainTitleFormat('b')">B</button>
                     <button class="format-btn" id="btn_i_mainTitle" onclick="toggleGridMainTitleFormat('i')">I</button>
+                    <button class="format-btn" id="btn_u_mainTitle" onclick="toggleGridMainTitleFormat('u')">U</button>
                 </div>
                 <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyGridMainTitleStyles()">
             </div>
@@ -147,19 +148,20 @@
 
     <div class="accordion-panel active simple-only-component" id="panel_simpleWorkspace">
         <div class="accordion-header" style="cursor: default; background: rgba(56, 189, 248, 0.05);">
-            <div class="accordion-title-text" style="color: #38bdf8;">📝 ម៉ូដចំណងជើងធំ (Main title style)</div>
+            <div class="accordion-title-text" style="color: #38bdf8;">📝 ម៉ូដចំណងជើងធំ (Main Title Style)</div>
             <button style="padding:4px 8px; font-size:11px;" onclick="openMainTitleEditor()">👑 កែចំណងជើងធំ</button>
         </div>
         <div class="accordion-content" style="display: flex; padding: 12px; gap: 10px;">
             
             <div class="integrated-control-row">
                 <span class="control-label-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">👑 ចំណងជើង</span>
-                <select id="simpleMainTitleFont" class="font-selector" onchange="applySimpleMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <select id="simpleMainTitleFont" class="font-selector" onchange="applySimpleMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="simpleMainTitleSize" min="14" max="80" value="28" oninput="applySimpleMainTitleStyles()">
                 <span class="val" id="lbl_simpleMainTitleSize" style="font-weight:bold; color:var(--accent-color); min-width:32px;">28px</span>
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_simpleMain" onclick="toggleSimpleMainTitleFormat('b')">B</button>
                     <button class="format-btn" id="btn_i_simpleMain" onclick="toggleSimpleMainTitleFormat('i')">I</button>
+                    <button class="format-btn" id="btn_u_simpleMain" onclick="toggleSimpleMainTitleFormat('u')">U</button>
                 </div>
                 <input type="color" id="simpleMainTitleColor" value="#ffffff" oninput="applySimpleMainTitleStyles()">
             </div>
@@ -169,7 +171,7 @@
             <div class="integrated-control-row" style="background: rgba(16, 185, 129, 0.03); border-color: rgba(16, 185, 129, 0.2);">
                 <span class="control-label-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔤 តួអត្ថបទ</span>
                 <select id="font_simple" class="font-selector" onchange="applySimpleBodyStyles()">
-                    <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
+                    <option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option>
                     <option value="'Battambang', sans-serif">Battambang</option>
                 </select>
                 <input type="range" id="size_simple" min="10" max="70" value="16" oninput="applySimpleBodyStyles()">
@@ -177,6 +179,7 @@
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_simple" onclick="toggleSimpleBodyFormat('b')">B</button>
                     <button class="format-btn" id="btn_i_simple" onclick="toggleSimpleBodyFormat('i')">I</button>
+                    <button class="format-btn" id="btn_u_simple" onclick="toggleSimpleBodyFormat('u')">U</button>
                 </div>
                 <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleBodyStyles()">
             </div>
@@ -203,7 +206,7 @@
                 <button class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
             </div>
             <div class="row-setting-item">
-                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="size_footer" min="10" max="40" value="12" oninput="applyFooterStyles()"><span class="val" id="lbl_footer">12px</span>
                 <select id="align_footer" onchange="applyFooterStyles()"><option value="left">ឆ្វេង</option><option value="center" selected>កណ្តាល</option><option value="right">ស្តាំ</option></select>
                 <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
@@ -261,7 +264,7 @@
 
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox">
-                <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true" oninput="storeDirectTypingTitle()">សភាវធម៌ ៤ យ៉ាង</div>
+                <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true" oninput="storeDirectTypingTitle()">ត្រៃកូដធម៌ ៤ យ៉ាង</div>
                 
                 <div id="linesContainer" class="grid-only-component"></div>
                 <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true" oninput="storeDirectTypingSimpleBody()"></div>
@@ -269,7 +272,7 @@
                 <div class="preview-footer-zone" id="previewFooterZone">
                     <div class="footer-flex-container" id="footerFlexContainer" style="justify-content: center;">
                         <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Logo">
-                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio</div>
+                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦</div>
                     </div>
                 </div>
             </div>
@@ -306,14 +309,14 @@
     // 🧠 🛠️ DATA STORAGE SYSTEMS (INDEPENDENT DATA SEPARATION)
     const storageData = {
         grid: {
-            mainTitle: "ឥទ្ធិបាទធម៌ ៤ យ៉ាង",
-            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio",
+            mainTitle: "ត្រៃកូដធម៌ ៣ យ៉ាង",
+            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦",
             textAlign: "left",
             mainTitleAlign: "center"
         },
         simple: {
             mainTitle: "ឥទ្ធិបាទធម៌ ៤ ប្រការ",
-            footerText: "ចាកវចនានុក្រមខ្មែរ",
+            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio ឆ្នាំ២០២៦",
             bodyText: `១. ឆន្ទៈ ៖ បំណង\n២. វីរិយៈ ៖ ព្យាយាម ការខិតខំ\n៣. ចិត្តៈ ៖ គំនិត (ចេះតែរស់រវើក)\n៤. វីមំសា ៖ ការពិចារណា, ល្បងមើល, ពិសោធមើល, ប្រឡង។`,
             textAlign: "left",
             mainTitleAlign: "center"
@@ -326,10 +329,9 @@
 
     window.onload = function() {
         // បង្កើតកោសិកាគំរូសម្រាប់ Grid Mode
-        addNewLineBlock('១. ឆន្ទៈ ៖', 'បំណង។');
-        addNewLineBlock('២. វីរិយៈ ៖', 'ព្យាយាម សង្វាតខិតខំ។');
-        addNewLineBlock('៣. ចិត្តៈ ៖', 'គំនិត (ចេះតែរស់រវើក)។');
-        addNewLineBlock('៤. វីមំសា ៖', 'ការពិចារណា, ល្បងមើល, ពិសោធមើល, ប្រឡង។');
+        addNewLineBlock('១. ខន្តី ៖', 'សេចក្ដីអត់ធន់');
+        addNewLineBlock('២. សច្ច ៖', 'ទៀងត្រង់ រក្សាពាក្យពិត');
+        addNewLineBlock('៣. កតញ្ញូ ៖', 'សេចក្ដីដឹងគុណ។');
         
         // បញ្ចូលទិន្នន័យគំរូទៅក្នុង Simple Textarea Input
         document.getElementById('simpleTextAreaInput').value = storageData.simple.bodyText;
@@ -359,18 +361,14 @@
             titleEl.innerText = storageData.grid.mainTitle;
             footerEl.innerText = storageData.grid.footerText;
             
-            // Sync ប៊ូតុងតម្រឹម
             setActiveAlignButtons(storageData.grid.mainTitleAlign, storageData.grid.textAlign);
-            
             applyGridMainTitleStyles();
         } else {
             titleEl.innerText = storageData.simple.mainTitle;
             footerEl.innerText = storageData.simple.footerText;
             document.getElementById('simpleTextContainer').innerText = storageData.simple.bodyText;
             
-            // Sync ប៊ូតុងតម្រឹម
             setActiveAlignButtons(storageData.simple.mainTitleAlign, storageData.simple.textAlign);
-            
             applySimpleMainTitleStyles();
             applySimpleBodyStyles();
         }
@@ -395,10 +393,11 @@
         if (currentLayoutMode === 'simple') {
             const val = document.getElementById('simpleTextContainer').innerText;
             storageData.simple.bodyText = val;
-            document.getElementById('simpleTextAreaInput').value = val; // sync ទៅ input ធំវិញ
+            document.getElementById('simpleTextAreaInput').value = val;
         }
     }
 
+    document.getElementById('simpleTextAreaInput').addEventListener('input', syncSimpleTextFromInput);
     function syncSimpleTextFromInput() {
         if (currentLayoutMode === 'simple') {
             const val = document.getElementById('simpleTextAreaInput').value;
@@ -416,6 +415,13 @@
         el.style.fontSize = sz + 'px';
         el.style.color = document.getElementById('mainTitleColor').value; 
         el.style.textAlign = storageData.grid.mainTitleAlign;
+
+        const bb = document.getElementById('btn_b_mainTitle');
+        const bi = document.getElementById('btn_i_mainTitle');
+        const bu = document.getElementById('btn_u_mainTitle');
+        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
+        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
+        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
     }
 
     // 👑 APPLY MAIN TITLE STYLES (SIMPLE MODE)
@@ -427,6 +433,13 @@
         el.style.fontSize = sz + 'px';
         el.style.color = document.getElementById('simpleMainTitleColor').value; 
         el.style.textAlign = storageData.simple.mainTitleAlign;
+
+        const bb = document.getElementById('btn_b_simpleMain');
+        const bi = document.getElementById('btn_i_simpleMain');
+        const bu = document.getElementById('btn_u_simpleMain');
+        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
+        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
+        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
     }
 
     // 🔤 APPLY BODY TEXT STYLES (SIMPLE MODE)
@@ -437,28 +450,39 @@
         el.style.fontFamily = document.getElementById('font_simple').value; 
         el.style.fontSize = sz + 'px';
         el.style.color = document.getElementById('color_simple').value;
+
+        const bb = document.getElementById('btn_b_simple');
+        const bi = document.getElementById('btn_i_simple');
+        const bu = document.getElementById('btn_u_simple');
+        el.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
+        el.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
+        el.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
     }
 
-    // 🔤 FONT STYLES FORMATTER (BOLD / ITALIC)
+    // 🔤 FONT STYLES FORMATTER (BOLD / ITALIC / UNDERLINE)
     function toggleGridMainTitleFormat(t) {
         const b = document.getElementById(`btn_${t}_mainTitle`); b.classList.toggle('active');
-        const el = document.getElementById('previewMainTitle');
-        if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
-        else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
+        applyGridMainTitleStyles();
+    }
+
+    // 🔤 មុខងារបន្ថែមសម្រាប់កែទម្រង់ជួរ Block នីមួយៗ (B I U)
+    function toggleLineBlockFormat(id, t) {
+        const b = document.getElementById(`btn_${t}_line_${id}`); b.classList.toggle('active');
+        applyLineStyles(id);
     }
 
     function toggleSimpleMainTitleFormat(t) {
         const b = document.getElementById(`btn_${t}_simpleMain`); b.classList.toggle('active');
-        const el = document.getElementById('previewMainTitle');
-        if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
-        else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
+        applySimpleMainTitleStyles();
     }
+
+    document.getElementById('btn_b_simple').addEventListener('click', function() { toggleSimpleBodyFormat('b'); });
+    document.getElementById('btn_i_simple').addEventListener('click', function() { toggleSimpleBodyFormat('i'); });
+    document.getElementById('btn_u_simple').addEventListener('click', function() { toggleSimpleBodyFormat('u'); });
 
     function toggleSimpleBodyFormat(t) {
         const b = document.getElementById(`btn_${t}_simple`); b.classList.toggle('active');
-        const el = document.getElementById('simpleTextContainer');
-        if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
-        else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
+        applySimpleBodyStyles();
     }
 
     // 🎯 MASTER ALIGNMENT MANAGEMENT
@@ -502,7 +526,7 @@
     function addNewLineBlock(t = "ចំណងជើងរង", d = "ខ្លឹមសារពិពណ៌នា...") {
         blockCount++; const id = blockCount;
         const panel = document.createElement('div'); panel.className = 'accordion-panel grid-only-component'; panel.id = `panel_line_${id}`;
-        let opts = `<option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option>`;
+        let opts = `<option value="'Kantumruy Pro', sans-serif" selected>Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option>`;
         uploadedFonts.forEach(f => { opts += `<option value="'${f}', sans-serif">${f}</option>`; });
 
         panel.innerHTML = `
@@ -514,15 +538,35 @@
                 </div>
             </div>
             <div class="accordion-content">
-                <div class="row-setting-item"><span class="compact-label">🅰️ Title:</span><select id="font_title_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})"><span class="val" id="lbl_title_${id}">20px</span><input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})"></div>
-                <div class="row-setting-item"><span class="compact-label">🔤 Body:</span><select id="font_desc_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select><input type="range" id="size_desc_${id}" min="10" max="60" value="16" oninput="applyLineStyles(${id})"><span class="val" id="lbl_desc_${id}">16px</span><input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})"></div>
+                <div class="row-setting-item">
+                    <span class="compact-label">🅰️ Title:</span>
+                    <select id="font_title_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select>
+                    <input type="range" id="size_title_${id}" min="10" max="60" value="20" oninput="applyLineStyles(${id})">
+                    <span class="val" id="lbl_title_${id}">20px</span>
+                    <div class="format-group">
+                        <button class="format-btn" id="btn_b_line_${id}" onclick="toggleLineBlockFormat(${id}, 'b')">B</button>
+                        <button class="format-btn" id="btn_i_line_${id}" onclick="toggleLineBlockFormat(${id}, 'i')">I</button>
+                        <button class="format-btn" id="btn_u_line_${id}" onclick="toggleLineBlockFormat(${id}, 'u')">U</button>
+                    </div>
+                    <input type="color" id="color_title_${id}" value="#fcd34d" oninput="applyLineStyles(${id})">
+                </div>
+                <div class="row-setting-item">
+                    <span class="compact-label">🔤 Body:</span>
+                    <select id="font_desc_${id}" class="font-selector" onchange="applyLineStyles(${id})">${opts}</select>
+                    <input type="range" id="size_desc_${id}" min="10" max="60" value="16" oninput="applyLineStyles(${id})">
+                    <span class="val" id="lbl_desc_${id}">16px</span>
+                    <input type="color" id="color_desc_${id}" value="#ffffff" oninput="applyLineStyles(${id})">
+                </div>
             </div>`;
         document.getElementById('blocksManager').appendChild(panel);
 
         const wrap = document.createElement('div'); wrap.className = 'line-row-wrapper'; wrap.id = `preview_row_wrapper_${id}`;
-        wrap.innerHTML = `<div class="line-row" id="preview_row_${id}"><span class="inline-title editable-text" id="p_title_${id}" contenteditable="true">${t}</span><span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true">${d}</span></div>`;
+        wrap.innerHTML = `<div class="line-row" id="preview_row_${id}"><span class="inline-title editable-text" id="p_title_${id}" contenteditable="true"></span><span class="inline-desc editable-text" id="p_desc_${id}" contenteditable="true"></span></div>`;
         document.getElementById('linesContainer').appendChild(wrap);
         
+        document.getElementById(`p_title_${id}`).innerText = t;
+        document.getElementById(`p_desc_${id}`).innerText = d;
+
         toggleAccordion(`panel_line_${id}`); applyLineStyles(id); applyAllStyles();
     }
 
@@ -535,6 +579,13 @@
             d.style.fontFamily = document.getElementById(`font_desc_${id}`).value; d.style.fontSize = document.getElementById(`size_desc_${id}`).value + 'px'; d.style.color = document.getElementById(`color_desc_${id}`).value;
             document.getElementById(`lbl_title_${id}`).innerText = document.getElementById(`size_title_${id}`).value + 'px';
             document.getElementById(`lbl_desc_${id}`).innerText = document.getElementById(`size_desc_${id}`).value + 'px';
+
+            const bb = document.getElementById(`btn_b_line_${id}`);
+            const bi = document.getElementById(`btn_i_line_${id}`);
+            const bu = document.getElementById(`btn_u_line_${id}`);
+            t.style.fontWeight = bb.classList.contains('active') ? '700' : 'normal';
+            t.style.fontStyle = bi.classList.contains('active') ? 'italic' : 'normal';
+            t.style.textDecoration = bu.classList.contains('active') ? 'underline' : 'none';
         }
     }
 
@@ -578,7 +629,7 @@
     function toggleAccordion(id) {
         const el = document.getElementById(id); if(!el) return;
         const open = el.classList.contains('active');
-        document.querySelectorAll('.accordion-panel').forEach(p => { if(p.id !== 'panel_simpleWorkspace') p.classList.remove('active'); });
+        document.querySelectorAll('.accordion-panel').forEach(p => { if(p.id !== 'panel_simpleWorkspace' && p.id !== 'panel_mainTitle') p.classList.remove('active'); });
         if(!open) el.classList.add('active');
     }
 
