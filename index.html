@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Font Tester Pro V4.0</title>
+    <title>Toathmor Studio - Font Tester Pro V4.5</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Battambang:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -27,7 +27,7 @@
         
         .upload-zone { background: linear-gradient(135deg, #1e40af, #2563eb); border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 16px; cursor: pointer; font-weight: bold; font-size: 13px; color: white; }
         
-        /* 🔄 LAYOUT SELECTOR IN PREVIEW CARD */
+        /* LAYOUT SELECTOR IN PREVIEW CARD */
         .layout-selector-box { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); border-radius: 10px; padding: 6px; margin-bottom: 4px; }
         .layout-btn-group { display: flex; gap: 6px; }
         .layout-btn { flex: 1; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; transition: all 0.2s; }
@@ -55,8 +55,8 @@
         .btn-add-block { background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 13px; margin-bottom: 12px; }
         .btn-delete { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; }
         
-        /* INTEGRATED CONTROLS BAR STYLE */
-        .integrated-control-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); }
+        /* REWORKED INTEGRATED CONTROLS BAR FOR SIMPLE MODE */
+        .integrated-control-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; }
         .control-label-tag { font-size: 11px; font-weight: bold; min-width: 75px; padding: 4px 8px; border-radius: 4px; text-align: center; }
 
         /* PREVIEW SYSTEM */
@@ -118,7 +118,7 @@
 
 <div class="container">
     <div class="app-header">
-        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V4.0</span></div>
+        <div><span class="app-title">TOATHMOR STUDIO</span><br><span class="app-subtitle">FONT TESTER PRO V4.5</span></div>
         <button class="theme-toggle-btn" onclick="toggleThemeMode()">🌙 Dark Mode</button>
     </div>
 
@@ -134,53 +134,52 @@
         </div>
         <div class="accordion-content">
             <div class="font-select-grid">
-                <select id="mainTitleFont" class="font-selector" onchange="applyMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
-                <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyMainTitleStyles()"><span class="val" id="lbl_mainTitleSize">28px</span>
+                <select id="mainTitleFont" class="font-selector" onchange="applyGridMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <input type="range" id="mainTitleSize" min="14" max="80" value="28" oninput="applyGridMainTitleStyles()"><span class="val" id="lbl_mainTitleSize">28px</span>
                 <div class="format-group">
-                    <button class="format-btn" id="btn_b_mainTitle" onclick="toggleMainTitleFormat('b')">B</button>
-                    <button class="format-btn" id="btn_i_mainTitle" onclick="toggleMainTitleFormat('i')">I</button>
+                    <button class="format-btn" id="btn_b_mainTitle" onclick="toggleGridMainTitleFormat('b')">B</button>
+                    <button class="format-btn" id="btn_i_mainTitle" onclick="toggleGridMainTitleFormat('i')">I</button>
                 </div>
-                <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyMainTitleStyles()">
+                <input type="color" id="mainTitleColor" value="#ffffff" oninput="applyGridMainTitleStyles()">
             </div>
         </div>
     </div>
 
     <div class="accordion-panel active simple-only-component" id="panel_simpleWorkspace">
         <div class="accordion-header" style="cursor: default; background: rgba(56, 189, 248, 0.05);">
-            <div class="accordion-title-text" style="color: #38bdf8;">📝 ផ្ទាំងសរសេរអត្ថបទ និងកំណត់ទំហំ (Text Workspace)</div>
+            <div class="accordion-title-text" style="color: #38bdf8;">📝 ម៉ូដចំណងជើងធំ (Main title style)</div>
             <button style="padding:4px 8px; font-size:11px;" onclick="openMainTitleEditor()">👑 កែចំណងជើងធំ</button>
         </div>
         <div class="accordion-content" style="display: flex; padding: 12px; gap: 10px;">
             
             <div class="integrated-control-row">
                 <span class="control-label-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">👑 ចំណងជើង</span>
-                <select id="simpleMainTitleFont" class="font-selector" onchange="syncMainTitleFromSimple()"></select>
-                <input type="range" id="simpleMainTitleSize" min="14" max="80" value="28" oninput="syncMainTitleFromSimple()">
+                <select id="simpleMainTitleFont" class="font-selector" onchange="applySimpleMainTitleStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
+                <input type="range" id="simpleMainTitleSize" min="14" max="80" value="28" oninput="applySimpleMainTitleStyles()">
                 <span class="val" id="lbl_simpleMainTitleSize" style="font-weight:bold; color:var(--accent-color); min-width:32px;">28px</span>
                 <div class="format-group">
                     <button class="format-btn" id="btn_b_simpleMain" onclick="toggleSimpleMainTitleFormat('b')">B</button>
                     <button class="format-btn" id="btn_i_simpleMain" onclick="toggleSimpleMainTitleFormat('i')">I</button>
                 </div>
-                <input type="color" id="simpleMainTitleColor" value="#ffffff" oninput="syncMainTitleFromSimple()">
+                <input type="color" id="simpleMainTitleColor" value="#ffffff" oninput="applySimpleMainTitleStyles()">
             </div>
 
             <textarea id="simpleTextAreaInput" class="simple-textarea-input" placeholder="សូមវាយបញ្ចូលអត្ថបទនៅទីនេះ..." oninput="syncSimpleTextFromInput()"></textarea>
 
             <div class="integrated-control-row" style="background: rgba(16, 185, 129, 0.03); border-color: rgba(16, 185, 129, 0.2);">
                 <span class="control-label-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔤 តួអត្ថបទ</span>
-                <select id="font_simple" class="font-selector" onchange="applySimpleTextStyles()">
+                <select id="font_simple" class="font-selector" onchange="applySimpleBodyStyles()">
                     <option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option>
                     <option value="'Battambang', sans-serif">Battambang</option>
                 </select>
-                <input type="range" id="size_simple" min="10" max="70" value="16" oninput="applySimpleTextStyles()">
+                <input type="range" id="size_simple" min="10" max="70" value="16" oninput="applySimpleBodyStyles()">
                 <span class="val" id="lbl_simpleSize" style="font-weight: bold; color: #10b981; min-width:32px;">16px</span>
                 <div class="format-group">
-                    <button class="format-btn" id="btn_b_simple" onclick="toggleSimpleTextFormat('b')">B</button>
-                    <button class="format-btn" id="btn_i_simple" onclick="toggleSimpleTextFormat('i')">I</button>
+                    <button class="format-btn" id="btn_b_simple" onclick="toggleSimpleBodyFormat('b')">B</button>
+                    <button class="format-btn" id="btn_i_simple" onclick="toggleSimpleBodyFormat('i')">I</button>
                 </div>
-                <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleTextStyles()">
+                <input type="color" id="color_simple" value="#ffffff" oninput="applySimpleBodyStyles()">
             </div>
-
         </div>
     </div>
 
@@ -204,7 +203,7 @@
                 <button class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
             </div>
             <div class="row-setting-item">
-                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option></select>
+                <select id="font_footer" class="font-selector" onchange="applyFooterStyles()"><option value="'Kantumruy Pro', sans-serif">Kantumruy Pro</option><option value="'Battambang', sans-serif">Battambang</option></select>
                 <input type="range" id="size_footer" min="10" max="40" value="12" oninput="applyFooterStyles()"><span class="val" id="lbl_footer">12px</span>
                 <select id="align_footer" onchange="applyFooterStyles()"><option value="left">ឆ្វេង</option><option value="center" selected>កណ្តាល</option><option value="right">ស្តាំ</option></select>
                 <input type="color" id="color_footer" value="#ffffff" oninput="applyFooterStyles()">
@@ -214,7 +213,6 @@
 
     <div class="preview-wrapper">
         <div class="control-panel-box">
-            
             <div class="layout-selector-box">
                 <div class="layout-btn-group">
                     <button class="layout-btn active" id="btnLayoutGrid" onclick="switchLayoutMode('grid')">🔲 ផ្ទាំងឆ្លាស់គ្នា (Grid)</button>
@@ -263,15 +261,15 @@
 
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox">
-                <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true">ឥទ្ធិបាទធម៌ ៤ប្រការ</div>
+                <div class="preview-main-title editable-text" id="previewMainTitle" contenteditable="true" oninput="storeDirectTypingTitle()">សភាវធម៌ ៤ យ៉ាង</div>
                 
                 <div id="linesContainer" class="grid-only-component"></div>
-                <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true"></div>
+                <div class="simple-text-container editable-text simple-only-component" id="simpleTextContainer" contenteditable="true" oninput="storeDirectTypingSimpleBody()"></div>
                 
                 <div class="preview-footer-zone" id="previewFooterZone">
                     <div class="footer-flex-container" id="footerFlexContainer" style="justify-content: center;">
                         <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Logo">
-                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true">រៀបរៀងដោយ ៖ Toathmor Studio</div>
+                        <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio</div>
                     </div>
                 </div>
             </div>
@@ -305,94 +303,145 @@
 </div>
 
 <script>
-    let blockCount = 0, textAlign = 'left', mainTitleAlign = 'center', uploadedFonts = [], currentLayoutMode = 'grid';
-
-    const defaultKhmerText = `សភាពល្អ ៤ យ៉ាង\n១. ព្រះរាជល្អ \n២. នរជនល្អ\n៣. មិត្តភក្ដិល្អ\n៤. សេចក្ដីសុខមាន`;
-
-    window.onload = function() {
-        addNewLineBlock('១. ឆន្ទៈ ៖', 'បំណង');
-        addNewLineBlock('២. វីរិយៈ ៖', 'ព្យាយាម ការខិតខំ។');
-        addNewLineBlock('៣. ចិត្តៈ ៖', 'គំនិត (ចេះតែរស់រវើក)។');
-        addNewLineBlock('៤. វីមំសា ៖', 'ការពិចារណា, ល្បងមើល, ពិសោធមើល; ប្រឡង។');
-        document.getElementById('simpleTextAreaInput').value = defaultKhmerText;
-        rebuildSimpleFontsDropdown();
-        syncSimpleTextFromInput(); applyMainTitleStyles(); applySimpleTextStyles(); applyFooterStyles(); setCanvasBg('#2e5a44');
+    // 🧠 🛠️ DATA STORAGE SYSTEMS (INDEPENDENT DATA SEPARATION)
+    const storageData = {
+        grid: {
+            mainTitle: "ឥទ្ធិបាទធម៌ ៤ យ៉ាង",
+            footerText: "រៀបរៀងដោយ ៖ Toathmor Studio",
+            textAlign: "left",
+            mainTitleAlign: "center"
+        },
+        simple: {
+            mainTitle: "ឥទ្ធិបាទធម៌ ៤ ប្រការ",
+            footerText: "ចាកវចនានុក្រមខ្មែរ",
+            bodyText: `១. ឆន្ទៈ ៖ បំណង\n២. វីរិយៈ ៖ ព្យាយាម ការខិតខំ\n៣. ចិត្តៈ ៖ គំនិត (ចេះតែរស់រវើក)\n៤. វីមំសា ៖ ការពិចារណា, ល្បងមើល, ពិសោធមើល, ប្រឡង។`,
+            textAlign: "left",
+            mainTitleAlign: "center"
+        }
     };
 
+    let blockCount = 0;
+    let uploadedFonts = [];
+    let currentLayoutMode = 'grid'; // 'grid' ឬ 'simple'
+
+    window.onload = function() {
+        // បង្កើតកោសិកាគំរូសម្រាប់ Grid Mode
+        addNewLineBlock('១. ឆន្ទៈ ៖', 'បំណង។');
+        addNewLineBlock('២. វីរិយៈ ៖', 'ព្យាយាម សង្វាតខិតខំ។');
+        addNewLineBlock('៣. ចិត្តៈ ៖', 'គំនិត (ចេះតែរស់រវើក)។');
+        addNewLineBlock('៤. វីមំសា ៖', 'ការពិចារណា, ល្បងមើល, ពិសោធមើល, ប្រឡង។');
+        
+        // បញ្ចូលទិន្នន័យគំរូទៅក្នុង Simple Textarea Input
+        document.getElementById('simpleTextAreaInput').value = storageData.simple.bodyText;
+        
+        // ចាប់ផ្តើមដំណើរការ Refresh Layout ដើមដំបូង
+        refreshViewFromStorage();
+        setCanvasBg('#2e5a44');
+    };
+
+    // 🔄 មុខងារប្តូរ Layout ឆ្លាតវៃ (ទិន្នន័យមិនជាន់គ្នា)
     function switchLayoutMode(mode) {
         currentLayoutMode = mode;
         document.body.className = mode === 'simple' ? 'mode-simple' : 'mode-grid';
         document.getElementById('btnLayoutSimple').classList.toggle('active', mode === 'simple');
         document.getElementById('btnLayoutGrid').classList.toggle('active', mode === 'grid');
+        
+        // ហៅទិន្នន័យដែលបានរក្សាទុកតាម mode នីមួយៗមកបង្ហាញឡើងវិញ
+        refreshViewFromStorage();
+    }
+
+    // 🔄 ដំណើរការទាញទិន្នន័យពី Storage មកបង្ហាញលើ UI ជាក់ស្តែង
+    function refreshViewFromStorage() {
+        const titleEl = document.getElementById('previewMainTitle');
+        const footerEl = document.getElementById('previewFooterText');
+        
+        if (currentLayoutMode === 'grid') {
+            titleEl.innerText = storageData.grid.mainTitle;
+            footerEl.innerText = storageData.grid.footerText;
+            
+            // Sync ប៊ូតុងតម្រឹម
+            setActiveAlignButtons(storageData.grid.mainTitleAlign, storageData.grid.textAlign);
+            
+            applyGridMainTitleStyles();
+        } else {
+            titleEl.innerText = storageData.simple.mainTitle;
+            footerEl.innerText = storageData.simple.footerText;
+            document.getElementById('simpleTextContainer').innerText = storageData.simple.bodyText;
+            
+            // Sync ប៊ូតុងតម្រឹម
+            setActiveAlignButtons(storageData.simple.mainTitleAlign, storageData.simple.textAlign);
+            
+            applySimpleMainTitleStyles();
+            applySimpleBodyStyles();
+        }
+        applyFooterStyles();
         applyAllStyles();
     }
 
-    function toggleAccordion(id) {
-        const el = document.getElementById(id); if(!el) return;
-        const open = el.classList.contains('active');
-        document.querySelectorAll('.accordion-panel').forEach(p => {
-            if(p.id === 'panel_simpleWorkspace') return;
-            p.classList.remove('active');
-        });
-        if(!open) el.classList.add('active');
+    // ✍️ តាមដានការលួចវាយអត្ថបទផ្ទាល់នៅលើផ្ទាំង Preview Box (Direct Inline Typing)
+    function storeDirectTypingTitle() {
+        const val = document.getElementById('previewMainTitle').innerText;
+        if (currentLayoutMode === 'grid') { storageData.grid.mainTitle = val; } 
+        else { storageData.simple.mainTitle = val; }
     }
 
-    function toggleThemeMode() {
-        document.body.classList.toggle('light-mode');
-        document.querySelector('.theme-toggle-btn').innerText = document.body.classList.contains('light-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+    function storeDirectTypingFooter() {
+        const val = document.getElementById('previewFooterText').innerText;
+        if (currentLayoutMode === 'grid') { storageData.grid.footerText = val; } 
+        else { storageData.simple.footerText = val; }
     }
 
-    function rebuildSimpleFontsDropdown() {
-        const sm = document.getElementById('simpleMainTitleFont');
-        sm.innerHTML = document.getElementById('mainTitleFont').innerHTML;
-        sm.value = document.getElementById('mainTitleFont').value;
+    function storeDirectTypingSimpleBody() {
+        if (currentLayoutMode === 'simple') {
+            const val = document.getElementById('simpleTextContainer').innerText;
+            storageData.simple.bodyText = val;
+            document.getElementById('simpleTextAreaInput').value = val; // sync ទៅ input ធំវិញ
+        }
     }
 
-    function handleMultipleFontUpload(input) {
-        Array.from(input.files).forEach(file => {
-            const fName = file.name.split('.')[0].replace(/\s+/g, '-');
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                new FontFace(fName, e.target.result).load().then(f => {
-                    document.fonts.add(f); uploadedFonts.push(fName);
-                    document.querySelectorAll('select.font-selector').forEach(s => {
-                        s.appendChild(new Option(file.name, `'${fName}', sans-serif`));
-                    });
-                    rebuildSimpleFontsDropdown();
-                    applyAllStyles(); applyMainTitleStyles(); applySimpleTextStyles(); applyFooterStyles();
-                });
-            };
-            reader.readAsArrayBuffer(file);
-        });
+    function syncSimpleTextFromInput() {
+        if (currentLayoutMode === 'simple') {
+            const val = document.getElementById('simpleTextAreaInput').value;
+            storageData.simple.bodyText = val;
+            document.getElementById('simpleTextContainer').innerText = val;
+        }
     }
 
-    function syncSimpleTextFromInput() { 
-        document.getElementById('simpleTextContainer').innerText = document.getElementById('simpleTextAreaInput').value; 
-    }
-
-    function applyMainTitleStyles() {
+    // 👑 APPLY MAIN TITLE STYLES (GRID MODE)
+    function applyGridMainTitleStyles() {
+        if (currentLayoutMode !== 'grid') return;
         const el = document.getElementById('previewMainTitle'), sz = document.getElementById('mainTitleSize').value;
         document.getElementById('lbl_mainTitleSize').innerText = sz + 'px';
-        el.style.fontFamily = document.getElementById('mainTitleFont').value; el.style.fontSize = sz + 'px';
-        el.style.color = document.getElementById('mainTitleColor').value; el.style.textAlign = mainTitleAlign;
-        
-        document.getElementById('simpleMainTitleSize').value = sz;
+        el.style.fontFamily = document.getElementById('mainTitleFont').value; 
+        el.style.fontSize = sz + 'px';
+        el.style.color = document.getElementById('mainTitleColor').value; 
+        el.style.textAlign = storageData.grid.mainTitleAlign;
+    }
+
+    // 👑 APPLY MAIN TITLE STYLES (SIMPLE MODE)
+    function applySimpleMainTitleStyles() {
+        if (currentLayoutMode !== 'simple') return;
+        const el = document.getElementById('previewMainTitle'), sz = document.getElementById('simpleMainTitleSize').value;
         document.getElementById('lbl_simpleMainTitleSize').innerText = sz + 'px';
-        document.getElementById('simpleMainTitleFont').value = document.getElementById('mainTitleFont').value;
-        document.getElementById('simpleMainTitleColor').value = document.getElementById('mainTitleColor').value;
+        el.style.fontFamily = document.getElementById('simpleMainTitleFont').value; 
+        el.style.fontSize = sz + 'px';
+        el.style.color = document.getElementById('simpleMainTitleColor').value; 
+        el.style.textAlign = storageData.simple.mainTitleAlign;
     }
 
-    function syncMainTitleFromSimple() {
-        const sz = document.getElementById('simpleMainTitleSize').value;
-        document.getElementById('mainTitleSize').value = sz;
-        document.getElementById('mainTitleFont').value = document.getElementById('simpleMainTitleFont').value;
-        document.getElementById('mainTitleColor').value = document.getElementById('simpleMainTitleColor').value;
-        applyMainTitleStyles();
+    // 🔤 APPLY BODY TEXT STYLES (SIMPLE MODE)
+    function applySimpleBodyStyles() {
+        if (currentLayoutMode !== 'simple') return;
+        const el = document.getElementById('simpleTextContainer'), sz = document.getElementById('size_simple').value;
+        document.getElementById('lbl_simpleSize').innerText = sz + 'px';
+        el.style.fontFamily = document.getElementById('font_simple').value; 
+        el.style.fontSize = sz + 'px';
+        el.style.color = document.getElementById('color_simple').value;
     }
 
-    function toggleMainTitleFormat(t) {
+    // 🔤 FONT STYLES FORMATTER (BOLD / ITALIC)
+    function toggleGridMainTitleFormat(t) {
         const b = document.getElementById(`btn_${t}_mainTitle`); b.classList.toggle('active');
-        document.getElementById(`btn_${t}_simpleMain`).classList.toggle('active', b.classList.contains('active'));
         const el = document.getElementById('previewMainTitle');
         if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
         else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
@@ -400,26 +449,56 @@
 
     function toggleSimpleMainTitleFormat(t) {
         const b = document.getElementById(`btn_${t}_simpleMain`); b.classList.toggle('active');
-        document.getElementById(`btn_${t}_mainTitle`).classList.toggle('active', b.classList.contains('active'));
         const el = document.getElementById('previewMainTitle');
         if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
         else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
     }
 
-    function applySimpleTextStyles() {
-        const el = document.getElementById('simpleTextContainer'), sz = document.getElementById('size_simple').value;
-        document.getElementById('lbl_simpleSize').innerText = sz + 'px';
-        el.style.fontFamily = document.getElementById('font_simple').value; el.style.fontSize = sz + 'px';
-        el.style.color = document.getElementById('color_simple').value;
-    }
-
-    function toggleSimpleTextFormat(t) {
+    function toggleSimpleBodyFormat(t) {
         const b = document.getElementById(`btn_${t}_simple`); b.classList.toggle('active');
         const el = document.getElementById('simpleTextContainer');
         if (t === 'b') el.style.fontWeight = b.classList.contains('active') ? '700' : 'normal';
         else if (t === 'i') el.style.fontStyle = b.classList.contains('active') ? 'italic' : 'normal';
     }
 
+    // 🎯 MASTER ALIGNMENT MANAGEMENT
+    function setMainTitleAlign(t) {
+        if (currentLayoutMode === 'grid') {
+            storageData.grid.mainTitleAlign = t;
+            applyGridMainTitleStyles();
+        } else {
+            storageData.simple.mainTitleAlign = t;
+            applySimpleMainTitleStyles();
+        }
+        setActiveAlignButtons(t, null);
+    }
+
+    function setAlign(t) {
+        if (currentLayoutMode === 'grid') {
+            storageData.grid.textAlign = t;
+        } else {
+            storageData.simple.textAlign = t;
+        }
+        setActiveAlignButtons(null, t);
+        applyAllStyles();
+    }
+
+    function setActiveAlignButtons(mainAlign, bodyAlign) {
+        if (mainAlign) {
+            document.querySelectorAll('.alignment-master-row .align-block:nth-child(1) .align-btn').forEach(b => b.classList.remove('active'));
+            if(mainAlign==='left') document.getElementById('btnMainLeft').classList.add('active');
+            if(mainAlign==='center') document.getElementById('btnMainCenter').classList.add('active');
+            if(mainAlign==='right') document.getElementById('btnMainRight').classList.add('active');
+        }
+        if (bodyAlign) {
+            document.querySelectorAll('.alignment-master-row .align-block:nth-child(2) .align-btn').forEach(b => b.classList.remove('active'));
+            if(bodyAlign==='left') document.getElementById('btnLeft').classList.add('active');
+            if(bodyAlign==='center') document.getElementById('btnCenter').classList.add('active');
+            if(bodyAlign==='right') document.getElementById('btnRight').classList.add('active');
+        }
+    }
+
+    // ➕ SYSTEM DYNAMIC BLOCKS (FOR GRID LAYOUT)
     function addNewLineBlock(t = "ចំណងជើងរង", d = "ខ្លឹមសារពិពណ៌នា...") {
         blockCount++; const id = blockCount;
         const panel = document.createElement('div'); panel.className = 'accordion-panel grid-only-component'; panel.id = `panel_line_${id}`;
@@ -459,6 +538,72 @@
         }
     }
 
+    // ℹ️ FOOTER ROW RENDERING
+    function applyFooterStyles() {
+        const txt = document.getElementById('previewFooterText'), sz = document.getElementById('size_footer').value;
+        document.getElementById('lbl_footer').innerText = sz + 'px'; txt.style.fontFamily = document.getElementById('font_footer').value;
+        txt.style.fontSize = sz + 'px'; txt.style.color = document.getElementById('color_footer').value;
+        const al = document.getElementById('align_footer').value; document.getElementById('footerFlexContainer').style.justifyContent = al === 'left' ? 'flex-start' : (al === 'right' ? 'flex-end' : 'center');
+        txt.style.textAlign = al; const lgSz = document.getElementById('logoSizeSlider').value;
+        document.getElementById('lbl_logoSize').innerText = lgSz + 'px'; document.getElementById('previewFooterLogo').style.width = lgSz + 'px';
+    }
+
+    // GLOBAL STYLES (LINE HEIGHT / LETTER SPACING)
+    function applyAllStyles() {
+        const lh = document.getElementById('globalLineHeight').value;
+        const ls = document.getElementById('globalLetterSpacing').value;
+        document.getElementById('valLineHeight').innerText = lh; document.getElementById('valLetterSpacing').innerText = ls + 'px';
+        
+        const activeAlign = currentLayoutMode === 'grid' ? storageData.grid.textAlign : storageData.simple.textAlign;
+        
+        document.querySelectorAll('.line-row-wrapper').forEach(w => {
+            w.style.letterSpacing = ls + 'px'; w.style.marginBottom = (parseFloat(lh) * 8) + "px";
+            const r = w.querySelector('.line-row'); 
+            if(r) {
+                r.style.textAlign = activeAlign;
+                const title = r.querySelector('.inline-title'), desc = r.querySelector('.inline-desc');
+                if (activeAlign === 'center' || activeAlign === 'right') {
+                    r.style.display = 'block'; if(title) title.style.display = 'block'; if(desc) desc.style.display = 'block';
+                } else {
+                    r.style.display = 'block'; if(title) title.style.display = 'inline-block'; if(desc) desc.style.display = 'inline';
+                }
+            }
+        });
+        const sBox = document.getElementById('simpleTextContainer');
+        sBox.style.letterSpacing = ls + 'px'; sBox.style.lineHeight = lh; sBox.style.textAlign = activeAlign;
+        document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
+    }
+
+    // MISC SYSTEM UTILITIES
+    function toggleAccordion(id) {
+        const el = document.getElementById(id); if(!el) return;
+        const open = el.classList.contains('active');
+        document.querySelectorAll('.accordion-panel').forEach(p => { if(p.id !== 'panel_simpleWorkspace') p.classList.remove('active'); });
+        if(!open) el.classList.add('active');
+    }
+
+    function toggleThemeMode() {
+        document.body.classList.toggle('light-mode');
+        document.querySelector('.theme-toggle-btn').innerText = document.body.classList.contains('light-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+
+    function handleMultipleFontUpload(input) {
+        Array.from(input.files).forEach(file => {
+            const fName = file.name.split('.')[0].replace(/\s+/g, '-');
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                new FontFace(fName, e.target.result).load().then(f => {
+                    document.fonts.add(f); uploadedFonts.push(fName);
+                    document.querySelectorAll('select.font-selector').forEach(s => {
+                        s.appendChild(new Option(file.name, `'${fName}', sans-serif`));
+                    });
+                    refreshViewFromStorage();
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
     function handleLogoUpload(input) {
         const file = input.files[0]; if (!file) return;
         const reader = new FileReader();
@@ -469,17 +614,10 @@
         reader.readAsDataURL(file);
     }
     function removeFooterLogo() { document.getElementById('previewFooterLogo').style.display = 'none'; document.getElementById('logoControlRow').style.display = 'none'; }
-
-    function applyFooterStyles() {
-        const txt = document.getElementById('previewFooterText'), sz = document.getElementById('size_footer').value;
-        document.getElementById('lbl_footer').innerText = sz + 'px'; txt.style.fontFamily = document.getElementById('font_footer').value;
-        txt.style.fontSize = sz + 'px'; txt.style.color = document.getElementById('color_footer').value;
-        const al = document.getElementById('align_footer').value; document.getElementById('footerFlexContainer').style.justifyContent = al === 'left' ? 'flex-start' : (al === 'right' ? 'flex-end' : 'center');
-        txt.style.textAlign = al; const lgSz = document.getElementById('logoSizeSlider').value;
-        document.getElementById('lbl_logoSize').innerText = lgSz + 'px'; document.getElementById('previewFooterLogo').style.width = lgSz + 'px';
-    }
-
     function toggleFooterVisibility() { document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none'; }
+    function setCanvasBg(c) { document.getElementById('customBgColor').value = c; document.getElementById('previewBox').style.backgroundColor = c; }
+
+    // MODAL WINDOW INTERACTION
     function openMainTitleEditor() { showModal('mainTitle', '', document.getElementById('previewMainTitle').innerText, false); }
     function openFooterEditor() { showModal('footer', '', document.getElementById('previewFooterText').innerText, false); }
     function openLineEditor(id) { showModal('line', id, document.getElementById(`p_desc_${id}`).innerText, true, document.getElementById(`p_title_${id}`).innerText); }
@@ -493,53 +631,23 @@
     function closeEditorModal() { document.getElementById('editorModal').style.display = 'none'; }
     function saveEditorContent() {
         const tg = document.getElementById('currentEditTarget').value, id = document.getElementById('currentEditId').value, desc = document.getElementById('modalDescInput').value;
-        if(tg === 'mainTitle') document.getElementById('previewMainTitle').innerText = desc;
-        else if(tg === 'footer') document.getElementById('previewFooterText').innerText = desc;
+        if(tg === 'mainTitle') {
+            document.getElementById('previewMainTitle').innerText = desc;
+            if (currentLayoutMode === 'grid') { storageData.grid.mainTitle = desc; } else { storageData.simple.mainTitle = desc; }
+        }
+        else if(tg === 'footer') {
+            document.getElementById('previewFooterText').innerText = desc;
+            if (currentLayoutMode === 'grid') { storageData.grid.footerText = desc; } else { storageData.simple.footerText = desc; }
+        }
         else if(tg === 'line') {
             document.getElementById(`p_title_${id}`).innerText = document.getElementById('modalTitleInput').value;
             document.getElementById(`header_lbl_${id}`).innerText = document.getElementById('modalTitleInput').value;
             document.getElementById(`p_desc_${id}`).innerText = desc;
         }
-        closeEditorModal(); applyAllStyles();
+        closeEditorModal(); refreshViewFromStorage();
     }
 
-    function setMainTitleAlign(t) {
-        mainTitleAlign = t; document.querySelectorAll('.alignment-master-row .align-block:nth-child(1) .align-btn').forEach(b => b.classList.remove('active')); 
-        if(t==='left') document.getElementById('btnMainLeft').classList.add('active'); if(t==='center') document.getElementById('btnMainCenter').classList.add('active'); if(t==='right') document.getElementById('btnMainRight').classList.add('active'); 
-        applyMainTitleStyles();
-    }
-
-    function setAlign(t) { 
-        textAlign = t; document.querySelectorAll('.alignment-master-row .align-block:nth-child(2) .align-btn').forEach(b => b.classList.remove('active')); 
-        if(t==='left') document.getElementById('btnLeft').classList.add('active'); if(t==='center') document.getElementById('btnCenter').classList.add('active'); if(t==='right') document.getElementById('btnRight').classList.add('active'); 
-        applyAllStyles(); 
-    }
-
-    function applyAllStyles() {
-        const lh = document.getElementById('globalLineHeight').value;
-        const ls = document.getElementById('globalLetterSpacing').value;
-        document.getElementById('valLineHeight').innerText = lh; document.getElementById('valLetterSpacing').innerText = ls + 'px';
-        
-        document.querySelectorAll('.line-row-wrapper').forEach(w => {
-            w.style.letterSpacing = ls + 'px'; w.style.marginBottom = (parseFloat(lh) * 8) + "px";
-            const r = w.querySelector('.line-row'); 
-            if(r) {
-                r.style.textAlign = textAlign;
-                const title = r.querySelector('.inline-title'), desc = r.querySelector('.inline-desc');
-                if (textAlign === 'center' || textAlign === 'right') {
-                    r.style.display = 'block'; if(title) title.style.display = 'block'; if(desc) desc.style.display = 'block';
-                } else {
-                    r.style.display = 'block'; if(title) title.style.display = 'inline-block'; if(desc) desc.style.display = 'inline';
-                }
-            }
-        });
-        const sBox = document.getElementById('simpleTextContainer');
-        sBox.style.letterSpacing = ls + 'px'; sBox.style.lineHeight = lh; sBox.style.textAlign = textAlign;
-        document.getElementById('previewMainTitle').style.letterSpacing = ls + 'px';
-    }
-
-    function setCanvasBg(c) { document.getElementById('customBgColor').value = c; document.getElementById('previewBox').style.backgroundColor = c; }
-
+    // CANVAS GRAPHICS EXPORT QUALITY
     function renderAdvancedCanvas(callback) {
         const target = document.getElementById('previewBox');
         const originalStyle = target.style.textRendering;
@@ -551,24 +659,11 @@
                 const clonedBox = clonedDoc.getElementById('previewBox');
                 clonedBox.style.transform = 'none'; clonedBox.style.textRendering = "geometricPrecision";
             }
-        }).then(canvas => {
-            target.style.textRendering = originalStyle; callback(canvas);
-        });
+        }).then(canvas => { target.style.textRendering = originalStyle; callback(canvas); });
     }
 
-    function exportAsImage() { 
-        renderAdvancedCanvas(c => { 
-            const l = document.createElement('a'); l.download = 'toathmor-khmer-render.png'; l.href = c.toDataURL('image/png'); l.click(); 
-        }); 
-    }
-    
-    function exportAsPDF() { 
-        renderAdvancedCanvas(c => { 
-            const img = c.toDataURL('image/png'), w = c.width/3, h = c.height/3;
-            const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); 
-            pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-khmer-document.pdf'); 
-        }); 
-    }
+    function exportAsImage() { renderAdvancedCanvas(c => { const l = document.createElement('a'); l.download = 'toathmor-khmer-render.png'; l.href = c.toDataURL('image/png'); l.click(); }); }
+    function exportAsPDF() { renderAdvancedCanvas(c => { const img = c.toDataURL('image/png'), w = c.width/3, h = c.height/3; const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-khmer-document.pdf'); }); }
 </script>
 </body>
 </html>
