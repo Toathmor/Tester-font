@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Premium Font Tester Studio Pro V6.4</title>
+    <title>Toathmor Studio - Premium Font Tester Studio Pro V6.5</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Siemreap&family=Noto+Serif+Khmer:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -400,7 +400,7 @@
             box-sizing: border-box !important;
         }
 
-        /* Preview Area iOS Optimization */
+        /* 🛠️ Preview Area iOS Optimization & Word-Break Solution */
         .preview-box {
             padding: 40px 35px;
             width: 100%;
@@ -411,13 +411,11 @@
             row-gap: 24px;
             min-height: 380px;
             box-sizing: border-box !important;
-            word-break: keep-all !important; 
-            overflow-wrap: normal !important; 
             text-rendering: optimizeLegibility !important;
             -webkit-font-smoothing: antialiased !important;
         }
 
-        .editable-text { outline: none; border-radius: 4px; }
+        .editable-text { outline: none; border-radius: 4px; display: block; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.08); }
 
         .preview-main-title {
@@ -425,9 +423,9 @@
             font-weight: 700;
             color: #ffffff;
             line-height: 1.5 !important;
-            display: inline-block !important;
             grid-row: 1;
             box-sizing: border-box !important;
+            word-break: break-word !important; /* ការពារកុំឱ្យធ្លាក់បន្ទាត់ផ្តេសផ្តាស */
         }
 
         .canvas-middle-content-area { 
@@ -443,24 +441,23 @@
             width: 100%; 
             display: block; 
             line-height: 1.8; 
-            white-space: normal; 
             box-sizing: border-box !important;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
+            word-break: break-word !important;
         }
 
         .inline-title { font-weight: 700; margin-right: 6px; display: inline-block; }
         .inline-desc { font-weight: 400; display: inline; }
 
+        /* 🛠️ ជួសជុលចន្លោះទំនេរ និងការដកឃ្លាអត្ថបទធំឱ្យដើរស្របគ្នាទាំងលើអេក្រង់ និងរូបភាពរក្សាទុក */
         .simple-text-container {
             width: 100%;
-            white-space: pre-wrap; 
+            white-space: pre-wrap !important; 
+            word-break: break-word !important;
             color: #ffffff;
             line-height: 1.8;
             box-sizing: border-box !important;
             padding: 0 4px;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
+            display: block;
         }
 
         .preview-footer-zone {
@@ -472,20 +469,20 @@
             box-sizing: border-box !important;
         }
 
-        /* 🛠️ ជួសជុល CSS បញ្ហា Footer Align មិនរត់តាមនៅលើ iOS */
         .footer-render-block { 
             width: 100%; 
             display: flex;
             align-items: center;
-            justify-content: center; /* ប្តូរតាម JS វិញ */
+            justify-content: center;
         }
 
         .preview-footer-text { 
             display: inline-block; 
-            width: 100%; /* បង្ខំឱ្យរីកពេញទំហំដើម្បីឱ្យ text-align មានប្រសិទ្ធភាព */
+            width: 100%; 
             font-size: 12px; 
             color: rgba(255, 255, 255, 0.8); 
             line-height: 1.2 !important;
+            word-break: break-word !important;
         }
 
         body.mode-grid .grid-only-component { display: block; }
@@ -547,6 +544,7 @@
         <input type="file" id="fontUploader" accept=".ttf,.otf,.woff" multiple style="display: none;" onchange="handleMultipleFontUpload(this)">
     </div>
 
+    <!-- Controls for Grid Mode -->
     <div class="accordion-panel active grid-only-component">
         <div class="accordion-content" style="display: flex; background: transparent; border:none; padding:0 0 12px 0;">
             <div style="width: 100%; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.02); padding: 14px; border-radius: var(--inner-radius); border: 1px solid var(--border-color);">
@@ -575,6 +573,7 @@
         </div>
     </div>
 
+    <!-- Controls for Simple Mode -->
     <div class="accordion-panel active simple-only-component">
         <div class="accordion-content" style="display: flex; background: transparent; border:none; padding:0 0 12px 0; gap:12px; flex-direction: column;">
             <div style="width: 100%; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.02); padding: 14px; border-radius: var(--inner-radius); border: 1px solid var(--border-color);">
@@ -630,6 +629,7 @@
     <div id="blocksManager" class="grid-only-component"></div>
     <button type="button" class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរឆ្លាស់គ្នាថ្មី</button>
 
+    <!-- Footer Management -->
     <div class="accordion-panel" id="panel_footer">
         <div class="accordion-header" onclick="toggleAccordion('panel_footer')">
             <div class="accordion-title-text" style="color: #eab308;">ℹ️ ផ្ទាំងជួរខាងក្រោមបង្អស់ (Standalone Footer)</div>
@@ -659,6 +659,7 @@
         </div>
     </div>
 
+    <!-- Layout Switcher -->
     <div class="layout-selector-box">
         <div class="layout-btn-group">
             <button type="button" class="layout-btn" id="btnLayoutGrid" onclick="switchLayoutMode('grid')">🔲 ផ្ទាំងឆ្លាស់គ្នា (Grid Layout)</button>
@@ -666,6 +667,7 @@
         </div>
     </div>
 
+    <!-- Canvas Preview Main Block -->
     <div class="preview-wrapper">
         <div class="control-panel-box">
             <div class="alignment-master-row" style="margin-bottom: 4px;">
@@ -752,6 +754,7 @@
             </div>
         </div>
 
+        <!-- Canvas Core Area -->
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox" style="background-color: #14532d;">
                 <div class="preview-main-title editable-text grid-title-view" id="previewGridTitle" contenteditable="true" oninput="storeDirectTypingTitle('grid')">គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ</div>
@@ -777,6 +780,7 @@
     </div>
 </div>
 
+<!-- Modal Control Editor -->
 <div class="modal-overlay" id="editorModal">
     <div class="modal-content">
         <div class="modal-header">
@@ -821,7 +825,7 @@
             titleColor: "#ffffff",
             titleB: false, titleI: false, titleU: false,
             footerText: "រៀបរៀងដោយ ៖ Toathmor Studio",
-            bodyText: `ការបង្កើតក្តីសុខឱ្យខ្លួនឯងមិនមែនជារឿងពិបាកនោះទេ វាចាប់ផ្តើមចេញពីចំណុចតូចៗ និងការផ្លាស់ប្តូរការគិតរបស់យើង៖\n\n១. រៀនព្រលែងចោលនូវរឿងរ៉ាវអតីតកាលដែលមិនអាចកែប្រែបាន ហើយផ្តោតលើបច្ចុប្បន្នភាព biographies。\n២. បញ្ឈប់ការប្រៀបធៀបជីវិតខ្លួនឯងទៅនឹងអ្នកដទៃ ព្រោះគ្រប់គ្នាសុទ្ធតែមានផ្លូវដើររៀងៗខ្លួន Sunset។\n៣. ចំណាយពេលធ្វើអ្វីដែលខ្លួនស្រឡាញ់ ទោះបីជាការអានសៀវភៅ ស្ដាប់តន្ត្រី ឬដើរកម្សាន្ត។`,
+            bodyText: `ការបង្កើតក្តីសុខឱ្យខ្លួនឯងមិនមែនជារឿងពិបាកនោះទេ វាចាប់ផ្តើមចេញពីចំណុចតូចៗ និងការផ្លាស់ប្តូរការគិតរបស់យើង៖\n\n១. រៀនព្រលែងចោលនូវរឿងរ៉ាវអតីតកាលដែលមិនអាចកែប្រែបាន ហើយផ្តោតលើបច្ចុប្បន្នភាពគំនិត។\n២. បញ្ឈប់ការប្រៀបធៀបជីវិតខ្លួនឯងទៅនឹងអ្នកដទៃ ព្រោះគ្រប់គ្នាសុទ្ធតែមានផ្លូវដើររៀងៗខ្លួន Sunset។\n៣. ចំណាយពេលធ្វើអ្វីដែលខ្លួនស្រឡាញ់ ទោះបីជាការអានសៀវភៅ ស្ដាប់តន្ត្រី ឬដើរកម្សាន្ត។`,
             textAlign: "left",
             mainTitleAlign: "center",
             footerAlign: "center"
@@ -830,7 +834,7 @@
 
     let blockCount = 0;
     let uploadedFonts = [];
-    let currentLayoutMode = 'grid';
+    let currentLayoutMode = 'simple';
 
     window.onload = function() {
         addNewLineBlock('១. ការយល់ដឹងពីមូលដ្ឋានគ្រឹះ ៖', 'ត្រូវយល់ដឹងពីទ្រឹស្តីពណ៌ គម្លាត និងរបៀបរៀបចំរចនាសម្ព័ន្ធអត្ថបទឱ្យមានរបៀបរៀបរយ។');
@@ -1162,7 +1166,6 @@
         }
     }
 
-    /* 🛠️ កែសម្រួលការបញ្ជា Footer Align ឱ្យដេញទៅឆ្វេង កណ្តាល ស្តាំ ឥតចន្លោះនៅលើ iOS */
     function applyFooterStyles(isFontChanged = false) {
         const txt = document.getElementById('previewFooterText');
         const sz = document.getElementById('size_footer').value;
@@ -1174,7 +1177,6 @@
         txt.style.fontFamily = document.getElementById('font_footer').value;
         txt.style.fontSize = sz + 'px'; 
         
-        // កែសម្រួល Flexbox Justify Content ឱ្យរត់ស្របគ្នាជាមួយ Text Align
         if (activeFooterAlign === 'left') {
             block.style.justifyContent = 'flex-start';
         } else if (activeFooterAlign === 'right') {
@@ -1301,11 +1303,15 @@
         applyAllStyles();
     }
 
+    /* 🛠️ ធ្វើបច្ចុប្បន្នភាពមុខងារសម្អាតកូដ iOS Formatting ឱ្យស្អាតល្អ ១០០% មុនពេលរក្សាទុក */
     function cleaniOSFormattingText(text) {
         if (!text) return "";
-        return text.replace(/<div[^>]*>/g, "").replace(/<\/div>/g, "\n")
-                   .replace(/<br\s*\/?>/g, "\n")
-                   .replace(/&nbsp;/g, " ");
+        let clean = text;
+        clean = clean.replace(/<div[^>]*>/g, "").replace(/<\/div>/g, "\n");
+        clean = clean.replace(/<span[^>]*>/g, "").replace(/<\/span>/g, "");
+        clean = clean.replace(/<br\s*\/?>/g, "\n");
+        clean = clean.replace(/&nbsp;/g, " ");
+        return clean;
     }
 
     function renderAdvancedCanvas(callback) {
@@ -1313,11 +1319,20 @@
         
         const gridTitle = document.getElementById('previewGridTitle');
         const simpleTitle = document.getElementById('previewSimpleTitle');
+        const simpleBody = document.getElementById('simpleTextContainer');
+        const footerTxt = document.getElementById('previewFooterText');
+        
+        // រក្សាទុកកូដដើម
         const origGridText = gridTitle.innerHTML;
         const origSimpleText = simpleTitle.innerHTML;
+        const origSimpleBody = simpleBody.innerHTML;
+        const origFooterText = footerTxt.innerHTML;
         
+        // ចាក់បញ្ចូលកូដដែលបានសម្អាតកម្ទេច Tag រួចរាល់
         gridTitle.innerText = cleaniOSFormattingText(gridTitle.innerText);
         simpleTitle.innerText = cleaniOSFormattingText(simpleTitle.innerText);
+        simpleBody.innerText = cleaniOSFormattingText(simpleBody.innerText);
+        footerTxt.innerText = cleaniOSFormattingText(footerTxt.innerText);
         
         html2canvas(target, {
             scale: 2, 
@@ -1330,8 +1345,11 @@
             windowWidth: target.scrollWidth,
             windowHeight: target.scrollHeight
         }).then(canvas => { 
+            // ដាក់កូដដើមចូលមកកាន់ផ្ទាំងបង្ហាញវិញក្រោយពេលទាញរូបភាពរួច
             gridTitle.innerHTML = origGridText;
             simpleTitle.innerHTML = origSimpleText;
+            simpleBody.innerHTML = origSimpleBody;
+            footerTxt.innerHTML = origFooterText;
             callback(canvas); 
         });
     }
