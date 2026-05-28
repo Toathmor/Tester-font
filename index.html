@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Studio - Premium Font Tester Studio Pro V6.1</title>
+    <title>Toathmor Studio - Premium Font Tester Studio Pro V6.4</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Siemreap&family=Noto+Serif+Khmer:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -43,6 +43,7 @@
             padding: 0;
             -webkit-tap-highlight-color: transparent;
             font-family: var(--font-default);
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -399,6 +400,7 @@
             box-sizing: border-box !important;
         }
 
+        /* Preview Area iOS Optimization */
         .preview-box {
             padding: 40px 35px;
             width: 100%;
@@ -409,14 +411,15 @@
             row-gap: 24px;
             min-height: 380px;
             box-sizing: border-box !important;
-            word-break: break-word !important;
-            overflow-wrap: break-word !important;
+            word-break: keep-all !important; 
+            overflow-wrap: normal !important; 
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
         }
 
         .editable-text { outline: none; border-radius: 4px; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.08); }
 
-        /* ជួសជុលកម្ពស់អក្សរចំណងជើងធំនៅលើ iOS ការពារកុំឱ្យរត់ជាន់គ្នា */
         .preview-main-title {
             width: 100%;
             font-weight: 700;
@@ -435,18 +438,29 @@
 
         #linesContainer { width: 100%; display: flex; flex-direction: column; }
         .line-row-wrapper { width: 100%; display: block; box-sizing: border-box !important; }
-        .line-row { width: 100%; display: block; line-height: 1.6; white-space: normal; box-sizing: border-box !important; }
+        
+        .line-row { 
+            width: 100%; 
+            display: block; 
+            line-height: 1.8; 
+            white-space: normal; 
+            box-sizing: border-box !important;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+        }
 
         .inline-title { font-weight: 700; margin-right: 6px; display: inline-block; }
         .inline-desc { font-weight: 400; display: inline; }
 
         .simple-text-container {
             width: 100%;
-            white-space: pre-wrap;
+            white-space: pre-wrap; 
             color: #ffffff;
-            line-height: 1.6;
+            line-height: 1.8;
             box-sizing: border-box !important;
             padding: 0 4px;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
         }
 
         .preview-footer-zone {
@@ -458,9 +472,21 @@
             box-sizing: border-box !important;
         }
 
-        .footer-render-block { width: 100%; text-align: center; display: block; }
-        .preview-footer-logo { display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 4px; max-width: 120px; height: auto; }
-        .preview-footer-text { display: inline-block; vertical-align: middle; font-size: 12px; color: rgba(255, 255, 255, 0.8); }
+        /* 🛠️ ជួសជុល CSS បញ្ហា Footer Align មិនរត់តាមនៅលើ iOS */
+        .footer-render-block { 
+            width: 100%; 
+            display: flex;
+            align-items: center;
+            justify-content: center; /* ប្តូរតាម JS វិញ */
+        }
+
+        .preview-footer-text { 
+            display: inline-block; 
+            width: 100%; /* បង្ខំឱ្យរីកពេញទំហំដើម្បីឱ្យ text-align មានប្រសិទ្ធភាព */
+            font-size: 12px; 
+            color: rgba(255, 255, 255, 0.8); 
+            line-height: 1.2 !important;
+        }
 
         body.mode-grid .grid-only-component { display: block; }
         body.mode-grid .grid-title-view { display: block; }
@@ -521,7 +547,6 @@
         <input type="file" id="fontUploader" accept=".ttf,.otf,.woff" multiple style="display: none;" onchange="handleMultipleFontUpload(this)">
     </div>
 
-    <!-- Controls for Grid Mode -->
     <div class="accordion-panel active grid-only-component">
         <div class="accordion-content" style="display: flex; background: transparent; border:none; padding:0 0 12px 0;">
             <div style="width: 100%; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.02); padding: 14px; border-radius: var(--inner-radius); border: 1px solid var(--border-color);">
@@ -550,7 +575,6 @@
         </div>
     </div>
 
-    <!-- Controls for Simple Mode -->
     <div class="accordion-panel active simple-only-component">
         <div class="accordion-content" style="display: flex; background: transparent; border:none; padding:0 0 12px 0; gap:12px; flex-direction: column;">
             <div style="width: 100%; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.02); padding: 14px; border-radius: var(--inner-radius); border: 1px solid var(--border-color);">
@@ -606,30 +630,15 @@
     <div id="blocksManager" class="grid-only-component"></div>
     <button type="button" class="btn-add-block grid-only-component" onclick="addNewLineBlock()">➕ បន្ថែមជួរអក្សរឆ្លាស់គ្នាថ្មី</button>
 
-    <!-- Footer Management -->
     <div class="accordion-panel" id="panel_footer">
         <div class="accordion-header" onclick="toggleAccordion('panel_footer')">
             <div class="accordion-title-text" style="color: #eab308;">ℹ️ ផ្ទាំងជួរខាងក្រោមបង្អស់ (Standalone Footer)</div>
             <div class="accordion-actions">
-                <button type="button" onclick="event.stopPropagation(); document.getElementById('logoUploader').click()">🖼️ ឡូហ្គូ</button>
-                <input type="file" id="logoUploader" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
                 <button type="button" onclick="event.stopPropagation(); openFooterEditor()">📝 កែអត្ថបទ</button>
                 <input type="checkbox" id="toggleFooterCheckbox" checked onchange="toggleFooterVisibility()" style="width:16px; height:16px; margin-left:4px; cursor:pointer;">
             </div>
         </div>
         <div class="accordion-content">
-            <div class="control-grid" id="logoControlRow" style="display: none; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px;">
-                <div class="control-item">
-                    <span class="control-label">ទំហំឡូហ្គូ</span>
-                    <div class="range-container">
-                        <input type="range" id="logoSizeSlider" min="10" max="180" value="45" oninput="applyFooterStyles(false)">
-                        <span class="range-val" id="lbl_logoSize">45px</span>
-                    </div>
-                </div>
-                <div class="control-item" style="justify-content: flex-end; align-items: flex-end;">
-                    <button type="button" class="btn-delete" onclick="removeFooterLogo()">លុបឡូហ្គូ</button>
-                </div>
-            </div>
             <div class="control-grid">
                 <div class="control-item">
                     <span class="control-label">ពុម្ពអក្សរ Footer</span>
@@ -650,7 +659,6 @@
         </div>
     </div>
 
-    <!-- Layout Switcher -->
     <div class="layout-selector-box">
         <div class="layout-btn-group">
             <button type="button" class="layout-btn" id="btnLayoutGrid" onclick="switchLayoutMode('grid')">🔲 ផ្ទាំងឆ្លាស់គ្នា (Grid Layout)</button>
@@ -658,7 +666,6 @@
         </div>
     </div>
 
-    <!-- Canvas Preview Main Block -->
     <div class="preview-wrapper">
         <div class="control-panel-box">
             <div class="alignment-master-row" style="margin-bottom: 4px;">
@@ -725,7 +732,7 @@
             <div class="control-grid" style="grid-template-columns: 1fr 1fr; gap: 12px; background: rgba(0,0,0,0.08); padding: 10px; border-radius: var(--inner-radius);">
                 <div class="control-item">
                     <span class="control-label">↕️ គម្លាតជួរអត្ថបទ (Line Height): <span id="valLineHeight" style="color:var(--accent-color); font-weight:700;">1.8</span></span>
-                    <input type="range" id="globalLineHeight" min="1.0" max="4.0" step="0.1" value="1.8" oninput="applyAllStyles()">
+                    <input type="range" id="globalLineHeight" min="1.2" max="4.0" step="0.1" value="1.8" oninput="applyAllStyles()">
                 </div>
                 <div class="control-item">
                     <span class="control-label">↔️ គម្លាតចន្លោះអក្សរ (Letter Spacing): <span id="valLetterSpacing" style="color:var(--accent-color); font-weight:700;">0px</span></span>
@@ -745,7 +752,6 @@
             </div>
         </div>
 
-        <!-- Canvas Core Area -->
         <div class="preview-container-box">
             <div class="preview-box" id="previewBox" style="background-color: #14532d;">
                 <div class="preview-main-title editable-text grid-title-view" id="previewGridTitle" contenteditable="true" oninput="storeDirectTypingTitle('grid')">គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ</div>
@@ -758,7 +764,6 @@
                 
                 <div class="preview-footer-zone" id="previewFooterZone">
                     <div class="footer-render-block" id="footerRenderBlock">
-                        <img src="" class="preview-footer-logo" id="previewFooterLogo" alt="Brand Logo" style="display: none;">
                         <div class="preview-footer-text editable-text" id="previewFooterText" contenteditable="true" oninput="storeDirectTypingFooter()">រៀបរៀងដោយ ៖ Toathmor Studio</div>
                     </div>
                 </div>
@@ -772,7 +777,6 @@
     </div>
 </div>
 
-<!-- Modal Control Editor -->
 <div class="modal-overlay" id="editorModal">
     <div class="modal-content">
         <div class="modal-header">
@@ -817,7 +821,7 @@
             titleColor: "#ffffff",
             titleB: false, titleI: false, titleU: false,
             footerText: "រៀបរៀងដោយ ៖ Toathmor Studio",
-            bodyText: `ការបង្កើតក្តីសុខឱ្យខ្លួនឯងមិនមែនជារឿងពិបាកនោះទេ វាចាប់ផ្តើមចេញពីចំណុចតូចៗ និងការផ្លាស់ប្តូរការគិតរបស់យើង៖\n\n១. រៀនព្រលែងចោលនូវរឿងរ៉ាវអតីតកាលដែលមិនអាចកែប្រែបាន ហើយផ្តោតលើបច្ចុប្បន្នភាព។\n២. បញ្ឈប់ការប្រៀបធៀបជីវិតខ្លួនឯងទៅនឹងអ្នកដទៃ ព្រោះគ្រប់គ្នសុទ្ធតែមានផ្លូវដើររៀងៗខ្លួន Sunset។\n៣. ចំណាយពេលធ្វើអ្វីដែលខ្លួនស្រឡាញ់ ទោះបីជាការអានសៀវភៅ ស្ដាប់តន្ត្រី ឬដើរកម្សាន្ត។`,
+            bodyText: `ការបង្កើតក្តីសុខឱ្យខ្លួនឯងមិនមែនជារឿងពិបាកនោះទេ វាចាប់ផ្តើមចេញពីចំណុចតូចៗ និងការផ្លាស់ប្តូរការគិតរបស់យើង៖\n\n១. រៀនព្រលែងចោលនូវរឿងរ៉ាវអតីតកាលដែលមិនអាចកែប្រែបាន ហើយផ្តោតលើបច្ចុប្បន្នភាព biographies。\n២. បញ្ឈប់ការប្រៀបធៀបជីវិតខ្លួនឯងទៅនឹងអ្នកដទៃ ព្រោះគ្រប់គ្នាសុទ្ធតែមានផ្លូវដើររៀងៗខ្លួន Sunset។\n៣. ចំណាយពេលធ្វើអ្វីដែលខ្លួនស្រឡាញ់ ទោះបីជាការអានសៀវភៅ ស្ដាប់តន្ត្រី ឬដើរកម្សាន្ត។`,
             textAlign: "left",
             mainTitleAlign: "center",
             footerAlign: "center"
@@ -835,7 +839,7 @@
         
         document.getElementById('simpleTextAreaInput').value = storageData.simple.bodyText;
         initDefaultUIValues();
-        switchLayoutMode('grid');
+        switchLayoutMode('simple');
     };
 
     function initDefaultUIValues() {
@@ -1158,22 +1162,28 @@
         }
     }
 
+    /* 🛠️ កែសម្រួលការបញ្ជា Footer Align ឱ្យដេញទៅឆ្វេង កណ្តាល ស្តាំ ឥតចន្លោះនៅលើ iOS */
     function applyFooterStyles(isFontChanged = false) {
         const txt = document.getElementById('previewFooterText');
         const sz = document.getElementById('size_footer').value;
-        const logoSize = document.getElementById('logoSizeSlider').value;
         const block = document.getElementById('footerRenderBlock');
         
         const activeFooterAlign = currentLayoutMode === 'grid' ? storageData.grid.footerAlign : storageData.simple.footerAlign;
         
         document.getElementById('lbl_footer').innerText = sz + 'px'; 
-        document.getElementById('lbl_logoSize').innerText = logoSize + 'px';
         txt.style.fontFamily = document.getElementById('font_footer').value;
         txt.style.fontSize = sz + 'px'; 
         
-        block.style.textAlign = activeFooterAlign;
+        // កែសម្រួល Flexbox Justify Content ឱ្យរត់ស្របគ្នាជាមួយ Text Align
+        if (activeFooterAlign === 'left') {
+            block.style.justifyContent = 'flex-start';
+        } else if (activeFooterAlign === 'right') {
+            block.style.justifyContent = 'flex-end';
+        } else {
+            block.style.justifyContent = 'center';
+        }
+        
         txt.style.textAlign = activeFooterAlign;
-        document.getElementById('previewFooterLogo').style.width = logoSize + 'px';
     }
 
     function applyAllStyles() {
@@ -1189,6 +1199,7 @@
             if(r) {
                 r.style.textAlign = activeAlign;
                 r.style.letterSpacing = ls + 'px';
+                r.style.lineHeight = lh;
                 const title = r.querySelector('.inline-title');
                 const desc = r.querySelector('.inline-desc');
                 if (activeAlign === 'center' || activeAlign === 'right') {
@@ -1249,23 +1260,6 @@
         });
         input.value = '';
     }
-
-    function handleLogoUpload(input) {
-        const file = input.files[0]; if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const logo = document.getElementById('previewFooterLogo'); 
-            logo.src = e.target.result; logo.style.display = 'inline-block';
-            document.getElementById('logoControlRow').style.display = 'grid'; 
-            applyFooterStyles(false);
-        };
-        reader.readAsDataURL(file);
-    }
-    
-    function removeFooterLogo() { 
-        document.getElementById('previewFooterLogo').style.display = 'none'; 
-        document.getElementById('logoControlRow').style.display = 'none'; 
-    }
     
     function toggleFooterVisibility() { 
         document.getElementById('previewFooterZone').style.display = document.getElementById('toggleFooterCheckbox').checked ? 'block' : 'none'; 
@@ -1307,7 +1301,6 @@
         applyAllStyles();
     }
 
-    // អនុគមន៍ជំនួយពិសេសសម្រាប់ជម្រះកូដជ្រែករបស់ iOS Text Engine មុនពេលរក្សាទុក
     function cleaniOSFormattingText(text) {
         if (!text) return "";
         return text.replace(/<div[^>]*>/g, "").replace(/<\/div>/g, "\n")
@@ -1317,10 +1310,7 @@
 
     function renderAdvancedCanvas(callback) {
         const target = document.getElementById('previewBox');
-        const originalStyle = target.style.textRendering;
-        target.style.textRendering = "geometricPrecision";
         
-        // ចាប់ផ្តើមសម្អាតអត្ថបទនៅលើផ្ទាំងលំនាំគំរូជាបណ្តោះអាសន្ន ដើម្បីការពារការរត់ជាន់គ្នានៅលើ WebKit iOS
         const gridTitle = document.getElementById('previewGridTitle');
         const simpleTitle = document.getElementById('previewSimpleTitle');
         const origGridText = gridTitle.innerHTML;
@@ -1330,29 +1320,16 @@
         simpleTitle.innerText = cleaniOSFormattingText(simpleTitle.innerText);
         
         html2canvas(target, {
-            scale: 3, 
+            scale: 2, 
             useCORS: true, 
-            allowTaint: false, 
+            allowTaint: true, 
             logging: false, 
-            backgroundColor: null, 
-            scrollX: 0, 
-            scrollY: -window.scrollY,
-            windowWidth: document.documentElement.offsetWidth, 
-            windowHeight: document.documentElement.offsetHeight,
-            onclone: (clonedDoc) => {
-                const clonedBox = clonedDoc.getElementById('previewBox');
-                clonedBox.style.transform = 'none'; 
-                clonedBox.style.textRendering = "geometricPrecision";
-                
-                // បង្ខំឱ្យអត្ថបទចំណងជើងធំលាតសន្ធឹងកម្ពស់ជួរច្បាស់លាស់នៅលើ Canvas ក្លូន
-                const cloneGridTitle = clonedDoc.getElementById('previewGridTitle');
-                const cloneSimpleTitle = clonedDoc.getElementById('previewSimpleTitle');
-                if(cloneGridTitle) cloneGridTitle.style.lineHeight = "1.5";
-                if(cloneSimpleTitle) cloneSimpleTitle.style.lineHeight = "1.5";
-            }
+            backgroundColor: null,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: target.scrollWidth,
+            windowHeight: target.scrollHeight
         }).then(canvas => { 
-            target.style.textRendering = originalStyle;
-            // ដាក់អត្ថបទដើមមកវិញក្រោយពេល Render រួចរាល់
             gridTitle.innerHTML = origGridText;
             simpleTitle.innerHTML = origSimpleText;
             callback(canvas); 
@@ -1370,7 +1347,7 @@
     function exportAsPDF() { 
         renderAdvancedCanvas(c => { 
             const img = c.toDataURL('image/png');
-            const w = c.width / 3; const h = c.height / 3; 
+            const w = c.width / 2; const h = c.height / 2; 
             const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); 
             pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-premium-pro-document.pdf'); 
         }); 
