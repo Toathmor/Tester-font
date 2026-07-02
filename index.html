@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Toathmor Studio">
+    <meta name="theme-color" content="#0a0f1d">
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgVGVzdGVyIFN0dWRpbyIsCiAgInNob3J0X25hbWUiOiAiVG9hdGhtb3IiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGYxZCIsCiAgInRoZW1lX2NvbG9yIjogIiMwYTBmMWQiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8xMDU1LzEwNTU2NjQucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2ibulkiCiAgICB9CiAgXQp9">
+
     <title>Toathmor Studio - Premium Font Tester Studio Pro</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Siemreap&family=Noto+Serif+Khmer:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
         :root {
             --bg-body: #0a0f1d;
@@ -87,6 +95,20 @@
             text-transform: uppercase;
         }
 
+        .pwa-install-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            margin-right: 6px;
+        }
+
         .theme-toggle-btn {
             background: var(--bg-input);
             border: 1px solid var(--border-color);
@@ -110,7 +132,6 @@
             font-size: 11px;
         }
 
-        /* Accordion Style */
         .accordion-panel {
             background: var(--bg-input);
             border: 1px solid var(--border-color);
@@ -187,7 +208,6 @@
             height: 28px;
         }
 
-        /* Horizontal Tabs Styling */
         .tabs-management-wrapper {
             background: rgba(0, 0, 0, 0.05);
             padding: 4px;
@@ -299,52 +319,85 @@
 
         /* Preview Area Style */
         .ratio-selector-bar {
-            display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.15);
+            display: flex; align-items: center; justify-content: space-between; background: rgba(0, 0, 0, 0.15);
             padding: 4px 8px; border-radius: var(--inner-radius); border: 1px solid var(--border-color); margin-bottom: 8px;
         }
+        .ratio-buttons-group { display: flex; align-items: center; gap: 6px; }
         .ratio-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 3px 8px; border-radius: 5px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s;
         }
         .ratio-btn.active { background: var(--accent-color); border-color: var(--accent-color); color: #0a0f1d; }
 
+        /* ប៊ូតុង Screenshot Card ថ្មី */
+        .btn-screenshot-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; border: none; padding: 4px 10px; border-radius: 5px;
+            font-size: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3); transition: all 0.2s;
+        }
+        .btn-screenshot-card:hover { opacity: 0.9; }
+
         .preview-wrapper {
             border: 1px solid var(--border-color); border-radius: var(--inner-radius); overflow: hidden;
             margin-bottom: 10px; width: 100%; background: rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; padding: 10px;
         }
 
+        /* ជួសជុលការកំណត់ OpenType Rendering សម្រាប់ភាសាខ្មែរឱ្យបង្ហាញពិត ១០០% */
         .preview-box {
-            padding: 25px 20px; width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            display: grid; grid-template-rows: auto 1fr auto; row-gap: 14px; box-sizing: border-box !important; word-break: break-word !important; overflow-wrap: break-word !important;
+            padding: 30px 24px; width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: grid; grid-template-rows: auto 1fr auto; row-gap: 20px; box-sizing: border-box !important;
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            font-variant-ligatures: common-ligatures discretionary-ligatures !important;
+            font-feature-settings: "kern" on, "liga" on, "clig" on, "calt" on !important;
+            word-break: keep-all !important;
+            overflow-wrap: anywhere !important;
         }
 
         .ratio-auto { width: 100%; aspect-ratio: auto; min-height: 280px; }
-        .ratio-1-1 { width: 100%; max-width: 400px; aspect-ratio: 1 / 1; }
+        .ratio-1-1 { width: 100%; max-width: 440px; aspect-ratio: 1 / 1; }
         .ratio-16-9 { width: 100%; aspect-ratio: 16 / 9; }
-        .ratio-3-4 { width: 100%; max-width: 340px; aspect-ratio: 3 / 4; }
-        .ratio-4-5 { width: 100%; max-width: 340px; aspect-ratio: 4 / 5; }
+        .ratio-3-4 { width: 100%; max-width: 360px; aspect-ratio: 3 / 4; }
+        .ratio-4-5 { width: 100%; max-width: 360px; aspect-ratio: 4 / 5; }
 
         .editable-text { outline: none; border-radius: 4px; }
         .editable-text:focus { background: rgba(255, 255, 255, 0.08); }
 
-        .preview-main-title { width: 100%; font-weight: normal; color: #ffffff; line-height: 1.4 !important; display: inline-block !important; grid-row: 1; box-sizing: border-box !important; }
+        .preview-main-title { 
+            width: 100%; 
+            color: #ffffff; 
+            line-height: 1.4 !important; 
+            display: block !important; 
+            grid-row: 1; 
+            box-sizing: border-box !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+        
         .canvas-middle-content-area { grid-row: 2; width: 100%; box-sizing: border-box !important; display: flex; align-items: center; }
-        #linesContainer { width: 100%; display: flex; flex-direction: column; }
+        #linesContainer { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+        
         .line-row-wrapper { width: 100%; display: block; box-sizing: border-box !important; }
-        .line-row { width: 100%; display: block; line-height: 1.5; white-space: normal; box-sizing: border-box !important; }
+        
+        .line-row { 
+            width: 100%; 
+            display: grid !important; 
+            grid-template-columns: max-content 1fr; 
+            align-items: baseline;
+            line-height: 1.6 !important; 
+            box-sizing: border-box !important; 
+        }
 
-        .inline-title { font-weight: normal; margin-right: 4px; display: inline-block; }
-        .inline-desc { font-weight: normal; display: inline; }
+        .inline-title { font-weight: normal; margin-right: 6px; display: block; white-space: nowrap; }
+        .inline-desc { font-weight: normal; display: block; word-wrap: break-word !important; overflow-wrap: break-word !important; }
 
         .preview-footer-zone { grid-row: 3; padding-top: 8px; border-top: 1px dashed rgba(255, 255, 255, 0.2); width: 100%; }
         .footer-render-block { width: 100%; text-align: center; }
         .preview-footer-logo { display: inline-block; vertical-align: middle; margin-right: 6px; max-width: 100px; height: auto; }
         .preview-footer-text { display: inline-block; vertical-align: middle; font-size: 11px; color: rgba(255, 255, 255, 0.8); }
 
-        .action-group { display: flex; gap: 8px; width: 100%; }
-        .action-btn { flex: 1; padding: 8px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 11px; color: white; display: flex; align-items: center; justify-content: center; gap: 4px; }
-
-        /* Modal Popup */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(3px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 12px; }
         .modal-content { background: var(--bg-card); width: 100%; max-width: 450px; border-radius: var(--card-radius); border: 1px solid var(--border-color); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
         .textarea-input { width: 100%; height: 70px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px; border-radius: 6px; outline: none; font-size: 11px; resize: vertical; }
@@ -360,10 +413,12 @@
             <h1>TOATHMOR STUDIO</h1>
             <span>Premium Font Tester Studio Pro</span>
         </div>
-        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleThemeMode()"><i class="fa-solid fa-sun"></i> ពន្លឺ</button>
+        <div style="display: flex; align-items: center;">
+            <button class="pwa-install-btn" id="pwaInstallBtn" onclick="triggerPwaInstallation()"><i class="fa-solid fa-download"></i> ដំឡើង App</button>
+            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleThemeMode()"><i class="fa-solid fa-sun"></i> ពន្លឺ</button>
+        </div>
     </div>
 
-    <!-- ប្រអប់បញ្ចូល Font និង អត្ថបទចំណងជើងធំទុកនៅខាងលើគេបង្អស់ -->
     <div class="upload-zone" onclick="document.getElementById('fontUploader').click()">
         <span><i class="fa-solid fa-folder-open"></i> បញ្ចូលពុម្ពអក្សរផ្ទាល់ខ្លួន (.ttf, .otf, .woff)</span>
         <input type="file" id="fontUploader" accept=".ttf,.otf,.woff" multiple style="display: none;" onchange="handleMultipleFontUpload(this)">
@@ -376,9 +431,6 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- របារទី៣៖ គ្រប់គ្រងជួរអត្ថបទឆ្លាស់គ្នា (ឡើងមកលើគេបង្អស់) -->
-    <!-- ========================================== -->
     <div class="accordion-panel active" id="panel_lines_tabs">
         <div class="accordion-header" onclick="toggleAccordion('panel_lines_tabs')">
             <div class="accordion-title-text" style="color: var(--success-color);"><i class="fa-solid fa-list-check"></i> ១. គ្រប់គ្រងជួរអត្ថបទឆ្លាស់គ្នា (#1 #2 #3...)</div>
@@ -394,9 +446,6 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- របាររួមបញ្ចូលគ្នា (១ + ២)៖ ឧបករណ៍កំណត់ទម្រង់រួម & ចំណងជើងធំ -->
-    <!-- ========================================== -->
     <div class="accordion-panel" id="panel_combined_settings">
         <div class="accordion-header" onclick="toggleAccordion('panel_combined_settings')">
             <div class="accordion-title-text" style="color: var(--accent-color);"><i class="fa-solid fa-sliders"></i> ២. ឧបករណ៍កំណត់ទម្រង់រួម & ចំណងជើងធំ</div>
@@ -404,7 +453,6 @@
         </div>
         <div class="accordion-content">
             
-            <!-- ផ្នែកទម្រង់ទូទៅ (ពីមុនជាប្រអប់ទី១) -->
             <div style="font-size: 10px; color: var(--accent-color); font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px;"><i class="fa-solid fa-gear"></i> កំណត់ទម្រង់ទូទៅ (Global Settings)</div>
             <div class="row-controls">
                 <div class="control-item">
@@ -426,8 +474,8 @@
             </div>
             <div class="row-controls">
                 <div class="control-item">
-                    <span class="control-label">គម្លាតជួររួម: <span id="valLineHeight" style="color:var(--accent-color);">1.8</span></span>
-                    <input type="range" id="globalLineHeight" min="1.0" max="3.5" step="0.1" value="1.8" oninput="applyAllStyles()">
+                    <span class="control-label">គម្លាតជួររួម: <span id="valLineHeight" style="color:var(--accent-color);">1.6</span></span>
+                    <input type="range" id="globalLineHeight" min="1.0" max="3.5" step="0.1" value="1.6" oninput="applyAllStyles()">
                 </div>
                 <div class="control-item">
                     <span class="control-label">គម្លាតចន្លោះអក្សរ: <span id="valLetterSpacing" style="color:var(--accent-color);">0px</span></span>
@@ -444,7 +492,6 @@
                 </div>
             </div>
 
-            <!-- ផ្នែកចំណងជើងធំ (ពីមុនជាប្រអប់ទី២) -->
             <div style="font-size: 10px; color: #cbd5e1; font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px;"><i class="fa-solid fa-heading"></i> កំណត់ទម្រង់ចំណងជើងធំ (Title Formats)</div>
             <div class="row-controls">
                 <div class="control-item">
@@ -486,7 +533,6 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំងជួរខាងក្រោមបង្អស់ (Footer Settings) -->
     <div class="accordion-panel" id="panel_footer_settings">
         <div class="accordion-header" onclick="toggleAccordion('panel_footer_settings')">
             <div class="accordion-title-text" style="color: #cbd5e1;"><i class="fa-solid fa-circle-info"></i> កំណត់ជួរខាងក្រោម (Standalone Footer)</div>
@@ -529,17 +575,20 @@
         </div>
     </div>
 
-    <!-- របារជ្រើសរើសខ្នាតទំហំប្រអប់ផ្ទាំង (Aspect Ratio) -->
     <div class="ratio-selector-bar">
-        <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);"><i class="fa-solid fa-vector-square"></i> ខ្នាតផ្ទាំង Canvas:</span>
-        <button type="button" class="ratio-btn active" id="ratio_auto" onclick="changeCanvasRatio('auto')">Auto</button>
-        <button type="button" class="ratio-btn" id="ratio_1-1" onclick="changeCanvasRatio('1-1')">1:1 (Square)</button>
-        <button type="button" class="ratio-btn" id="ratio_16-9" onclick="changeCanvasRatio('16-9')">16:9</button>
-        <button type="button" class="ratio-btn" id="ratio_3-4" onclick="changeCanvasRatio('3-4')">3:4</button>
-        <button type="button" class="ratio-btn" id="ratio_4-5" onclick="changeCanvasRatio('4-5')">4:5</button>
+        <div class="ratio-buttons-group">
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);"><i class="fa-solid fa-vector-square"></i> ខ្នាតផ្ទាំង Canvas:</span>
+            <button type="button" class="ratio-btn active" id="ratio_auto" onclick="changeCanvasRatio('auto')">Auto</button>
+            <button type="button" class="ratio-btn" id="ratio_1-1" onclick="changeCanvasRatio('1-1')">1:1 (Square)</button>
+            <button type="button" class="ratio-btn" id="ratio_16-9" onclick="changeCanvasRatio('16-9')">16:9</button>
+            <button type="button" class="ratio-btn" id="ratio_3-4" onclick="changeCanvasRatio('3-4')">3:4</button>
+            <button type="button" class="ratio-btn" id="ratio_4-5" onclick="changeCanvasRatio('4-5')">4:5</button>
+        </div>
+        <button type="button" class="btn-screenshot-card" onclick="exportAsImage()">
+            <i class="fa-solid fa-camera"></i> Screenshot Card
+        </button>
     </div>
 
-    <!-- Preview Canvas Area -->
     <div class="preview-wrapper">
         <div class="preview-box ratio-auto" id="previewBox" style="background-color: #14532d;">
             <div class="preview-main-title editable-text" id="previewGridTitle" contenteditable="true" oninput="storeDirectTypingTitle()">គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ</div>
@@ -556,15 +605,8 @@
             </div>
         </div>
     </div>
-
-    <!-- Export Actions -->
-    <div class="action-group">
-        <button type="button" class="action-btn" style="background:#3b82f6;" onclick="exportAsImage()"><i class="fa-solid fa-file-image"></i> រក្សាទុក PNG</button>
-        <button type="button" class="action-btn" style="background:#4b5563;" onclick="exportAsPDF()"><i class="fa-solid fa-file-pdf"></i> ឯកសារ PDF</button>
-    </div>
 </div>
 
-<!-- Editor Modal Popup -->
 <div class="modal-overlay" id="editorModal">
     <div class="modal-content">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
@@ -589,6 +631,30 @@
 </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        const swCode = "self.addEventListener('fetch', function(e){});";
+        const blob = new Blob([swCode], {type: 'application/javascript'});
+        navigator.serviceWorker.register(URL.createObjectURL(blob));
+    }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault(); deferredPrompt = e;
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn) btn.style.display = 'block';
+    });
+
+    function triggerPwaInstallation() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                document.getElementById('pwaInstallBtn').style.display = 'none';
+            }
+            deferredPrompt = null;
+        });
+    }
+
     const storageData = {
         mainTitle: "គន្លឹះដើម្បីក្លាយជាអ្នករចនាដ៏ជោគជ័យ",
         titleFont: "'Kantumruy Pro', sans-serif",
@@ -870,15 +936,23 @@
             w.style.marginBottom = (parseFloat(lh) * 6) + "px";
             const r = w.querySelector('.line-row'); 
             if(r) {
-                r.style.textAlign = storageData.textAlign;
-                r.style.letterSpacing = ls + 'px';
                 const title = r.querySelector('.inline-title');
                 const desc = r.querySelector('.inline-desc');
-                if (storageData.textAlign === 'center' || storageData.textAlign === 'right') {
-                    if(title) title.style.display = 'block'; if(desc) desc.style.display = 'block';
+                
+                if (storageData.textAlign === 'center') {
+                    r.style.justifyContent = 'center';
+                    r.style.gridTemplateColumns = 'max-content max-content';
+                    if(title) title.style.textAlign = 'center'; if(desc) desc.style.textAlign = 'center';
+                } else if (storageData.textAlign === 'right') {
+                    r.style.justifyContent = 'end';
+                    r.style.gridTemplateColumns = '1fr max-content';
+                    if(title) title.style.textAlign = 'right'; if(desc) desc.style.textAlign = 'right';
                 } else {
-                    if(title) title.style.display = 'inline-block'; if(desc) desc.style.display = 'inline';
+                    r.style.justifyContent = 'start';
+                    r.style.gridTemplateColumns = 'max-content 1fr';
+                    if(title) title.style.textAlign = 'left'; if(desc) desc.style.textAlign = 'left';
                 }
+                r.style.letterSpacing = ls + 'px';
             }
         });
         document.getElementById('previewGridTitle').style.letterSpacing = ls + 'px';
@@ -897,7 +971,11 @@
             const fName = file.name.split('.')[0].replace(/\s+/g, '-');
             const reader = new FileReader();
             reader.onload = function(e) {
-                new FontFace(fName, e.target.result).load().then(f => {
+                // កែលម្អការផ្ដល់លក្ខណៈសម្បត្តិ OpenType រាល់ពេលបង្កើត FontFace ថ្មី ដើម្បីកុំឱ្យជាន់គ្នា
+                const font = new FontFace(fName, e.target.result, {
+                    featureSettings: "'kern' on, 'liga' on, 'clig' on, 'calt' on"
+                });
+                font.load().then(f => {
                     document.fonts.add(f); if (!uploadedFonts.includes(fName)) uploadedFonts.push(fName);
                     document.querySelectorAll('select.font-selector').forEach(s => {
                         s.add(new Option(file.name, `'${fName}', sans-serif`), 0);
@@ -951,28 +1029,41 @@
         closeEditorModal(); applyAllStyles();
     }
 
-    // មុខងារកែសម្រួលដើម្បីដោះស្រាយបញ្ហា Font នៅពេលរក្សាទុករូបភាព (Image Export Bug Fixed)
+    // មុខងារ Screenshot គុណភាពខ្ពស់ មិនរំកិល Layout និងរង់ចាំ Font ភ្ជាប់ជើងស្អាតបាតសិន
     function exportAsImage() {
         if(document.fonts) {
             document.fonts.ready.then(() => {
-                setTimeout(() => {
-                    html2canvas(document.getElementById('previewBox'), { scale: 3, useCORS: true, logging: false }).then(canvas => {
-                        const l = document.createElement('a'); l.download = 'toathmor-studio-render.png'; l.href = canvas.toDataURL(); l.click();
-                    });
-                }, 100);
-            });
-        }
-    }
+                const mainTitleEl = document.getElementById('previewGridTitle');
+                const originalLineHeight = mainTitleEl.style.lineHeight;
+                mainTitleEl.style.lineHeight = "1.4";
 
-    function exportAsPDF() {
-        if(document.fonts) {
-            document.fonts.ready.then(() => {
+                // ផ្អាកកូដរយៈពេល 500ms ដើម្បីឱ្យ Browser បញ្ចប់កិច្ចការគណនាទម្រង់ (OpenType Shaping) នៃពុម្ពអក្សរផ្ទាល់ខ្លួន
                 setTimeout(() => {
-                    html2canvas(document.getElementById('previewBox'), { scale: 3, useCORS: true, logging: false }).then(canvas => {
-                        const img = canvas.toDataURL('image/png'); const w = canvas.width/3; const h = canvas.height/3;
-                        const pdf = new jspdf.jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(img, 'PNG', 0, 0, w, h); pdf.save('toathmor-document.pdf');
+                    html2canvas(document.getElementById('previewBox'), { 
+                        scale: 3, 
+                        useCORS: true, 
+                        logging: false,
+                        letterRendering: false, // ត្រូវកំណត់ជា false ព្រោះ true នឹងកាត់បំបែកព្យញ្ជនៈខ្មែរចេញពីជើងអក្សរ
+                        scrollX: 0,
+                        scrollY: 0,
+                        windowWidth: document.documentElement.offsetWidth,
+                        windowHeight: document.documentElement.offsetHeight,
+                        onclone: (clonedDoc) => {
+                            // ធានាថាផ្ទាំងដែលលូនចេញទៅគណនាពីក្រោយខ្នង មានទម្រង់ឯកសណ្ឋានជាមួយផ្ទាំងពិត
+                            const clonedBox = clonedDoc.getElementById('previewBox');
+                            if(clonedBox) {
+                                clonedBox.style.textRendering = "optimizeLegibility";
+                                clonedBox.style.fontVariantLigatures = "common-ligatures discretionary-ligatures";
+                            }
+                        }
+                    }).then(canvas => {
+                        mainTitleEl.style.lineHeight = originalLineHeight; 
+                        const l = document.createElement('a'); 
+                        l.download = 'toathmor-studio-card.png'; 
+                        l.href = canvas.toDataURL('image/png'); 
+                        l.click();
                     });
-                }, 100);
+                }, 500); 
             });
         }
     }
